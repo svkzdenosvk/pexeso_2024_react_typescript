@@ -13,7 +13,8 @@ const SingleImg = () => {
   const [errorImgName, setErrorImgName] = useState(false);
   const [imgNameH1, setNameH1] = useState("");
 
-  let imgName=useParams().name
+  // let imgName=useParams().name
+  let imgName = useParams().name ?? "Error"; // --------------------------------if undefined -> "Error" string
 
   if (imgNameH1==="vesmir"){setNameH1("vesmír")}
   if (imgNameH1==="vibracia"){setNameH1("vibrácia")}

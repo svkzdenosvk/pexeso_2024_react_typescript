@@ -6,7 +6,7 @@ import './css/sharedAboutLayout.css';
 const SharedAboutLayout = () => {
   return (
     <>
-        <div class="navigation-sharedAboutLayout">
+        <div className="navigation-sharedAboutLayout">
             <nav>
                 <NavLink to="/about-game/rules">Pravidlá</NavLink>   
 
@@ -14,7 +14,7 @@ const SharedAboutLayout = () => {
             </nav>
         </div>
        {/* <div class="content-sharedAboutLayout"></div>  */}
-        <div class="main-content-sharedAboutLayout">
+        <div className="main-content-sharedAboutLayout">
 
           <Outlet /> 
 

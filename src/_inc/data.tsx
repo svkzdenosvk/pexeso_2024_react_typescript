@@ -6,10 +6,11 @@ import { collection, getDocs } from 'firebase/firestore';
 // const uuid = require('uuid')
 import { v4 } from 'uuid';
 
+type Image = { id: string; name: string };
 
 
 export async function fetchImageNames(){
-  let arrImg = []; // create empty array -> it will be filled with img´s names 
+  let arrImg: Image[] = []; // create empty array -> it will be filled with img´s names 
 
   try {
     // loading docs from Firebase
@@ -33,11 +34,11 @@ export async function fetchImageNames(){
 
 // const arrImg= ["lightning", "drop", "sea", "space", "sun", "vibration", "wind", "wood"];
 export async function fetchImageDivs() {
-  let fetchedImageNamesAndId = []; // create empty array -> it will be filled with img´s names
+  let fetchedImageNamesAndId: Image[] = []; // create empty array -> it will be filled with img´s names
 
   fetchedImageNamesAndId= await fetchImageNames()
 
-  let arrImg = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
+  let arrImg: string[] = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
 
 
   const doubleImgs = [...arrImg, ...arrImg];
@@ -62,7 +63,7 @@ let divItems = imgsWithKeys.map(([id, pictureName]) => ({
 }
 
 export async function fetchImageDivsForCounts(selectedCountOfImg) {
-  let fetchedImageNamesAndId = []; // create empty array -> it will be filled with img´s names
+  let fetchedImageNamesAndId: Image[] = []; // create empty array -> it will be filled with img´s names
 
   fetchedImageNamesAndId= await fetchImageNames()
 

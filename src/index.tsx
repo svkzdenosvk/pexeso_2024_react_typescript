@@ -14,5 +14,10 @@ if (loadingElement !== null) {
 
 //document.getElementById('loading')?.remove();
 
-const root = createRoot(container);
-root.render(<App />)
+// const root = createRoot(container);
+if (container) {
+  const root = createRoot(container); 
+  root.render(<App />);
+} else {
+  console.error("Container element with ID 'result' not found.");
+}
