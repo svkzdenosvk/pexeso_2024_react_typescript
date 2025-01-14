@@ -1,5 +1,7 @@
+import React from 'react';
+
 import { useEffect } from 'react';
-import { _stylingAfterStart } from '../../_inc/_inc_functions';
+import { _stylingAfterStart } from '../../_inc/_inc_functions.tsx';
  
 export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds}) => {
     

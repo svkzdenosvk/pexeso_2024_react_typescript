@@ -1,6 +1,6 @@
-import {_shuffleArray }from './_inc_functions.js'
+import {_shuffleArray }from './_inc_functions.tsx'
 
-import { projectFirestore } from "../firebase/config.js";
+import { projectFirestore } from "../firebase/config.tsx";
 import { collection, getDocs } from 'firebase/firestore';
 
 // const uuid = require('uuid')
@@ -16,8 +16,8 @@ export async function fetchImageNames(){
     // loading docs from Firebase
     const snapshot = await getDocs(collection(projectFirestore, "pexeso-img-names"));
     snapshot.forEach((doc) => {
-      const name = doc.data().name;
-      const id = doc.id;           //get id of document 
+      const name: string = doc.data().name;
+      const id: string = doc.id;           //get id of document 
 
       if (name) {
         arrImg.push({ id, name }); // add name to array 
@@ -41,7 +41,7 @@ export async function fetchImageDivs() {
   let arrImg: string[] = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
 
 
-  const doubleImgs = [...arrImg, ...arrImg];
+  const doubleImgs: string[] = [...arrImg, ...arrImg];
 
   //to shuffle before every game
   _shuffleArray(doubleImgs);

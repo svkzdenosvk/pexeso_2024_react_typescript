@@ -1,16 +1,16 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Game from "./components/RelatedToGame/Game"
+import Game from "./components/RelatedToGame/Game.tsx"
 import SharedLayout from "./components/OutsideTheGame/SharedLayout.tsx"
 import Home from "./components/OutsideTheGame/Home.tsx"
-import Settings from "./components/RelatedToGame/GameSettings"
+import Settings from "./components/RelatedToGame/GameSettings.tsx"
 import Rules from "./components/OutsideTheGame/Rules.tsx"
 import SharedAboutLayout from "./components/OutsideTheGame/SharedAboutLayout.tsx"
 import AboutGame from "./components/OutsideTheGame/AboutGame.tsx"
 import Images from "./components/OutsideTheGame/Images.tsx"
 import SingleImg from "./components/OutsideTheGame/SingleImg.tsx"
 
-import ErrorPage from "./components/ErrorPage"
+import ErrorPage from "./components/ErrorPage.tsx"
 
 
 const App = () => {

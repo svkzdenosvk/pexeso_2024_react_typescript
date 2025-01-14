@@ -1,10 +1,11 @@
+import React from 'react';
+
 import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
+//import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 
-import { GameDivPictures } from "./GameDivPictures";
-import {TimeAndStart} from "./TimeAndStart"
-
+import { GameDivPictures } from "./GameDivPictures.tsx";
+import {TimeAndStart} from "./TimeAndStart.tsx"
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -46,10 +47,12 @@ const defaultState = {
   level:"",
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
-  colorText: "black",
-  colorBG:"white",
-  imgCount:5
+  colorText: "black", //black||white
+  colorBG:"white",  //black||white||bežova
+  imgCount:5 //5|6|7|8|
 }
+
+ type Encrypted = { level: string; imgCount: number; gameId: number };
 
 const AppGame = () =>{
 
@@ -71,16 +74,17 @@ const AppGame = () =>{
  useEffect(() => {
   if (settingsData) { // if params were sent
 
-  const secretKey = "encryption-key-for-settings"; // same key as on settings page 
-  const simpleCrypto = new SimpleCrypto(secretKey);
+  // const secretKey = "encryption-key-for-settings"; // same key as on settings page 
+  // const simpleCrypto = new SimpleCrypto(secretKey);
 
     try {
       // decrypting of data
-      const decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData));
-
+      // let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData));
+        let decryptedSettings: Encrypted = JSON.parse(decodeURIComponent(settingsData));
+   
       if (
-        !["easy", "medium", "hard"].includes(decryptedSettings.level) || 
-        ![5, 6, 7, 8].includes(decryptedSettings.imgCount)){
+         !["easy", "medium", "hard"].includes(decryptedSettings.level) || 
+          ![5, 6, 7, 8].includes(decryptedSettings.imgCount)){
       
            navigate('/settings'); 
            
@@ -92,8 +96,8 @@ const AppGame = () =>{
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
                     payload:{
-                             level: decryptedSettings.level,
-                             imgCount: decryptedSettings.imgCount
+                              level: decryptedSettings.level,
+                              imgCount: decryptedSettings.imgCount
                             } })
 
           document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
@@ -129,10 +133,11 @@ const AppGame = () =>{
          </div>
         
          <div className="column_content" id="content">
-                <GameDivPictures level={state.level} seconds={seconds} 
-                                 colorText={state.colorText} dispatch={dispatch}
-                                 selectedImgCount={ state.imgCount} 
-                                /> 
+            <GameDivPictures 
+                       level={state.level} seconds={seconds} 
+                       colorText={state.colorText} dispatch={dispatch}
+                       selectedImgCount={ state.imgCount} 
+                       /> 
          </div>
 
     </>

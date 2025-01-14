@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
 
-const uuid = require('uuid')
-const gameNumber = uuid.v4()//--------------------------------------unique string
+// const uuid = require('uuid')
+import { v4 } from 'uuid';
+
+const gameNumber = v4()//--------------------------------------unique string
 
 const GameSettings = () => {
   const [levelChosen, setlevelChosen] = useState(""); 
   // const [selectedImages, setSelectedImages] = useState([]); //---choosen images
-  const [imgCountChosen, setimgCountChosen] = useState(null); //----count of choosen images
+  const [imgCountChosen, setimgCountChosen] = useState(0); //----count of choosen images
   const [error, setError] = useState(""); 
 
   const imgCount = [5, 6, 7, 8]; // --------------------------------count of images for game 
@@ -46,10 +48,10 @@ const GameSettings = () => {
     }
   
   
-  const SimpleCrypto = require("simple-crypto-js").default;//-------import SimpleCrypto
+  // const SimpleCrypto = require("simple-crypto-js").default;//-------import SimpleCrypto
 
-  const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
-  const simpleCrypto = new SimpleCrypto(secretKey);
+  // const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
+  // const simpleCrypto = new SimpleCrypto(secretKey);
   
   const chosenSettings = {
     level: levelChosen,
@@ -58,10 +60,11 @@ const GameSettings = () => {
   };
    
   // const encryptedSettings = simpleCrypto.encrypt(chosenSettings);
-  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  // const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  const encryptedSettings = JSON.stringify(chosenSettings);//--encrypt data
 
   window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;
-
+console.log("predposlanim",chosenSettings)
   };
 
   return (

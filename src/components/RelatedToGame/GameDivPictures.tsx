@@ -1,8 +1,9 @@
+import React from 'react';
 
 import { useReducer, useEffect, useCallback } from "react";
 
-import { _fmtMSS } from "../../_inc/_inc_functions.js";
-import { _shuffleArray } from '../../_inc/_inc_functions.js';
+// import { _fmtMSS } from "../../_inc/_inc_functions.js";
+import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions.tsx';
 // import { divItems } from '../../_inc/data.js'; /*------------------------------------------------data -> source of names of pictures and array of objects from these names  */
 
 import { fetchImageDivsForCounts  } from '../../_inc/data.tsx';
@@ -126,15 +127,17 @@ const defaultStateImg = {
   const checkEnd = useCallback(() => { /*---------------------------------------------------check if is end == each picture removed */
      
     // if(!document.getElementById("row").firstElementChild && isLoaded === false){/*-------if all images on page are removed */
-    if ((!document.getElementById("row") || document.getElementById("row").childElementCount === 0)&& stateImg.isLoaded === false ){
+    if ((!document.getElementById("row") || document.getElementById("row")?.childElementCount === 0)&& stateImg.isLoaded === false ){
           
           dispatch({type: "SET_STOP_GAME" })/*----------------------------------------------stop increment seconds */
 
-          document.getElementById("seconds").style.display="none";
+          // document.getElementById("seconds")?.style.display="none";
+          document.getElementById("seconds")?.setAttribute("style", "display: none;");
+
           let endTime=_fmtMSS(seconds);/*----------------------------------formating time */
 
-           document.getElementsByTagName("BODY")[0].firstElementChild.classList.add('div_center');/*start ---animation of gratulation text */
-          document.getElementById("result").setAttribute("style", "justify-content: center;");
+           document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
+          document.getElementById("result")?.setAttribute("style", "justify-content: center;");
           let timeArr=endTime.split(":");/*-------------------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
           
           let h1
@@ -224,11 +227,15 @@ const defaultStateImg = {
 
         {stateImg.divImgs.map((oneDiv) => (      //array of img names -> div>img
 
-          <div  key={oneDiv.id} onClick={(e) => {showImg(e.target.parentNode, oneDiv)}} 
-              className={oneDiv.classNames.join(' ') + ' div_on_click'} >
-              <img  src={"/pictures/pexeso/"+oneDiv.imgPath+".jpg"} alt='Smiley face' />  
+          <div  key={oneDiv.id} 
+                onClick={(e) => {
+                  const targetElement = e.target as HTMLElement;
+                  // const parentElement = targetElement.parentNode as HTMLElement; 
+                  showImg(targetElement.parentNode, oneDiv)}} 
+          className={oneDiv.classNames.join(' ') + ' div_on_click'} >
+          <img  src={"/pictures/pexeso/"+oneDiv.imgPath+".jpg"} alt='Smiley face' />  
 
-          </div> 
+      </div> 
 
         ))}
      </div>
