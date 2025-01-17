@@ -4,8 +4,8 @@ import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 
-import { GameDivPictures } from "./GameDivPictures.tsx";
-import {TimeAndStart} from "./TimeAndStart.tsx"
+import { GameDivPictures } from "./GameDivPictures"
+import {TimeAndStart} from "./TimeAndStart"
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -54,7 +54,7 @@ const defaultState = {
 
  type Encrypted = { level: string; imgCount: number; gameId: number };
 
-const AppGame = () =>{
+const Game = () =>{
 
  // ---------------------------useReducer
 
@@ -62,7 +62,7 @@ const AppGame = () =>{
 
  //----------------------------useState
 
- let [seconds, setSeconds] = useState(0);
+ let [seconds, setSeconds] = useState<number>(0);
 
  /*--------------------------------------------------------------------------------------------------------------------------------------------
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -124,8 +124,8 @@ const AppGame = () =>{
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart
-                       seconds={seconds} 
-                       setSeconds={setSeconds}
+                       seconds ={seconds} 
+                       setSeconds ={setSeconds}
                        dispatch={dispatch}
                        colorText={state.colorText}
                        isRunning={state.isRunning}
@@ -144,4 +144,4 @@ const AppGame = () =>{
   );
 }
 
-export default AppGame;
+export default Game;

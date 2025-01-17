@@ -1,9 +1,18 @@
 import React from 'react';
 
 import { useEffect } from 'react';
-import { _stylingAfterStart } from '../../_inc/_inc_functions.tsx';
- 
-export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds}) => {
+import { _stylingAfterStart } from '../../_inc/_inc_functions';
+import {/* Dispatch,*/ MyTimeAndStartProps } from '../../_inc/my_types';
+
+// type MyTimeAndStartProps={
+//   seconds: number;
+//   colorText: string;
+//   isRunning: boolean;
+//   dispatch: Dispatch;
+//   setSeconds: number
+// }
+
+export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds} :MyTimeAndStartProps) => {
     
     useEffect(() => {
 
@@ -11,6 +20,7 @@ export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds}) 
 
       const startTime = Date.now();
       const interval = setInterval(() => {
+        // let countedSec: number = Math.floor((Date.now() - startTime) / 1000)
         setSeconds(Math.floor((Date.now() - startTime) / 1000));// ---------more accurate second counter (advice from chatGPT)
       }, 1000);
   

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
 
-// const uuid = require('uuid')
 import { v4 } from 'uuid';
 
 const gameNumber = v4()//--------------------------------------unique string

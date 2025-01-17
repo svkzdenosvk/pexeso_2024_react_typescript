@@ -3,10 +3,12 @@ import React from 'react';
 import { useReducer, useEffect, useCallback } from "react";
 
 // import { _fmtMSS } from "../../_inc/_inc_functions.js";
-import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions.tsx';
+import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
 // import { divItems } from '../../_inc/data.js'; /*------------------------------------------------data -> source of names of pictures and array of objects from these names  */
 
-import { fetchImageDivsForCounts  } from '../../_inc/data.tsx';
+import { fetchImageDivsForCounts  } from '../../_inc/data';
+import { MyGameDivPicturesProps } from '../../_inc/my_types';
+
 
 const reducerImg = (stateImg, action) => {
   switch (action.type) {
@@ -99,7 +101,7 @@ const defaultStateImg = {
 
 }
 
-  export const GameDivPictures = ({dispatch, seconds, level, colorText, selectedImgCount }) =>{
+  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount }:MyGameDivPicturesProps) =>{
   
     // ---------------------------useReducer
 
