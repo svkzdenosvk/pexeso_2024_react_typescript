@@ -2,15 +2,7 @@ import React from 'react';
 
 import { useEffect } from 'react';
 import { _stylingAfterStart } from '../../_inc/_inc_functions';
-import {/* Dispatch,*/ MyTimeAndStartProps } from '../../_inc/my_types';
-
-// type MyTimeAndStartProps={
-//   seconds: number;
-//   colorText: string;
-//   isRunning: boolean;
-//   dispatch: Dispatch;
-//   setSeconds: number
-// }
+import { MyTimeAndStartProps } from '../../_inc/my_types';
 
 export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds} :MyTimeAndStartProps) => {
     

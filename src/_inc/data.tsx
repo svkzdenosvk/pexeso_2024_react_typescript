@@ -1,22 +1,23 @@
-import {_shuffleArray }from './_inc_functions.tsx'
+import {_shuffleArray }from './_inc_functions'
 
-import { projectFirestore } from "../firebase/config.tsx";
+import { projectFirestore } from "../firebase/config";
 import { collection, getDocs } from 'firebase/firestore';
+import { My_Type_Img_Name, My_Type_Image, My_Type_ImgCount } from './my_types';
 
-// const uuid = require('uuid')
-import { v4 } from 'uuid';
+  const uuid = require('uuid')
+// import { v4 } from 'uuid';
 
-type Image = { id: string; name: string };
+// type Image = { id: string; name: string };
 
 
 export async function fetchImageNames(){
-  let arrImg: Image[] = []; // create empty array -> it will be filled with img´s names 
+  let arrImg: My_Type_Image[] = []; // create empty array -> it will be filled with img´s names 
 
   try {
     // loading docs from Firebase
     const snapshot = await getDocs(collection(projectFirestore, "pexeso-img-names"));
     snapshot.forEach((doc) => {
-      const name: string = doc.data().name;
+      const name: My_Type_Img_Name = doc.data().name;
       const id: string = doc.id;           //get id of document 
 
       if (name) {
@@ -34,14 +35,14 @@ export async function fetchImageNames(){
 
 // const arrImg= ["lightning", "drop", "sea", "space", "sun", "vibration", "wind", "wood"];
 export async function fetchImageDivs() {
-  let fetchedImageNamesAndId: Image[] = []; // create empty array -> it will be filled with img´s names
+  let fetchedImageNamesAndId: My_Type_Image[] = []; // create empty array -> it will be filled with img´s names
 
   fetchedImageNamesAndId= await fetchImageNames()
 
-  let arrImg: string[] = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
+  let arrImg: My_Type_Img_Name[] = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
 
 
-  const doubleImgs: string[] = [...arrImg, ...arrImg];
+  const doubleImgs: My_Type_Img_Name[] = [...arrImg, ...arrImg];
 
   //to shuffle before every game
   _shuffleArray(doubleImgs);
@@ -49,8 +50,7 @@ export async function fetchImageDivs() {
   //creation of 2-dimensional array: - out of component to make id´s stable
 // ['123e4567-e89b-12d3-a456-426614174000', 'lightning'],
 // ['123e4567-e89b-12d3-a456-426614174001', 'drop'],..
-  // const imgsWithKeys = doubleImgs.map(pictureName => [uuid.v4(), pictureName]);
-  const imgsWithKeys = doubleImgs.map(pictureName => [v4(), pictureName]);
+  const imgsWithKeys = doubleImgs.map(pictureName => [uuid.v4(), pictureName]);
 
 //array of img names -> div>img
 let divItems = imgsWithKeys.map(([id, pictureName]) => ({
@@ -62,8 +62,8 @@ let divItems = imgsWithKeys.map(([id, pictureName]) => ({
   return divItems; // return final array 
 }
 
-export async function fetchImageDivsForCounts(selectedCountOfImg) {
-  let fetchedImageNamesAndId: Image[] = []; // create empty array -> it will be filled with img´s names
+export async function fetchImageDivsForCounts(selectedCountOfImg: My_Type_ImgCount ) {
+  let fetchedImageNamesAndId: My_Type_Image[] = []; // create empty array -> it will be filled with img´s names
 
   fetchedImageNamesAndId= await fetchImageNames()
 
@@ -82,7 +82,7 @@ export async function fetchImageDivsForCounts(selectedCountOfImg) {
   //creation of 2-dimensional array: - out of component to make id´s stable
 // ['123e4567-e89b-12d3-a456-426614174000', 'lightning'],
 // ['123e4567-e89b-12d3-a456-426614174001', 'drop'],..
-  const imgsWithKeys = doubleImgs.map(pictureName => [v4(), pictureName]);
+  const imgsWithKeys = doubleImgs.map(pictureName => [uuid.v4(), pictureName]);
 
 //array of img names -> div>img
 let divItems = imgsWithKeys.map(([id, pictureName]) => ({
@@ -94,7 +94,7 @@ let divItems = imgsWithKeys.map(([id, pictureName]) => ({
   return divItems; // return final array 
 }
 
-export function preloadImages(imgIdAndNamesArr) { //-------------------------function during loading images 
+export function preloadImages(imgIdAndNamesArr: My_Type_Image[]) { //-------------------------function during loading images 
   return Promise.all(
     imgIdAndNamesArr.map((picture) => {
       return new Promise((resolve, reject) => {

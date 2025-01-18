@@ -3,6 +3,8 @@ import React from 'react';
 import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
+import {  Encrypted } from '../../_inc/my_types';
+
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
@@ -49,10 +51,8 @@ const defaultState = {
   linkName:"Späť na nastavenia hry.",
   colorText: "black", //black||white
   colorBG:"white",  //black||white||bežova
-  imgCount:5 //5|6|7|8|
+  imgCount:5 //My_Type_ImgCount
 }
-
- type Encrypted = { level: string; imgCount: number; gameId: number };
 
 const Game = () =>{
 
