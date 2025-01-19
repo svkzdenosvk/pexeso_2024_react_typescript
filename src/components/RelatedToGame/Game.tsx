@@ -3,13 +3,15 @@ import React from 'react';
 import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
-import {  Encrypted } from '../../_inc/my_types';
+import {  My_Type_Level, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
-const reducer = (state, action) => {
+ const reducer = (state: My_Type_UseReducer_Game_State, action: My_Type_UseReducer_Game_Action) => {
+//  const reducer = (state , action) => {
+
   switch (action.type) {
    
     case 'SET_START_GAME':
@@ -35,30 +37,35 @@ const reducer = (state, action) => {
 
       return {
         ...state,
-        level: action.payload.level,
+        level:action.payload.level,
         colorText:levelChanges[action.payload.level][0],
         colorBG:levelChanges[action.payload.level][1],
-        imgCount:action.payload.imgCount
+        imgCount:action.payload.imgCount,
       }
     default:
       return state;
   }
 }
 
-const defaultState = {
-  level:"",
+const defaultState: My_Type_UseReducer_Game_State  = {
+  // level:"",
+  level:"easy",
+
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
-  colorText: "black", //black||white
-  colorBG:"white",  //black||white||bežova
-  imgCount:5 //My_Type_ImgCount
+  colorText: "black", 
+  colorBG:"white",
+  imgCount:5 
 }
 
 const Game = () =>{
 
  // ---------------------------useReducer
 
- const [state,dispatch] = useReducer(reducer, defaultState)
+  // const [state,dispatch] = useReducer(reducer, defaultState)
+ const [state, dispatch] = useReducer<
+  React.Reducer<My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action>
+>(reducer, defaultState);
 
  //----------------------------useState
 
@@ -96,8 +103,8 @@ const Game = () =>{
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
                     payload:{
-                              level: decryptedSettings.level,
-                              imgCount: decryptedSettings.imgCount
+                              level: decryptedSettings.level as My_Type_Level,
+                              imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
                             } })
 
           document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
