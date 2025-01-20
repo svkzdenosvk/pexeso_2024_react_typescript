@@ -6,8 +6,7 @@ type _inc_Type ={
     seconds: number;
     // dispatch: My_Type_Dispatch;
     dispatch: React.Dispatch<My_Type_UseReducer_Game_Action>;
-    // colorText: "black"|"white";
-    colorText: string;
+    colorText: My_Type_Color_Text;
 
   }
 
@@ -17,6 +16,15 @@ export type My_Type_Img_Name = "blesk"| "drevo"| "kvapka"| "more"| "slnko"| "ves
 
 export type My_Type_ImgCount = 5 | 6 | 7 | 8;
 
+export type My_Type_Color_Text = "black"|"white";
+
+export type My_Type_Color_Background = My_Type_Color_Text |"#4d141d";
+
+export type My_Type_DivImg = My_Type_Image & {
+  classNames: ("mask"|"selected_Div_img"|"rotate-center")[];
+  selected?: boolean;
+ }
+
 export type My_Type_Image = { 
   id: string;
   name: My_Type_Img_Name
@@ -25,7 +33,6 @@ export type My_Type_Image = {
 export type MyTimeAndStartProps = _inc_Type & {
     isRunning: boolean;
      setSeconds: Dispatch<SetStateAction<number>>;
-
   }
 
 export type MyGameDivPicturesProps= _inc_Type &{
@@ -36,19 +43,18 @@ export type MyGameDivPicturesProps= _inc_Type &{
 export type Encrypted = {
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;
-  gameId: number;
+  gameId: string;
+  // gameId: number;
+
 };
 
 export type My_Type_UseReducer_Game_State = {
   level: My_Type_Level;
   isRunning: boolean;
   linkName: string;
-  // colorText: "black" | "white";
-  colorText: string;
-  // colorBG:"black"|"white"|"#4d141d"; 
-
+  colorText : My_Type_Color_Text;
   colorBG: string; 
-  imgCount: My_Type_ImgCount
+  imgCount: My_Type_ImgCount;
 }
 
 export type My_Type_UseReducer_Game_Action =
@@ -58,3 +64,20 @@ export type My_Type_UseReducer_Game_Action =
       type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
     };
+  
+export type My_Type_UseReducer_GameDivPicture_State = {
+   isLoaded: boolean,
+  //  divImgs: HTMLDivElement[]  
+  divImgs: My_Type_DivImg[] 
+ }
+
+ export type My_Type_UseReducer_GameDivPicture_Action =
+ | { type: 'HARDEST_LEVEL_SHUFFLE' }
+ | { type: 'SHOW_ONE' }
+ | { type: 'UN_MATCH' }
+ | { type: 'MATCH' }
+ | { type: 'REMOVE_AFTER_MATCH' }
+ | { type: 'SELECTED_IMG_COUNT' }
+ ;
+
+ 

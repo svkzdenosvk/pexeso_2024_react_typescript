@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
 
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
+const uuid = require('uuid')
 
-const gameNumber = v4()//--------------------------------------unique string
+
+const gameNumber = uuid.v4()//--------------------------------------unique string
 
 const GameSettings = () => {
   const [levelChosen, setlevelChosen] = useState(""); 
@@ -32,7 +34,7 @@ const GameSettings = () => {
   //   }
   // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (!levelChosen){
@@ -78,7 +80,7 @@ console.log("predposlanim",chosenSettings)
               type="radio"
               name="level"
               value={level.value}
-              onChange={(e) => setlevelChosen(e.target.value)}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value)}
             />
             {level.label}
           </label>
@@ -93,7 +95,7 @@ console.log("predposlanim",chosenSettings)
               type="radio"
               name="imageCount"
               value={value}
-              onChange={(e) => setimgCountChosen(parseInt(e.target.value, 10))}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value, 10))}
             />
             {value * 2} {/* ---------------------------------------------pair is 5 * 2 = 10) */}
           </label>

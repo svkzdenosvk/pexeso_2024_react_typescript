@@ -7,10 +7,10 @@ import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
 // import { divItems } from '../../_inc/data.js'; /*------------------------------------------------data -> source of names of pictures and array of objects from these names  */
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { MyGameDivPicturesProps } from '../../_inc/my_types';
+import { MyGameDivPicturesProps, My_Type_UseReducer_GameDivPicture_State, My_Type_DivImg, My_Type_UseReducer_GameDivPicture_Action } from '../../_inc/my_types';
 
 
-const reducerImg = (stateImg, action) => {
+const reducerImg = (stateImg:My_Type_UseReducer_GameDivPicture_State, action:My_Type_UseReducer_GameDivPicture_Action) => {
   switch (action.type) {
 
     case 'HARDEST_LEVEL_SHUFFLE':
@@ -93,11 +93,10 @@ const reducerImg = (stateImg, action) => {
   }
 }
 
-const defaultStateImg = {
+const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   // divImgs:divItems,
   isLoaded:true,
   divImgs:[]
-
 
 }
 
@@ -105,7 +104,10 @@ const defaultStateImg = {
   
     // ---------------------------useReducer
 
-  const [stateImg,dispatchImg] = useReducer(reducerImg, defaultStateImg)
+  // const [stateImg,dispatchImg] = useReducer(reducerImg, defaultStateImg)
+  const [stateImg, dispatchImg] = useReducer<
+  React.Reducer<My_Type_UseReducer_GameDivPicture_State, My_Type_UseReducer_GameDivPicture_Action>
+>(reducerImg, defaultStateImg);
 
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
@@ -152,7 +154,10 @@ const defaultStateImg = {
              h1=document.querySelector('h1')
           }
           
-          h1.innerHTML = "Gratulácia, vyhrali ste za "+(timeArr[0]==="0"?"":timeArr[0]+"m")+" "+ timeArr[1]+"s";
+          if(h1){
+
+            h1.innerHTML = "Gratulácia, vyhrali ste za "+(timeArr[0]==="0"?"":timeArr[0]+"m")+" "+ timeArr[1]+"s";
+          }
           // document.getElementsByTagName("BODY")[0].firstElementChild.classList.add('div_center');/*start ---animation of gratulation text */
 
            //h1.classList.add('h1End');/*-end ---animation of gratulation text */
@@ -166,7 +171,8 @@ const defaultStateImg = {
   // ---------------------------fn´s to show div>imgs
   // ---------------------------
 
-  function showImg(element,divObject){
+  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){
+    // stateImg.divImgs:My_Type_DivImg[];
 
     let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
@@ -181,12 +187,13 @@ const defaultStateImg = {
     setTimeout(function(){
           
             // let selectedArr = divImgs.filter(oneDiv => oneDiv.selected === true);
-          let  selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
+          let  selectedArr: My_Type_DivImg[] = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
         
             if (selectedArr.length===2){
               //  document.body.style.pointerEvents = "none"//;---------------------------prevent to show third image 
-              if (selectedArr[0].imgPath=== selectedArr[1].imgPath){/* if match */
-                           
+              // if (selectedArr[0].imgPath=== selectedArr[1].imgPath){/* if match */
+              if (selectedArr[0].name=== selectedArr[1].name){/* if match */
+
               // setTimeout(() => {
                 dispatchImg({type: "MATCH" })
               // }, 200);
@@ -227,7 +234,7 @@ const defaultStateImg = {
   return (
      <div className="row" id="row">
 
-        {stateImg.divImgs.map((oneDiv) => (      //array of img names -> div>img
+        {stateImg.divImgs.map((oneDiv:My_Type_DivImg) => (      //array of img names -> div>img
 
           <div  key={oneDiv.id} 
                 onClick={(e) => {
@@ -235,7 +242,8 @@ const defaultStateImg = {
                   // const parentElement = targetElement.parentNode as HTMLElement; 
                   showImg(targetElement.parentNode, oneDiv)}} 
           className={oneDiv.classNames.join(' ') + ' div_on_click'} >
-          <img  src={"/pictures/pexeso/"+oneDiv.imgPath+".jpg"} alt='Smiley face' />  
+          {/* <img  src={"/pictures/pexeso/"+oneDiv.imgPath+".jpg"} alt='Smiley face' />   */}
+          <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
 
       </div> 
 

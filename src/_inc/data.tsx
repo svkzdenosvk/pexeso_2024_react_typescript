@@ -55,7 +55,8 @@ export async function fetchImageDivs() {
 //array of img names -> div>img
 let divItems = imgsWithKeys.map(([id, pictureName]) => ({
     id: id,
-    imgPath: pictureName,
+    // imgPath: pictureName,
+    name: pictureName,
     classNames: ["mask"],
   }));
 
@@ -87,7 +88,8 @@ export async function fetchImageDivsForCounts(selectedCountOfImg: My_Type_ImgCou
 //array of img names -> div>img
 let divItems = imgsWithKeys.map(([id, pictureName]) => ({
     id: id,
-    imgPath: pictureName,
+    // imgPath: pictureName,
+    name: pictureName,
     classNames: ["mask"],
   }));
 
