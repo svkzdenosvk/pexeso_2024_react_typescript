@@ -40,14 +40,14 @@ export function _fmtMSS(s:number){return(s-(s%=60))/60+(9<s?':':':0')+s}/*------
 
 // ---------------------------function for toggle of classes
 
-export function _myToggle(elm,removedClass: string, addedClass: string){
+export function _myToggle(elm: HTMLElement ,removedClass: string, addedClass: string){
   elm.classList.add(addedClass);
   elm.classList.remove(removedClass);
 }
 
 // ---------------------------function to reload page (after game to start new game)
 
-export function handleRefresh (e){
-  e.preventDefault();  
-  window.location.reload();
-};
+// export function handleRefresh (e){
+//   e.preventDefault();  
+//   window.location.reload();
+// };

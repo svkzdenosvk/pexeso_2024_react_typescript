@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import {  useEffect, useState/*, useMemo*/ } from "react";
 import './css/images.css';
-import { fetchImageNames,preloadImages  } from '../../_inc/data.tsx';
+import { fetchImageNames,preloadImages  } from '../../_inc/data';
 
  let arrImgIdsAndNames
 // // (async () => {

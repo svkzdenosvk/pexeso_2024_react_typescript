@@ -10,7 +10,7 @@ import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { MyGameDivPicturesProps, My_Type_UseReducer_GameDivPicture_State, My_Type_DivImg, My_Type_UseReducer_GameDivPicture_Action } from '../../_inc/my_types';
 
 
-const reducerImg = (stateImg:My_Type_UseReducer_GameDivPicture_State, action:My_Type_UseReducer_GameDivPicture_Action) => {
+const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: My_Type_UseReducer_GameDivPicture_Action) => {
   switch (action.type) {
 
     case 'HARDEST_LEVEL_SHUFFLE':
@@ -22,7 +22,7 @@ const reducerImg = (stateImg:My_Type_UseReducer_GameDivPicture_State, action:My_
       } 
     case 'SHOW_ONE':
 
-      let filteredArr=stateImg.divImgs.map(oneDiv => {
+      let filteredArr: My_Type_DivImg[] =stateImg.divImgs.map(oneDiv => {
           if (oneDiv.id === action.payload.id) {
   
             return { ...oneDiv, selected: true, classNames: [
@@ -38,7 +38,7 @@ const reducerImg = (stateImg:My_Type_UseReducer_GameDivPicture_State, action:My_
         divImgs: filteredArr
       } 
     case 'UN_MATCH':
-      let afterUnMatchArr = stateImg.divImgs.map(oneDiv => {
+      let afterUnMatchArr: My_Type_DivImg[] = stateImg.divImgs.map(oneDiv => {
         if ((oneDiv.selected === true)&& (oneDiv.classNames.includes("selected_Div_img"))) {
           return { ...oneDiv, selected: false, classNames: [
             ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
@@ -96,7 +96,7 @@ const reducerImg = (stateImg:My_Type_UseReducer_GameDivPicture_State, action:My_
 const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   // divImgs:divItems,
   isLoaded:true,
-  divImgs:[]
+  divImgs:[] as My_Type_DivImg[]
 
 }
 
@@ -104,9 +104,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   
     // ---------------------------useReducer
 
-  // const [stateImg,dispatchImg] = useReducer(reducerImg, defaultStateImg)
-  const [stateImg, dispatchImg] = useReducer<
-  React.Reducer<My_Type_UseReducer_GameDivPicture_State, My_Type_UseReducer_GameDivPicture_Action>
+  const [stateImg , dispatchImg] = useReducer<React.Reducer<My_Type_UseReducer_GameDivPicture_State, My_Type_UseReducer_GameDivPicture_Action>
 >(reducerImg, defaultStateImg);
 
   useEffect(() => {
@@ -114,7 +112,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
       try {
         const imgDivs = await fetchImageDivsForCounts(selectedImgCount); // loading from firebase
 
-       dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
+        dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
 
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -131,7 +129,10 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   const checkEnd = useCallback(() => { /*---------------------------------------------------check if is end == each picture removed */
      
     // if(!document.getElementById("row").firstElementChild && isLoaded === false){/*-------if all images on page are removed */
-    if ((!document.getElementById("row") || document.getElementById("row")?.childElementCount === 0)&& stateImg.isLoaded === false ){
+    const rowElement = document.getElementById("row");
+    // if ((!document.getElementById("row") || document.getElementById("row")?.childElementCount === 0)&& stateImg.isLoaded === false ){
+
+    if ((!rowElement || rowElement?.childElementCount === 0)&& stateImg.isLoaded === false ){
           
           dispatch({type: "SET_STOP_GAME" })/*----------------------------------------------stop increment seconds */
 
@@ -172,7 +173,6 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   // ---------------------------
 
   function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){
-    // stateImg.divImgs:My_Type_DivImg[];
 
     let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
@@ -237,12 +237,17 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
         {stateImg.divImgs.map((oneDiv:My_Type_DivImg) => (      //array of img names -> div>img
 
           <div  key={oneDiv.id} 
-                onClick={(e) => {
-                  const targetElement = e.target as HTMLElement;
-                  // const parentElement = targetElement.parentNode as HTMLElement; 
-                  showImg(targetElement.parentNode, oneDiv)}} 
+                onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                  // const targetElement = e.target as HTMLElement;
+                  // const parentElement = targetElement.parentNode as HTMLDivElement;
+
+                  // // const parentElement = targetElement.parentNode as HTMLElement; 
+                  // if (parentElement) {
+                  //    showImg(parentElement, oneDiv)}} 
+                  // }
+                  const currentDiv = e.currentTarget; // this is always <div> with `div_on_click`
+                  showImg(currentDiv, oneDiv);}} 
           className={oneDiv.classNames.join(' ') + ' div_on_click'} >
-          {/* <img  src={"/pictures/pexeso/"+oneDiv.imgPath+".jpg"} alt='Smiley face' />   */}
           <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
 
       </div> 

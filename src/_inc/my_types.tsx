@@ -20,15 +20,20 @@ export type My_Type_Color_Text = "black"|"white";
 
 export type My_Type_Color_Background = My_Type_Color_Text |"#4d141d";
 
-export type My_Type_DivImg = My_Type_Image & {
-  classNames: ("mask"|"selected_Div_img"|"rotate-center")[];
-  selected?: boolean;
- }
+// export type My_Type_ClassNames = "mask"|"selected_Div_img"|"rotate-center"|"div_on_click";
+
 
 export type My_Type_Image = { 
   id: string;
   name: My_Type_Img_Name
 };
+
+export type My_Type_DivImg = My_Type_Image & {
+  // classNames: ("mask"|"selected_Div_img"|"rotate-center"|"")[];
+  // classNames: My_Type_ClassNames[];
+  classNames: string[];
+  selected?: boolean;
+ }
   
 export type MyTimeAndStartProps = _inc_Type & {
     isRunning: boolean;
@@ -73,11 +78,20 @@ export type My_Type_UseReducer_GameDivPicture_State = {
 
  export type My_Type_UseReducer_GameDivPicture_Action =
  | { type: 'HARDEST_LEVEL_SHUFFLE' }
- | { type: 'SHOW_ONE' }
- | { type: 'UN_MATCH' }
+ | { 
+     type: 'SHOW_ONE';
+     payload: My_Type_DivImg
+  }
+ | { type: 'UN_MATCH';
+     payload: My_Type_Level 
+   }
  | { type: 'MATCH' }
  | { type: 'REMOVE_AFTER_MATCH' }
- | { type: 'SELECTED_IMG_COUNT' }
- ;
+ | { 
+     type: 'SELECTED_IMG_COUNT';
+    //  payload: { imgDivs: My_Type_DivImg[] };
+     payload: My_Type_DivImg[] 
+
+   };
 
  
