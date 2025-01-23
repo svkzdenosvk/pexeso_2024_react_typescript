@@ -5,12 +5,6 @@
 
   // ---------------------------functions of styles
 
-//  export function _stylingAfterLevel(color){/*---------------------f. for style changes after select level ..inc to App.js*/
-//     // set background of page
-//     // document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ color);
-    
-//  }
-
  export function _stylingAfterStart(){/*-----------------------------f. for style changes after click on "start" button ..inc to TimeAndStart.js*/
        //to hide start button 
        document.getElementById("start")?.setAttribute('style', 'display: none'); 
@@ -44,10 +38,3 @@ export function _myToggle(elm: HTMLElement ,removedClass: string, addedClass: st
   elm.classList.add(addedClass);
   elm.classList.remove(removedClass);
 }
-
-// ---------------------------function to reload page (after game to start new game)
-
-// export function handleRefresh (e){
-//   e.preventDefault();  
-//   window.location.reload();
-// };

@@ -1,10 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
-  // type My_Type_Dispatch = React.Dispatch<My_Type_UseReducer_Game_Action>;
-
 type _inc_Type ={
     seconds: number;
-    // dispatch: My_Type_Dispatch;
     dispatch: React.Dispatch<My_Type_UseReducer_Game_Action>;
     colorText: My_Type_Color_Text;
 
@@ -72,8 +69,7 @@ export type My_Type_UseReducer_Game_Action =
   
 export type My_Type_UseReducer_GameDivPicture_State = {
    isLoaded: boolean,
-  //  divImgs: HTMLDivElement[]  
-  divImgs: My_Type_DivImg[] 
+   divImgs: My_Type_DivImg[] 
  }
 
  export type My_Type_UseReducer_GameDivPicture_Action =
@@ -89,7 +85,6 @@ export type My_Type_UseReducer_GameDivPicture_State = {
  | { type: 'REMOVE_AFTER_MATCH' }
  | { 
      type: 'SELECTED_IMG_COUNT';
-    //  payload: { imgDivs: My_Type_DivImg[] };
      payload: My_Type_DivImg[] 
 
    };

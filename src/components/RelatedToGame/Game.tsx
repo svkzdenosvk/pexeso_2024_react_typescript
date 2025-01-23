@@ -10,7 +10,6 @@ import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
  const reducer = (state: My_Type_UseReducer_Game_State, action: My_Type_UseReducer_Game_Action) => {
-//  const reducer = (state , action) => {
 
   switch (action.type) {
    
@@ -50,7 +49,6 @@ import {TimeAndStart} from "./TimeAndStart"
 const defaultState: My_Type_UseReducer_Game_State  = {
   // level:"",
   level:"easy",
-
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
   colorText:"black", 
@@ -62,7 +60,6 @@ const Game = () =>{
 
  // ---------------------------useReducer
 
-  // const [state,dispatch] = useReducer(reducer, defaultState)
  const [state, dispatch] = useReducer<
   React.Reducer<My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action>
 >(reducer, defaultState);
@@ -79,7 +76,7 @@ const Game = () =>{
 
 
  useEffect(() => {
-  if (settingsData) { // if params were sent
+  if (settingsData) { // -----------------------------------------------if params were sent
 
   // const secretKey = "encryption-key-for-settings"; // same key as on settings page 
   // const simpleCrypto = new SimpleCrypto(secretKey);
@@ -96,7 +93,7 @@ const Game = () =>{
            navigate('/settings'); 
            
            if(["medium", "hard"].includes(decryptedSettings.level)){
-             window.location.reload(); //reset color changes (background, ..) 
+             window.location.reload(); //--------------------------------reset color changes (background, ..) 
            }
 
       }    

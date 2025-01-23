@@ -2,9 +2,8 @@ import React from 'react';
 
 import { useReducer, useEffect, useCallback } from "react";
 
-// import { _fmtMSS } from "../../_inc/_inc_functions.js";
 import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
-// import { divItems } from '../../_inc/data.js'; /*------------------------------------------------data -> source of names of pictures and array of objects from these names  */
+// import { divItems } from '../../_inc/data.js'; /*---------------------------data -> source of names of pictures and array of objects from these names  */
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { MyGameDivPicturesProps, My_Type_UseReducer_GameDivPicture_State, My_Type_DivImg, My_Type_UseReducer_GameDivPicture_Action } from '../../_inc/my_types';
@@ -42,9 +41,9 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
         if ((oneDiv.selected === true)&& (oneDiv.classNames.includes("selected_Div_img"))) {
           return { ...oneDiv, selected: false, classNames: [
             ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
-          ] }/*-------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+          ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
         } else {
-          return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
+          return oneDiv;/*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
         }
       });
 
@@ -110,7 +109,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
-        const imgDivs = await fetchImageDivsForCounts(selectedImgCount); // loading from firebase
+        const imgDivs = await fetchImageDivsForCounts(selectedImgCount); // --loading from firebase
 
         dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
 
@@ -119,7 +118,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
       }
     };
 
-    fetchDivItemsWithCount(); // to call async f.
+    fetchDivItemsWithCount(); //-----------------------------------------------to call async f.
   }, [selectedImgCount]); // 
 
   // ---------------------------
@@ -130,16 +129,14 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
      
     // if(!document.getElementById("row").firstElementChild && isLoaded === false){/*-------if all images on page are removed */
     const rowElement = document.getElementById("row");
-    // if ((!document.getElementById("row") || document.getElementById("row")?.childElementCount === 0)&& stateImg.isLoaded === false ){
 
-    if ((!rowElement || rowElement?.childElementCount === 0)&& stateImg.isLoaded === false ){
+    if ((!rowElement || rowElement?.childElementCount === 0)&& stateImg.isLoaded === false ){/*-------if all images on page are removed */
           
           dispatch({type: "SET_STOP_GAME" })/*----------------------------------------------stop increment seconds */
 
-          // document.getElementById("seconds")?.style.display="none";
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
-          let endTime=_fmtMSS(seconds);/*----------------------------------formating time */
+          let endTime=_fmtMSS(seconds);/*---------------------------------------------------formating time */
 
            document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
           document.getElementById("result")?.setAttribute("style", "justify-content: center;");
@@ -191,7 +188,6 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
         
             if (selectedArr.length===2){
               //  document.body.style.pointerEvents = "none"//;---------------------------prevent to show third image 
-              // if (selectedArr[0].imgPath=== selectedArr[1].imgPath){/* if match */
               if (selectedArr[0].name=== selectedArr[1].name){/* if match */
 
               // setTimeout(() => {
@@ -217,7 +213,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
             }
 
             document.body.style.pointerEvents = "auto";/*-------------------------------------------give back functionality to pointer*/
-       checkEnd() /* checking whether all images are out -> so that´s end of the game  */
+       checkEnd() /* ----------------------------------------------------------------------checking whether all images are out -> so that´s the end of the game  */
 
     }, 200);
 
@@ -234,11 +230,11 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   return (
      <div className="row" id="row">
 
-        {stateImg.divImgs.map((oneDiv:My_Type_DivImg) => (      //array of img names -> div>img
+        {stateImg.divImgs.map((oneDiv:My_Type_DivImg) => (      //--------------------------array of img names -> div>img
 
           <div  key={oneDiv.id} 
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                  // const targetElement = e.target as HTMLElement;
+                  // const targetElement = e.target as HTMLElement; //this commented part can be deleted after longer time period of testing -> if it work correctly 
                   // const parentElement = targetElement.parentNode as HTMLDivElement;
 
                   // // const parentElement = targetElement.parentNode as HTMLElement; 

@@ -10,7 +10,7 @@ fetchedImageNamesAndId = await fetchImageNames(); // waiting for img names array
 
 let allowedImageNames = fetchedImageNamesAndId.map(object => object.name) // return only name of picture
 
-const isAllowedImageName_Type_Guard = (value: string): value is My_Type_Img_Name => {
+const isAllowedImageName_Type_Guard = (value: string): value is My_Type_Img_Name => { /* this is type guard function */
   return allowedImageNames.includes(value as My_Type_Img_Name);
 };
 
