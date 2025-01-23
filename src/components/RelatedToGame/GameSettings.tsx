@@ -71,7 +71,7 @@ console.log("predposlanim",chosenSettings)
       <h2>Nastavte parametre hry</h2>
 
       <fieldset>
-        <legend>Vyberte úroveň obtiažnosti:</legend>{/* -----------choose level */}
+        <legend>Vyberte úroveň obtiažnosti:</legend>{/* ----------------choose level */}
         {levels.map((level, index) => (
           <label key={index}>
             <input
