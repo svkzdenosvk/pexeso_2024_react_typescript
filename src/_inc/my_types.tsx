@@ -42,6 +42,10 @@ export type MyGameDivPicturesProps= _inc_Type &{
   selectedImgCount: My_Type_ImgCount; 
 }
 
+export type ImgNamesinProps = {
+  imgNames: My_Type_Img_Name[];
+}
+
 export type Encrypted = {
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;

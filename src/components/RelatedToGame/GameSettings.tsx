@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
+// import { Encrypted } from '../../_inc/my_types';
+// import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
+
 
 const uuid = require('uuid')
 
@@ -18,7 +21,7 @@ const GameSettings = () => {
     { value: "medium", label: "Stredný" },
     { value: "hard", label: "Ťažký" },
   ];
-
+  
   // const imageOptions = ["vesmir", "kvapka", "more", "sun", "vibracia", "vietor", "drevo", "blesk"];
  
   // let levelChosen="";
@@ -36,7 +39,7 @@ const GameSettings = () => {
     e.preventDefault();
     
     if (!levelChosen){
-    
+      // if (!my_Type_Guard_function(imgName,allowedImageNames){
       setError("Nastav level obtiažnosti")
       return
     } else if(!imgCountChosen){
@@ -47,10 +50,10 @@ const GameSettings = () => {
     }
   
   
-  // const SimpleCrypto = require("simple-crypto-js").default;//-------import SimpleCrypto
+  //  const SimpleCrypto = require("simple-crypto-js").default;//-------import SimpleCrypto
 
-  // const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
-  // const simpleCrypto = new SimpleCrypto(secretKey);
+  //  const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
+  //  const simpleCrypto = new SimpleCrypto(secretKey);
   
   const chosenSettings = {
     level: levelChosen,
@@ -58,8 +61,8 @@ const GameSettings = () => {
     gameId: gameNumber
   };
    
-  // const encryptedSettings = simpleCrypto.encrypt(chosenSettings);
-  // const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  //  const encryptedSettings = simpleCrypto.encrypt(chosenSettings);
+  //  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
   const encryptedSettings = JSON.stringify(chosenSettings);//--encrypt data
 
   window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;

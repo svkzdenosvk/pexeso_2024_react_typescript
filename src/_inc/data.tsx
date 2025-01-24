@@ -6,6 +6,28 @@ import { My_Type_Img_Name, My_Type_Image, My_Type_ImgCount } from './my_types';
 
   const uuid = require('uuid')
 
+  export async function fetchOnlyImgNames(){
+    let arrImg: My_Type_Img_Name[] = []; //---------------------------------- create empty array -> it will be filled with img´s names 
+  
+    try { // --------------------------------------------------------------loading docs from Firebase
+      
+      const snapshot = await getDocs(collection(projectFirestore, "pexeso-img-names"));
+      snapshot.forEach((doc) => {
+        const name: My_Type_Img_Name = doc.data().name;
+  
+        if (name) {
+          arrImg.push(name); //------------------------------------add name to array 
+        }
+      });
+    } catch (error) {
+      console.error("Chyba pri načítaní dát z Firestore:", error);
+      return []; // -------------------------------------------------------if error return empty array 
+    }
+  
+    return arrImg
+  
+  }
+
 export async function fetchImageNames(){
   let arrImg: My_Type_Image[] = []; //---------------------------------- create empty array -> it will be filled with img´s names 
 

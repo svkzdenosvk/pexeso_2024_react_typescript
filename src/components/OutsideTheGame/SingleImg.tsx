@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {useParams, Link} from "react-router-dom"
 import './css/singleImg.css';
-import { fetchImageNames } from '../../_inc/data';
-import { My_Type_Img_Name } from '../../_inc/my_types';
+import { my_Type_Guard_function } from '../../_inc/_inc_functions';
 
-let fetchedImageNamesAndId
+// import { fetchImageNames } from '../../_inc/data';
+import { /*My_Type_Img_Name,*/ ImgNamesinProps } from '../../_inc/my_types';
 
-fetchedImageNamesAndId = await fetchImageNames(); // waiting for img names array from firebase db
+// let fetchedImageNamesAndId
 
-let allowedImageNames = fetchedImageNamesAndId.map(object => object.name) // return only name of picture
+// fetchedImageNamesAndId = await fetchImageNames(); // waiting for img names array from firebase db
 
-const isAllowedImageName_Type_Guard = (value: string): value is My_Type_Img_Name => { /* this is type guard function */
-  return allowedImageNames.includes(value as My_Type_Img_Name);
-};
+// let allowedImageNames: My_Type_Img_Name[] = fetchedImageNamesAndId.map(object => object.name) // return only name of picture
 
-const SingleImg = () => {
+
+const SingleImg = ({imgNames}:ImgNamesinProps) => {
   const [errorImgName, setErrorImgName] = useState(false);
   const [imgNameH1, setNameH1] = useState("");
 
@@ -24,8 +23,9 @@ const SingleImg = () => {
   if (imgNameH1==="vibracia"){setNameH1("vibrácia")}
    
     useEffect(() => {
-     // if (!allowedImageNames.includes(imgName)) {
-        if (!isAllowedImageName_Type_Guard(imgName)){  
+      // if (!imgNames.includes(imgName)) {
+         if (!my_Type_Guard_function(imgName,imgNames)){  
+
             setErrorImgName(true);
             setNameH1("Neexistujúci obrázok");
         } else {
@@ -33,7 +33,7 @@ const SingleImg = () => {
             setNameH1(imgName);
 
         }
-    }, [imgName]);
+    }, [imgName,imgNames]);
 
 return (
   <div className="single-img-content">

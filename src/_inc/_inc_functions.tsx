@@ -1,4 +1,4 @@
- // ---------------------------
+// ---------------------------
  // ---------------------------file with included functions to make cleaner and more readable code
  // ---------------------------
 
@@ -37,4 +37,12 @@ export function _fmtMSS(s:number){return(s-(s%=60))/60+(9<s?':':':0')+s}/*------
 export function _myToggle(elm: HTMLElement ,removedClass: string, addedClass: string){
   elm.classList.add(addedClass);
   elm.classList.remove(removedClass);
+}
+
+//----------------------------function for typescript
+export function my_Type_Guard_function< My_Type extends string >(
+  value: string,
+  arr: readonly My_Type[]
+): value is My_Type {
+  return arr.includes(value as My_Type);
 }
