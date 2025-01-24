@@ -2,16 +2,19 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import {  useEffect, useState/*, useMemo*/ } from "react";
 import './css/images.css';
-import { fetchImageNames,preloadImages  } from '../../_inc/data';
+import { /*fetchImageNames,*/preloadImages  } from '../../_inc/data';
+import {  ImgNamesinProps } from '../../_inc/my_types';
 
- let arrImgIdsAndNames
+const uuid = require('uuid')
+
+//  let arrImgIdsAndNames
 // // (async () => {
-  arrImgIdsAndNames = await fetchImageNames(); // waiting for img names array from firebase db
+  // arrImgIdsAndNames = await fetchImageNames(); // waiting for img names array from firebase db
 
 // const arrImg= ["lightning", "drop", "sea", "space", "sun", "vibration", "wind", "wood"];
 
 
-const Images = () => {
+const Images = ({imgNames}:ImgNamesinProps) => {
   const [loadingImg, setLoadingImg] = useState(true);
   // const [renderedImgNamesArr, setRenderedImgs] = useState([]);
 
@@ -20,7 +23,7 @@ const Images = () => {
 
     useEffect(() => {
 
-      preloadImages(arrImgIdsAndNames)
+      preloadImages(imgNames)
         // .then((loadedDivItems) => {
           .then(() => {
            // setRenderedImgs(loadedDivItems)
@@ -31,8 +34,9 @@ const Images = () => {
         // setError(err.message);    // save error message
         console.log("Not all images were loaded")
         // setLoadingImg(false);        //----------------------------------------set loading to false
+       
         });
-    }, [loadingImg]);
+    }, [loadingImg, imgNames]);
     
     return (
       <div className="img-content">
@@ -43,10 +47,10 @@ const Images = () => {
               <h1>Nacítavajú sa obrázky</h1>
             </div>
           ) : (//-----------------------------------------------------------------if not loading (after successful l.) show
-            arrImgIdsAndNames.map((oneImg) => (
-              <div className="" key={oneImg.id}>
-                <Link to={`/about-game/images/${oneImg.name}`}>
-                  <img src={`../pictures/pexeso/${oneImg.name}.jpg`} alt="Pexeso img" />
+            imgNames.map((oneImgName) => (
+              <div className="" key={uuid.v4()}>
+                <Link to={`/about-game/images/${oneImgName}`}>
+                  <img src={`../pictures/pexeso/${oneImgName}.jpg`} alt="Pexeso img" />
                 </Link>
               </div>
             ))

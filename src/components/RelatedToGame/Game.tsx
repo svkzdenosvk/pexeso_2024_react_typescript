@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 //import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 import {  ImgNamesinProps, My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 
-
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
@@ -140,7 +139,8 @@ const Game = ({imgNames}:ImgNamesinProps) =>{
             <GameDivPictures 
                        level={state.level} seconds={seconds} 
                        colorText={state.colorText} dispatch={dispatch}
-                       selectedImgCount={ state.imgCount} 
+                       selectedImgCount={ state.imgCount}
+                       imgNames={imgNames} 
                        /> 
          </div>
 

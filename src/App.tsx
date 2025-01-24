@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route/*, Navigate*/ } from 'react-router-dom'
 import Game from "./components/RelatedToGame/Game"
 import SharedLayout from "./components/OutsideTheGame/SharedLayout"
 import Home from "./components/OutsideTheGame/Home"
@@ -48,8 +48,11 @@ const App = () => {
                 
                 <Route path="/about-game" element={<SharedAboutLayout />}>
                   <Route index element={<AboutGame />}/>
-                  <Route path="/about-game/rules" element={<Rules />} />    
-                  <Route path="/about-game/images" element={<Images />} />  
+                  <Route path="/about-game/rules" element={<Rules />} />  
+                  {/* <Route path="/about-game/images/" element={<Navigate to="/about-game/images" replace />} />   */}
+                  {/* <Route path="/about-game/images/" element={<Images imgNames={imgNames}/>} />  hard fix, other methods not working correctly */}
+                  <Route path="/about-game/images" element={<Images imgNames={imgNames}/>} />  
+
                   <Route path="/about-game/images/:name" element={<SingleImg imgNames={imgNames}/>}/>
                 </Route>                  
              </Route>

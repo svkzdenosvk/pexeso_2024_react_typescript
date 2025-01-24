@@ -37,7 +37,7 @@ export type MyTimeAndStartProps = _inc_Type & {
      setSeconds: Dispatch<SetStateAction<number>>;
   }
 
-export type MyGameDivPicturesProps= _inc_Type &{
+export type MyGameDivPicturesProps= _inc_Type & ImgNamesinProps &{
   level: My_Type_Level;
   selectedImgCount: My_Type_ImgCount; 
 }

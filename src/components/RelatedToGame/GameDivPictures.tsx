@@ -99,7 +99,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
 
 }
 
-  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount }:MyGameDivPicturesProps) =>{
+  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount,imgNames }:MyGameDivPicturesProps) =>{
   
     // ---------------------------useReducer
 
@@ -109,7 +109,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
-        const imgDivs = await fetchImageDivsForCounts(selectedImgCount); // --loading from firebase
+        const imgDivs = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
 
         dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
 
@@ -119,7 +119,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
     };
 
     fetchDivItemsWithCount(); //-----------------------------------------------to call async f.
-  }, [selectedImgCount]); // 
+  }, [selectedImgCount, imgNames]); // 
 
   // ---------------------------
   // ---------------------------ending fn
