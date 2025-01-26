@@ -113,48 +113,6 @@ body{
     /* transform: translateY(-2px);  */
 }
 
-#levelBtns { /*----------------------------------------------------div -> level buttons */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: space-around;
-      -ms-flex-pack: space-around;
-          justify-content: space-around;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-#levelBtns #easy, #levelBtns #medium, #levelBtns #hard {
-  padding: 20px;
-  font-size: 300%;
-  float: left;
-  font-weight: bold;
-  border-radius: 50%;
-}
-  
-#levelBtns #easy:hover, #levelBtns #medium:hover, #levelBtns #hard:hover {
-  color: #cc0606; 
-}
-
-#levelBtns #easy{/*---------------------------------------------button level-normal */
-  color: black;
-  border: 5px solid black;
-}
-
-#levelBtns #medium {/*--------------------------------------------button level-harder */
-  color: white;
-  background-color: #4d141d;
-}
-
-#levelBtns #hard {/*-------------------------------------------button level-hardest */
-  color: white;
-  background-color: black;
-}
-
 .column_content { /*-----------------------------------------------div of all images  */
   /* margin: auto; */
   max-width: 850px;
@@ -232,12 +190,7 @@ body{
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
-  
-/* .h1End { /*--------------------------------------------------text of gratulation  */
-  /*font-size: 750%;
-  -webkit-transition: font-size 0.52s;
-  transition: font-size 0.52s; } */
-  
+    
 .selected_Div_img {/*----------------------------------------prevent to select selected div > img  */
   pointer-events: none;
 }

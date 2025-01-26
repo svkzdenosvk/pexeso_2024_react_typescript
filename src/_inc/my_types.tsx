@@ -72,8 +72,10 @@ export type My_Type_UseReducer_Game_Action =
     };
   
 export type My_Type_UseReducer_GameDivPicture_State = {
-   isLoaded: boolean,
-   divImgs: My_Type_DivImg[] 
+   isLoaded: boolean;
+   divImgs: My_Type_DivImg[];
+   isEnd: boolean;
+ 
  }
 
  export type My_Type_UseReducer_GameDivPicture_Action =

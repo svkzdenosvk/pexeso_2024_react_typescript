@@ -75,9 +75,15 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
      
       let afterAfterMatchArr = stateImg.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
 
+      let checkIsEnd=false
+
+      if(afterAfterMatchArr.length===0){
+         checkIsEnd = true
+      }
       return { 
         ...stateImg,
-        divImgs: afterAfterMatchArr
+        divImgs: afterAfterMatchArr,
+        isEnd: checkIsEnd
       }  
     case 'SELECTED_IMG_COUNT':
 
@@ -95,7 +101,8 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
 const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   // divImgs:divItems,
   isLoaded:true,
-  divImgs:[] as My_Type_DivImg[]
+  divImgs:[] as My_Type_DivImg[],
+  isEnd:false
 
 }
 
@@ -127,19 +134,16 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
 
   const checkEnd = useCallback(() => { /*---------------------------------------------------check if is end == each picture removed */
      
-    // if(!document.getElementById("row").firstElementChild && isLoaded === false){/*-------if all images on page are removed */
-    const rowElement = document.getElementById("row");
+        if(stateImg.isEnd){
 
-    if ((!rowElement || rowElement?.childElementCount === 0)&& stateImg.isLoaded === false ){/*-------if all images on page are removed */
-          
           dispatch({type: "SET_STOP_GAME" })/*----------------------------------------------stop increment seconds */
 
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
           let endTime=_fmtMSS(seconds);/*---------------------------------------------------formating time */
 
-           document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
-          document.getElementById("result")?.setAttribute("style", "justify-content: center;");
+          //  document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
+           document.getElementById("result")?.setAttribute("style", "justify-content: center;");
           let timeArr=endTime.split(":");/*-------------------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
           
           let h1
@@ -153,17 +157,11 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
           }
           
           if(h1){
-
-            h1.innerHTML = "Gratulácia, vyhrali ste za "+(timeArr[0]==="0"?"":timeArr[0]+"m")+" "+ timeArr[1]+"s";
+           h1.innerHTML = "Gratulácia, vyhrali ste za "+(timeArr[0]==="0"?"":timeArr[0]+"m")+" "+ timeArr[1]+"s";
           }
-          // document.getElementsByTagName("BODY")[0].firstElementChild.classList.add('div_center');/*start ---animation of gratulation text */
 
-           //h1.classList.add('h1End');/*-end ---animation of gratulation text */
-
-          document.getElementsByClassName("welcome")[0].setAttribute('style', 'align-items: center');
-
-      }
-  }, [seconds, dispatch, colorText,stateImg.isLoaded]); // adding dependencies
+      }else return
+  }, [seconds, dispatch, colorText, stateImg.isEnd ]); // adding dependencies
 
   // ---------------------------
   // ---------------------------fn´s to show div>imgs
@@ -200,10 +198,8 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
              
                   dispatchImg({type: "REMOVE_AFTER_MATCH" })
                   // document.body.style.pointerEvents = "auto"//;------------------------prevent to show third image 
-                  // checkEnd() /* checking whether all images are out -> so that´s end of the game  */
 
                 }, 200);
-                // checkEnd() /* checking whether all images are out -> so that´s end of the game  */
 
                       
               }else {/* -------------------------------------------------------------------if unmatch */
@@ -213,7 +209,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
             }
 
             document.body.style.pointerEvents = "auto";/*-------------------------------------------give back functionality to pointer*/
-       checkEnd() /* ----------------------------------------------------------------------checking whether all images are out -> so that´s the end of the game  */
+      //  checkEnd() /* ----------------------------------------------------------------------checking whether all images are out -> so that´s the end of the game  */
 
     }, 200);
 
@@ -226,6 +222,10 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
     }
     
   }, [stateImg.divImgs,checkEnd,level])
+
+  useEffect(() => {  
+    checkEnd()
+  }, [checkEnd,stateImg.isEnd])
 
   return (
      <div className="row" id="row">
