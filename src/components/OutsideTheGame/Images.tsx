@@ -1,18 +1,11 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import {  useEffect, useState/*, useMemo*/ } from "react";
+import {  useEffect, useState } from "react";
 import './css/images.css';
-import { /*fetchImageNames,*/preloadImages  } from '../../_inc/data';
+import { preloadImages  } from '../../_inc/data';
 import {  ImgNamesinProps } from '../../_inc/my_types';
 
 const uuid = require('uuid')
-
-//  let arrImgIdsAndNames
-// // (async () => {
-  // arrImgIdsAndNames = await fetchImageNames(); // waiting for img names array from firebase db
-
-// const arrImg= ["lightning", "drop", "sea", "space", "sun", "vibration", "wind", "wood"];
-
 
 const Images = ({imgNames}:ImgNamesinProps) => {
   const [loadingImg, setLoadingImg] = useState(true);

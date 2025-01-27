@@ -209,7 +209,6 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
             }
 
             document.body.style.pointerEvents = "auto";/*-------------------------------------------give back functionality to pointer*/
-      //  checkEnd() /* ----------------------------------------------------------------------checking whether all images are out -> so that´s the end of the game  */
 
     }, 200);
 
@@ -234,19 +233,14 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
 
           <div  key={oneDiv.id} 
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                  // const targetElement = e.target as HTMLElement; //this commented part can be deleted after longer time period of testing -> if it work correctly 
-                  // const parentElement = targetElement.parentNode as HTMLDivElement;
-
-                  // // const parentElement = targetElement.parentNode as HTMLElement; 
-                  // if (parentElement) {
-                  //    showImg(parentElement, oneDiv)}} 
-                  // }
                   const currentDiv = e.currentTarget; // this is always <div> with `div_on_click`
-                  showImg(currentDiv, oneDiv);}} 
-          className={oneDiv.classNames.join(' ') + ' div_on_click'} >
-          <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
+                  showImg(currentDiv, oneDiv);
+                }} 
+                className={oneDiv.classNames.join(' ') + ' div_on_click'} >
+       
+                <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
 
-      </div> 
+          </div> 
 
         ))}
      </div>

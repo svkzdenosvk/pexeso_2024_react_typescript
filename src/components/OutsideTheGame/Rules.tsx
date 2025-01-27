@@ -1,7 +1,6 @@
 import React from 'react'
 import './css/rules.css';
 
-
 const Rules = () => {
   return (
     <div className="rules-content">
