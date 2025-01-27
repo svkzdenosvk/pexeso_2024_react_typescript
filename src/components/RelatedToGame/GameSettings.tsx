@@ -1,26 +1,29 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
-// import { Encrypted } from '../../_inc/my_types';
-// import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
+import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 
+ import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
+ import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 const uuid = require('uuid')
 
-const gameNumber = uuid.v4()//--------------------------------------unique string
+const gameNumber: string = uuid.v4()//--------------------------------------unique string
 
 const GameSettings = () => {
-  const [levelChosen, setlevelChosen] = useState(""); 
+  const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
   // const [selectedImages, setSelectedImages] = useState([]); //---choosen images
-  const [imgCountChosen, setimgCountChosen] = useState(0); //----count of choosen images
+  const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
 
-  const imgCount = [5, 6, 7, 8]; // --------------------------------count of images for game 
+  const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // --------------------------------count of images for game 
 
-  const levels = [
+  const levels: My_Type_Svk_Eng_level[] = [
     { value: "easy", label: "Ľahký" },
     { value: "medium", label: "Stredný" },
     { value: "hard", label: "Ťažký" },
   ];
+
+ const levels_values: My_Type_Level[] =["easy","medium","hard"]
   
   // const imageOptions = ["vesmir", "kvapka", "more", "sun", "vibracia", "vietor", "drevo", "blesk"];
  
@@ -38,11 +41,14 @@ const GameSettings = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    if (!levelChosen){
-      // if (!my_Type_Guard_function(imgName,allowedImageNames){
+    // if (!levelChosen){
+    if (!my_Type_Guard_function(levelChosen,levels_values)){  
+      
       setError("Nastav level obtiažnosti")
       return
-    } else if(!imgCountChosen){
+    // } else if(!imgCountChosen){
+    }  else if (!my_Type_Guard_function_number(imgCountChosen,imgCount_values)){  
+
       setError("Nastav počet obrázkov, s ktorými chceš hrať.")
       return
     }else{ 
@@ -50,23 +56,21 @@ const GameSettings = () => {
     }
   
   
-  //  const SimpleCrypto = require("simple-crypto-js").default;//-------import SimpleCrypto
+    //  const SimpleCrypto = require("simple-crypto-js").default;//----import SimpleCrypto
 
-  //  const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
-  //  const simpleCrypto = new SimpleCrypto(secretKey);
+     const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
+      const simpleCrypto = new SimpleCrypto(secretKey);
   
-  const chosenSettings = {
+  const chosenSettings: Encrypted = {
     level: levelChosen,
     imgCount: imgCountChosen,
     gameId: gameNumber
   };
    
-  //  const encryptedSettings = simpleCrypto.encrypt(chosenSettings);
-  //  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
-  const encryptedSettings = JSON.stringify(chosenSettings);//--encrypt data
+    const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  //const encryptedSettings = JSON.stringify(chosenSettings);//--encrypt data
 
   window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;
-console.log("predposlanim",chosenSettings)
   };
 
   return (
@@ -81,7 +85,7 @@ console.log("predposlanim",chosenSettings)
               type="radio"
               name="level"
               value={level.value}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value)}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value as My_Type_Level )}
             />
             {level.label}
           </label>
@@ -90,13 +94,13 @@ console.log("predposlanim",chosenSettings)
 
       <fieldset>
         <legend>Vyberte počet obrázkov:</legend>{/* --------------------choose count of images to play*/}
-        {imgCount.map((value, index) => (
+        {imgCount_values.map((value, index) => (
           <label key={index}>
             <input
               type="radio"
               name="imageCount"
               value={value}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value, 10))}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
             />
             {value * 2} {/* ---------------------------------------------pair is 5 * 2 = 10) */}
           </label>

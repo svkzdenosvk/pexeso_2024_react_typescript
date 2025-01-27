@@ -8,6 +8,7 @@ type _inc_Type ={
   }
 
 export type My_Type_Level = "easy"| "medium"| "hard";
+export type My_Type_Level_Svk = "Ľahký"| "Stredný"| "Ťažký";
 
 export type My_Type_Img_Name = "blesk"| "drevo"| "kvapka"| "more"| "slnko"| "vesmir"| "vibracia"|"vietor";
 
@@ -51,8 +52,12 @@ export type Encrypted = {
   imgCount: My_Type_ImgCount;
   gameId: string;
   // gameId: number;
-
 };
+
+export type My_Type_Svk_Eng_level ={
+  value: My_Type_Level;
+  label: My_Type_Level_Svk;
+}
 
 export type My_Type_UseReducer_Game_State = {
   level: My_Type_Level;

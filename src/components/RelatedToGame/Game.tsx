@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-//import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
+import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 import {  ImgNamesinProps, My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
+import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
@@ -47,12 +48,12 @@ import {TimeAndStart} from "./TimeAndStart"
 
 const defaultState: My_Type_UseReducer_Game_State  = {
   // level:"",
-  level:"easy",
+  level:"" as My_Type_Level,
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
   colorText:"black", 
   colorBG:"white",
-  imgCount:5 
+  imgCount:0 as My_Type_ImgCount
 }
 
 const Game = ({imgNames}:ImgNamesinProps) =>{
@@ -77,24 +78,24 @@ const Game = ({imgNames}:ImgNamesinProps) =>{
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
 
-  // const secretKey = "encryption-key-for-settings"; // same key as on settings page 
-  // const simpleCrypto = new SimpleCrypto(secretKey);
+   const secretKey = "encryption-key-for-settings"; // same key as on settings page 
+   const simpleCrypto = new SimpleCrypto(secretKey);
 
     try {
       // decrypting of data
-      // let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData));
-        let decryptedSettings: Encrypted = JSON.parse(decodeURIComponent(settingsData));
-   
-      if (
-         !["easy", "medium", "hard"].includes(decryptedSettings.level) || 
-          ![5, 6, 7, 8].includes(decryptedSettings.imgCount)){
-      
+       let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
+       //let decryptedSettings: Encrypted = JSON.parse(decodeURIComponent(settingsData));
+      //  let { level, imgCount } = decryptedSettings;
+
+      if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])||
+             !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
+          {  
+            
            navigate('/settings'); 
            
            if(["medium", "hard"].includes(decryptedSettings.level)){
              window.location.reload(); //--------------------------------reset color changes (background, ..) 
            }
-
       }    
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",

@@ -46,3 +46,10 @@ export function my_Type_Guard_function< My_Type extends string >(
 ): value is My_Type {
   return arr.includes(value as My_Type);
 }
+
+export function my_Type_Guard_function_number< My_Type extends number >(
+  value: number,
+  arr: readonly My_Type[]
+): value is My_Type {
+  return arr.includes(value as My_Type);
+}
