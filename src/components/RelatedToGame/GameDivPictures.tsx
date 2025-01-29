@@ -24,7 +24,7 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       let filteredArr: My_Type_DivImg[] =stateImg.divImgs.map(oneDiv => {
           if (oneDiv.id === action.payload.id) {
   
-            return { ...oneDiv, selected: true, classNames: [
+            return { ...oneDiv/*, selected: true*/, classNames: [
               ...oneDiv.classNames.filter(className => className !== "mask"), "selected_Div_img" // remove 'mask' and add "selected" class
             ] }
           } else {
@@ -38,7 +38,7 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       } 
     case 'UN_MATCH':
       let afterUnMatchArr: My_Type_DivImg[] = stateImg.divImgs.map(oneDiv => {
-        if ((oneDiv.selected === true)&& (oneDiv.classNames.includes("selected_Div_img"))) {
+        if (/*(oneDiv.selected === true)&& */(oneDiv.classNames.includes("selected_Div_img"))) {
           return { ...oneDiv, selected: false, classNames: [
             ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
           ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
@@ -57,7 +57,7 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       }
     case 'MATCH':
         let afterMatchArr = stateImg.divImgs.map(oneDiv => {
-          if ((oneDiv.selected === true)&& (oneDiv.classNames.includes("selected_Div_img"))) {
+          if (/*(oneDiv.selected === true)&& */(oneDiv.classNames.includes("selected_Div_img"))) {
             return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center" /* remove selected and add rotate */
             ] }/*-------------------------------------------------------------change 2 selected img´s to nonselected and hide */
@@ -172,7 +172,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
     let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
 
-    if(element.classList.contains('mask')&& divObject.selected!==true&& (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
+    if(element.classList.contains('mask')&& /*divObject.selected!==true&&*/ (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
        dispatchImg({type: "SHOW_ONE", payload: divObject })
     }
   }
