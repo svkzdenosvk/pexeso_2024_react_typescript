@@ -3,7 +3,6 @@ import React from 'react';
 import { useReducer, useEffect, useCallback } from "react";
 
 import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
-// import { divItems } from '../../_inc/data.js'; /*---------------------------data -> source of names of pictures and array of objects from these names  */
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { MyGameDivPicturesProps, My_Type_UseReducer_GameDivPicture_State, My_Type_DivImg, My_Type_UseReducer_GameDivPicture_Action } from '../../_inc/my_types';
@@ -24,7 +23,7 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       let filteredArr: My_Type_DivImg[] =stateImg.divImgs.map(oneDiv => {
           if (oneDiv.id === action.payload.id) {
   
-            return { ...oneDiv/*, selected: true*/, classNames: [
+            return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "mask"), "selected_Div_img" // remove 'mask' and add "selected" class
             ] }
           } else {
@@ -38,8 +37,8 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       } 
     case 'UN_MATCH':
       let afterUnMatchArr: My_Type_DivImg[] = stateImg.divImgs.map(oneDiv => {
-        if (/*(oneDiv.selected === true)&& */(oneDiv.classNames.includes("selected_Div_img"))) {
-          return { ...oneDiv, selected: false, classNames: [
+        if (oneDiv.classNames.includes("selected_Div_img")) {
+          return { ...oneDiv, classNames: [
             ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
           ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
         } else {
@@ -57,16 +56,15 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
       }
     case 'MATCH':
         let afterMatchArr = stateImg.divImgs.map(oneDiv => {
-          if (/*(oneDiv.selected === true)&& */(oneDiv.classNames.includes("selected_Div_img"))) {
+          if (oneDiv.classNames.includes("selected_Div_img")) {
             return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center" /* remove selected and add rotate */
-            ] }/*-------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+            ] }/*--------------------------------------------------------------change 2 selected img´s to nonselected and hide */
           } else {
             return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
           }
         });
 
-        // let afterAfterMatchArr = afterMatchArr.filter(oneDiv => oneDiv.selected !== true);
       return { 
         ...stateImg,
         divImgs: afterMatchArr
@@ -99,7 +97,6 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
 }
 
 const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
-  // divImgs:divItems,
   isLoaded:true,
   divImgs:[] as My_Type_DivImg[],
   isEnd:false
@@ -172,7 +169,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
     let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
 
-    if(element.classList.contains('mask')&& /*divObject.selected!==true&&*/ (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
+    if(element.classList.contains('mask')&& (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
        dispatchImg({type: "SHOW_ONE", payload: divObject })
     }
   }
@@ -181,7 +178,6 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
 
     setTimeout(function(){
           
-            // let selectedArr = divImgs.filter(oneDiv => oneDiv.selected === true);
           let  selectedArr: My_Type_DivImg[] = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
         
             if (selectedArr.length===2){

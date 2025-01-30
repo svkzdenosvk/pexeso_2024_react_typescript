@@ -47,7 +47,6 @@ import {TimeAndStart} from "./TimeAndStart"
 }
 
 const defaultState: My_Type_UseReducer_Game_State  = {
-  // level:"",
   level:"" as My_Type_Level,
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
@@ -85,7 +84,6 @@ const Game = ({imgNames}:ImgNamesinProps) =>{
       // decrypting of data
        let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
        //let decryptedSettings: Encrypted = JSON.parse(decodeURIComponent(settingsData));
-      //  let { level, imgCount } = decryptedSettings;
 
       if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])||
              !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))

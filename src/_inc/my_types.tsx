@@ -30,7 +30,6 @@ export type My_Type_DivImg = My_Type_Image & {
   // classNames: ("mask"|"selected_Div_img"|"rotate-center"|"")[];
   // classNames: My_Type_ClassNames[];
   classNames: string[];
-  selected?: boolean;
  }
   
 export type MyTimeAndStartProps = _inc_Type & {
@@ -51,7 +50,6 @@ export type Encrypted = {
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;
   gameId: string;
-  // gameId: number;
 };
 
 export type My_Type_Svk_Eng_level ={
