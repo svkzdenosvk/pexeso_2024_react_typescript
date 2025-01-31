@@ -11,9 +11,6 @@ const Images = ({imgNames}:ImgNamesinProps) => {
   const [loadingImg, setLoadingImg] = useState(true);
   // const [renderedImgNamesArr, setRenderedImgs] = useState([]);
 
-  // const arrImg = useMemo(() => [ "drop","sea","lightning", "space", "sun", "vibration", "wind", "wood"], []);
-
-
     useEffect(() => {
 
       preloadImages(imgNames)

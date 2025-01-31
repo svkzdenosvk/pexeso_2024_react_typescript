@@ -5,10 +5,10 @@ import { useReducer, useEffect, useCallback } from "react";
 import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { MyGameDivPicturesProps, My_Type_UseReducer_GameDivPicture_State, My_Type_DivImg, My_Type_UseReducer_GameDivPicture_Action } from '../../_inc/my_types';
+import { MyGameDivPicturesProps, My_Type_ClassNames, My_Type_UseReducer_GameDivPictures_State, My_Type_DivImg, My_Type_UseReducer_GameDivPictures_Action } from '../../_inc/my_types';
 
 
-const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: My_Type_UseReducer_GameDivPicture_Action) => {
+const reducerImg = (stateImg: My_Type_UseReducer_GameDivPictures_State, action: My_Type_UseReducer_GameDivPictures_Action) => {
   switch (action.type) {
 
     case 'HARDEST_LEVEL_SHUFFLE':
@@ -58,8 +58,10 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
         let afterMatchArr = stateImg.divImgs.map(oneDiv => {
           if (oneDiv.classNames.includes("selected_Div_img")) {
             return { ...oneDiv, classNames: [
-              ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center" /* remove selected and add rotate */
-            ] }/*--------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+              ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center"
+              
+            ] as My_Type_ClassNames[]
+             }/*-------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
           } else {
             return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
           }
@@ -96,7 +98,7 @@ const reducerImg = (stateImg: My_Type_UseReducer_GameDivPicture_State, action: M
   }
 }
 
-const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
+const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
   isLoaded:true,
   divImgs:[] as My_Type_DivImg[],
   isEnd:false
@@ -107,13 +109,13 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
   
     // ---------------------------useReducer
 
-  const [stateImg , dispatchImg] = useReducer<React.Reducer<My_Type_UseReducer_GameDivPicture_State, My_Type_UseReducer_GameDivPicture_Action>
+  const [stateImg , dispatchImg] = useReducer<React.Reducer<My_Type_UseReducer_GameDivPictures_State, My_Type_UseReducer_GameDivPictures_Action>
 >(reducerImg, defaultStateImg);
 
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
-        const imgDivs = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
+        const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
 
         dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
 
@@ -232,8 +234,9 @@ const defaultStateImg: My_Type_UseReducer_GameDivPicture_State  = {
                   const currentDiv = e.currentTarget; // this is always <div> with `div_on_click`
                   showImg(currentDiv, oneDiv);
                 }} 
-                className={oneDiv.classNames.join(' ') + ' div_on_click'} >
-       
+                // className={oneDiv.classNames.join(' ') + ' div_on_click'} >
+                className={oneDiv.classNames.join(' ') } >
+
                 <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
 
           </div> 

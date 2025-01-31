@@ -41,12 +41,10 @@ const GameSettings = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // if (!levelChosen){
     if (!my_Type_Guard_function(levelChosen,levels_values)){  
       
       setError("Nastav level obtiažnosti")
       return
-    // } else if(!imgCountChosen){
     }  else if (!my_Type_Guard_function_number(imgCountChosen,imgCount_values)){  
 
       setError("Nastav počet obrázkov, s ktorými chceš hrať.")

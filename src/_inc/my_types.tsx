@@ -18,7 +18,7 @@ export type My_Type_Color_Text = "black"|"white";
 
 export type My_Type_Color_Background = My_Type_Color_Text |"#4d141d";
 
-// export type My_Type_ClassNames = "mask"|"selected_Div_img"|"rotate-center"|"div_on_click";
+export type My_Type_ClassNames = "mask"|"selected_Div_img"|"rotate-center"|"div_on_click";
 
 
 export type My_Type_Image = { 
@@ -26,37 +26,36 @@ export type My_Type_Image = {
   name: My_Type_Img_Name
 };
 
-export type My_Type_DivImg = My_Type_Image & {
-  // classNames: ("mask"|"selected_Div_img"|"rotate-center"|"")[];
-  // classNames: My_Type_ClassNames[];
-  classNames: string[];
- }
+export type My_Type_DivImg = My_Type_Image & {/*------------------------------div above img element  */
+   classNames: My_Type_ClassNames[];
+}
   
-export type MyTimeAndStartProps = _inc_Type & {
+export type MyTimeAndStartProps = _inc_Type & {/*-----------------------------type of props of TimeAndStart component */
     isRunning: boolean;
-     setSeconds: Dispatch<SetStateAction<number>>;
-  }
+    setSeconds: Dispatch<SetStateAction<number>>;
+}
 
-export type MyGameDivPicturesProps= _inc_Type & ImgNamesinProps &{
+export type MyGameDivPicturesProps= _inc_Type & ImgNamesinProps &{/*-----------type of props of GameDivPictures component */
   level: My_Type_Level;
   selectedImgCount: My_Type_ImgCount; 
 }
 
-export type ImgNamesinProps = {
+export type ImgNamesinProps = {/*----------------------------------------------shared props -> img names from db */
   imgNames: My_Type_Img_Name[];
 }
 
-export type Encrypted = {
+export type Encrypted = {/*-----------------------------------------------------encrypt-decrypt type of info to initialize the game */
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;
   gameId: string;
-};
+}
 
 export type My_Type_Svk_Eng_level ={
   value: My_Type_Level;
   label: My_Type_Level_Svk;
 }
 
+/*-----------------------------------------------------------------------------useReducer Game */
 export type My_Type_UseReducer_Game_State = {
   level: My_Type_Level;
   isRunning: boolean;
@@ -73,15 +72,16 @@ export type My_Type_UseReducer_Game_Action =
       type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
     };
-  
-export type My_Type_UseReducer_GameDivPicture_State = {
+
+/*----------------------------------------------------------------------------useReducer GameDivPictures */
+export type My_Type_UseReducer_GameDivPictures_State = {
    isLoaded: boolean;
    divImgs: My_Type_DivImg[];
    isEnd: boolean;
  
  }
 
- export type My_Type_UseReducer_GameDivPicture_Action =
+ export type My_Type_UseReducer_GameDivPictures_Action =
  | { type: 'HARDEST_LEVEL_SHUFFLE' }
  | { 
      type: 'SHOW_ONE';
