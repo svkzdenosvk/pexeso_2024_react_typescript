@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+// import { /*useEffect, useState*/ } from "react";
 
 import {BrowserRouter, Routes, Route/*, Navigate*/ } from 'react-router-dom'
 import Game from "./components/RelatedToGame/Game"
@@ -14,33 +14,18 @@ import SingleImg from "./components/OutsideTheGame/SingleImg"
 
 import ErrorPage from "./components/ErrorPage"
 
-import { fetchOnlyImgNames } from './_inc/data';
-import { My_Type_Img_Name } from './_inc/my_types';
 
+import { ImgProvider } from "./context/ImgContext" 
 
 
 const App = () => {
-  const [imgNames, setImages] = useState<My_Type_Img_Name[]>([]);
-
-
-  useEffect(() => {
-      const fetchImgNamesFunc = async () => {
-        try {
-          const fetchedImgNames:My_Type_Img_Name[] = await fetchOnlyImgNames(); // --loading from firebase
-          setImages(fetchedImgNames)
-        } catch (error) {
-          console.error("Error fetching names:", error);
-        }
-      };
-  
-      fetchImgNamesFunc(); //-----------------------------------------------to call async f.
-    }, []); // 
 
   return (
-    
+
+  <ImgProvider>
     <BrowserRouter>
         <Routes>
-             <Route path="/game/:settings?" element={<Game imgNames={imgNames}/>}/>
+             <Route path="/game/:settings?" element={<Game/>}/>
 
              <Route path="/" element={<SharedLayout/>}>
                 <Route index element={<Home/>}/>
@@ -49,11 +34,9 @@ const App = () => {
                 <Route path="/about-game" element={<SharedAboutLayout />}>
                   <Route index element={<AboutGame />}/>
                   <Route path="/about-game/rules" element={<Rules />} />  
-                  {/* <Route path="/about-game/images/" element={<Navigate to="/about-game/images" replace />} />   */}
-                  {/* <Route path="/about-game/images/" element={<Images imgNames={imgNames}/>} />  hard fix, other methods not working correctly */}
-                  <Route path="/about-game/images" element={<Images imgNames={imgNames}/>} />  
-
-                  <Route path="/about-game/images/:name" element={<SingleImg imgNames={imgNames}/>}/>
+             
+                  <Route path="/about-game/images" element={<Images/>} />  
+                  <Route path="/about-game/images/:name" element={<SingleImg />}/>
                 </Route>                  
              </Route>
 
@@ -61,6 +44,7 @@ const App = () => {
 
         </Routes>
     </BrowserRouter>
+  </ImgProvider>
 
   )
 }

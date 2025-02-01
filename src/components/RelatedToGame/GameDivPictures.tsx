@@ -7,6 +7,8 @@ import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
 import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { MyGameDivPicturesProps, My_Type_ClassNames, My_Type_UseReducer_GameDivPictures_State, My_Type_DivImg, My_Type_UseReducer_GameDivPictures_Action } from '../../_inc/my_types';
 
+import { useImgContext } from "../../context/ImgContext";
+
 
 const reducerImg = (stateImg: My_Type_UseReducer_GameDivPictures_State, action: My_Type_UseReducer_GameDivPictures_Action) => {
   switch (action.type) {
@@ -105,7 +107,8 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
 }
 
-  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount,imgNames }:MyGameDivPicturesProps) =>{
+  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount/*,imgNames*/ }:MyGameDivPicturesProps) =>{
+    const { imgNames } = useImgContext();
   
     // ---------------------------useReducer
 

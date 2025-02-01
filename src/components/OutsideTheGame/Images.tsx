@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {  useEffect, useState } from "react";
 import './css/images.css';
 import { preloadImages  } from '../../_inc/data';
-import {  ImgNamesinProps } from '../../_inc/my_types';
+import { useImgContext } from "../../context/ImgContext";
 
 const uuid = require('uuid')
 
-const Images = ({imgNames}:ImgNamesinProps) => {
+const Images = () => {
+  const { imgNames } = useImgContext();
+
   const [loadingImg, setLoadingImg] = useState(true);
   // const [renderedImgNamesArr, setRenderedImgs] = useState([]);
 

@@ -3,11 +3,12 @@ import React from 'react';
 import { useReducer, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
-import {  ImgNamesinProps, My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
+import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
+// import { useImgContext } from "../../context/ImgContext";
 
  const reducer = (state: My_Type_UseReducer_Game_State, action: My_Type_UseReducer_Game_Action) => {
 
@@ -55,7 +56,8 @@ const defaultState: My_Type_UseReducer_Game_State  = {
   imgCount:0 as My_Type_ImgCount
 }
 
-const Game = ({imgNames}:ImgNamesinProps) =>{
+const Game = () =>{
+  // const { imgNames } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -139,7 +141,7 @@ const Game = ({imgNames}:ImgNamesinProps) =>{
                        level={state.level} seconds={seconds} 
                        colorText={state.colorText} dispatch={dispatch}
                        selectedImgCount={ state.imgCount}
-                       imgNames={imgNames} 
+                      //  imgNames={imgNames} 
                        /> 
          </div>
 
