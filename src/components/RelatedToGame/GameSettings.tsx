@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
-import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
+import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
 
  import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 const uuid = require('uuid')
 
-const gameNumber: string = uuid.v4()//--------------------------------------unique string
+const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
 
 const GameSettings = () => {
   const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
-  // const [selectedImages, setSelectedImages] = useState([]); //---choosen images
+  // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
 
-  const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // --------------------------------count of images for game 
+  const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
   const levels: My_Type_Svk_Eng_level[] = [
     { value: "easy", label: "Ľahký" },
@@ -38,7 +38,7 @@ const GameSettings = () => {
   //   }
   // };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {/*-------------------after submit function */
     e.preventDefault();
     
     if (!my_Type_Guard_function(levelChosen,levels_values)){  
@@ -50,14 +50,11 @@ const GameSettings = () => {
       setError("Nastav počet obrázkov, s ktorými chceš hrať.")
       return
     }else{ 
-      setError(""); //----------------------------------------------reset error message
+      setError(""); //-----------------------------------------------------------------reset error message
     }
   
-  
-    //  const SimpleCrypto = require("simple-crypto-js").default;//----import SimpleCrypto
-
-     const secretKey = "encryption-key-for-settings"; //---------------shared key on both sides
-      const simpleCrypto = new SimpleCrypto(secretKey);
+     const secretKey = "encryption-key-for-settings"; //-------------------------------shared key on both sides ->to give it in the useContext!!!!
+     const simpleCrypto = new SimpleCrypto(secretKey);
   
   const chosenSettings: Encrypted = {
     level: levelChosen,
@@ -76,7 +73,7 @@ const GameSettings = () => {
       <h2>Nastavte parametre hry</h2>
 
       <fieldset>
-        <legend>Vyberte úroveň obtiažnosti:</legend>{/* ----------------choose level */}
+        <legend>Vyberte úroveň obtiažnosti:</legend>{/* ---------------------------------choose level */}
         {levels.map((level, index) => (
           <label key={index}>
             <input
@@ -91,7 +88,7 @@ const GameSettings = () => {
       </fieldset>
 
       <fieldset>
-        <legend>Vyberte počet obrázkov:</legend>{/* --------------------choose count of images to play*/}
+        <legend>Vyberte počet obrázkov:</legend>{/* --------------------------------------choose count of images to play*/}
         {imgCount_values.map((value, index) => (
           <label key={index}>
             <input
@@ -100,7 +97,7 @@ const GameSettings = () => {
               value={value}
               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
             />
-            {value * 2} {/* ---------------------------------------------pair is 5 * 2 = 10) */}
+            {value * 2} {/* --------------------------------------------------------------pair is 5 * 2 = 10) */}
           </label>
         ))}
       </fieldset>
@@ -120,7 +117,7 @@ const GameSettings = () => {
         ))}
       </fieldset> */}
 
-      {error && <p>{error}</p>} {/* -------------------------------------error message */} 
+      {error && <p>{error}</p>} {/* -------------------------------------------------------error message */} 
 
       <button type="submit">Hraj</button>
     </form>

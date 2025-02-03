@@ -8,7 +8,6 @@ import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_i
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
-// import { useImgContext } from "../../context/ImgContext";
 
  const reducer = (state: My_Type_UseReducer_Game_State, action: My_Type_UseReducer_Game_Action) => {
 
@@ -57,7 +56,6 @@ const defaultState: My_Type_UseReducer_Game_State  = {
 }
 
 const Game = () =>{
-  // const { imgNames } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -141,7 +139,6 @@ const Game = () =>{
                        level={state.level} seconds={seconds} 
                        colorText={state.colorText} dispatch={dispatch}
                        selectedImgCount={ state.imgCount}
-                      //  imgNames={imgNames} 
                        /> 
          </div>
 

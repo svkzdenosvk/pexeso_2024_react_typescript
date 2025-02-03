@@ -1,44 +1,20 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import {  useEffect, useState } from "react";
 import './css/images.css';
-import { preloadImages  } from '../../_inc/data';
 import { useImgContext } from "../../context/ImgContext";
 
 const uuid = require('uuid')
 
 const Images = () => {
-  const { imgNames } = useImgContext();
-
-  const [loadingImg, setLoadingImg] = useState(true);
-  // const [renderedImgNamesArr, setRenderedImgs] = useState([]);
-
-    useEffect(() => {
-
-      preloadImages(imgNames)
-        // .then((loadedDivItems) => {
-          .then(() => {
-           // setRenderedImgs(loadedDivItems)
-
-          setLoadingImg(false);      //-------------------------------------------set loading to false
-        })
-        .catch((err) => {
-        // setError(err.message);    // save error message
-        console.log("Not all images were loaded")
-        // setLoadingImg(false);        //----------------------------------------set loading to false
-       
-        });
-    }, [loadingImg, imgNames]);
+  const { imgNames, isLoading } = useImgContext();
     
     return (
       <div className="img-content">
         <h1>Hracie obrázky</h1>
         <div className="img-main-content">
-          {loadingImg ? (//-------------------------------------------------------if loading show
-            <div className="loading">
-              <h1>Nacítavajú sa obrázky</h1>
-            </div>
-          ) : (//-----------------------------------------------------------------if not loading (after successful l.) show
+          {isLoading? (//-------------------------------------------------------if loading show H1
+              <h1>Načítavajú sa obrázky</h1>
+          ) : (//---------------------------------------------------------------if not loading (after successful l.) show
             imgNames.map((oneImgName) => (
               <div className="" key={uuid.v4()}>
                 <Link to={`/about-game/images/${oneImgName}`}>

@@ -108,7 +108,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 }
 
   export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount/*,imgNames*/ }:MyGameDivPicturesProps) =>{
-    const { imgNames } = useImgContext();
+    const { imgNames, isLoading } = useImgContext();
   
     // ---------------------------useReducer
 
@@ -127,26 +127,26 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
       }
     };
 
-    fetchDivItemsWithCount(); //-----------------------------------------------to call async f.
+    fetchDivItemsWithCount(); //------------------------------------------------to call async f.
   }, [selectedImgCount, imgNames]); // 
 
   // ---------------------------
   // ---------------------------ending fn
   // ---------------------------
 
-  const checkEnd = useCallback(() => { /*---------------------------------------------------check if is end == each picture removed */
+  const checkEnd = useCallback(() => { /*----------------------------------------check if is end == each picture removed */
      
         if(stateImg.isEnd){
 
-          dispatch({type: "SET_STOP_GAME" })/*----------------------------------------------stop increment seconds */
+          dispatch({type: "SET_STOP_GAME" })/*-----------------------------------stop increment seconds */
 
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
-          let endTime=_fmtMSS(seconds);/*---------------------------------------------------formating time */
+          let endTime=_fmtMSS(seconds);/*----------------------------------------formating time */
 
           //  document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
            document.getElementById("result")?.setAttribute("style", "justify-content: center;");
-          let timeArr=endTime.split(":");/*-------------------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
+          let timeArr=endTime.split(":");/*---------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
           
           let h1
           if (!document.querySelector('h1')) {
@@ -163,7 +163,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
           }
 
       }else return
-  }, [seconds, dispatch, colorText, stateImg.isEnd ]); // adding dependencies
+  }, [seconds, dispatch, colorText, stateImg.isEnd ]); //---------------------------adding dependencies
 
   // ---------------------------
   // ---------------------------fn´s to show div>imgs
@@ -186,34 +186,34 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
           let  selectedArr: My_Type_DivImg[] = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
         
             if (selectedArr.length===2){
-              //  document.body.style.pointerEvents = "none"//;---------------------------prevent to show third image 
+              //  document.body.style.pointerEvents = "none"//;---------------------prevent to show third image 
               if (selectedArr[0].name=== selectedArr[1].name){/* if match */
 
               // setTimeout(() => {
                 dispatchImg({type: "MATCH" })
               // }, 200);
                 
-                void document.body.offsetHeight; // ------------------------------------- reflow -> help from chat GPT to support animation 
+                void document.body.offsetHeight; // ---------------------------------reflow -> help from chat GPT to support animation 
 
                 setTimeout(() => {
              
                   dispatchImg({type: "REMOVE_AFTER_MATCH" })
-                  // document.body.style.pointerEvents = "auto"//;------------------------prevent to show third image 
+                  // document.body.style.pointerEvents = "auto"//;-------------------prevent to show third image 
 
                 }, 200);
 
                       
-              }else {/* -------------------------------------------------------------------if unmatch */
+              }else {/* -------------------------------------------------------------if unmatch */
                
                 dispatchImg({type: "UN_MATCH",payload:level })           
               }
             }
 
-            document.body.style.pointerEvents = "auto";/*-------------------------------------------give back functionality to pointer*/
+            document.body.style.pointerEvents = "auto";/*----------------------------give back functionality to pointer*/
 
     }, 200);
 
-    if (level === "hard") {//---------------------------------------------------------------------in the hardest level shuffeling every 400 ms
+    if (level === "hard") {//--------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
         dispatchImg({ type: "HARDEST_LEVEL_SHUFFLE" });
       }, 400);
@@ -229,22 +229,24 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
   return (
      <div className="row" id="row">
-
-        {stateImg.divImgs.map((oneDiv:My_Type_DivImg) => (      //--------------------------array of img names -> div>img
+     {isLoading ? (//-----------------------------------------------------------------if loading show
+        <h1 style={{color: colorText}} >Načítavajú sa obrázky</h1>
+      ) : (//-------------------------------------------------------------------------if not loading (after successful l.) show
+        stateImg.divImgs.map((oneDiv:My_Type_DivImg) => ( //--------------------------array of img names -> div>img
 
           <div  key={oneDiv.id} 
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                  const currentDiv = e.currentTarget; // this is always <div> with `div_on_click`
+                  const currentDiv = e.currentTarget; // -----------------------------this is always <div> with `div_on_click`
                   showImg(currentDiv, oneDiv);
                 }} 
-                // className={oneDiv.classNames.join(' ') + ' div_on_click'} >
                 className={oneDiv.classNames.join(' ') } >
 
                 <img  src={"/pictures/pexeso/"+oneDiv.name+".jpg"} alt='Smiley face' />  
 
           </div> 
 
-        ))}
+        ))
+      )}
      </div>
   );
 }

@@ -35,16 +35,17 @@ export type MyTimeAndStartProps = _inc_Type & {/*-----------------------------ty
     setSeconds: Dispatch<SetStateAction<number>>;
 }
 
-export type MyGameDivPicturesProps= _inc_Type /*& ImgNamesinProps */&{/*-----------type of props of GameDivPictures component */
+export type MyGameDivPicturesProps= _inc_Type &{/*----------------------------type of props of GameDivPictures component */
   level: My_Type_Level;
   selectedImgCount: My_Type_ImgCount; 
 }
 
-export type ImgNamesinProps = {/*----------------------------------------------shared props -> img names from db */
+export type ImgNamesinProps = {/*---------------------------------------------shared props from useContext -> img names from db  */
   imgNames: My_Type_Img_Name[];
+  isLoading: boolean;
 }
 
-export type Encrypted = {/*-----------------------------------------------------encrypt-decrypt type of info to initialize the game */
+export type Encrypted = {/*----------------------------------------------------encrypt-decrypt type of info to initialize the game */
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;
   gameId: string;
@@ -73,7 +74,7 @@ export type My_Type_UseReducer_Game_Action =
       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
     };
 
-/*----------------------------------------------------------------------------useReducer GameDivPictures */
+/*------------------------------------------------------------------------------useReducer GameDivPictures */
 export type My_Type_UseReducer_GameDivPictures_State = {
    isLoaded: boolean;
    divImgs: My_Type_DivImg[];
