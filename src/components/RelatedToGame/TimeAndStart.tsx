@@ -3,12 +3,14 @@ import React from 'react';
 import { useEffect } from 'react';
 import { _stylingAfterStart } from '../../_inc/_inc_functions';
 import { MyTimeAndStartProps } from '../../_inc/my_types';
+import { useImgContext } from "../../context/ImgContext";
 
 export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds} :MyTimeAndStartProps) => {
+     const {  isLoading } = useImgContext();
     
     useEffect(() => {
 
-      if (!isRunning) return;
+      if (!isRunning || isLoading ) return;
 
       const startTime = Date.now();
       const interval = setInterval(() => {
@@ -19,7 +21,7 @@ export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds} :
       return () => clearInterval(interval);
     }
 
-    , [isRunning,setSeconds]);
+    , [isRunning,setSeconds, isLoading]);
    
 
     function timer(){/*------------------------------------------------------button start */
