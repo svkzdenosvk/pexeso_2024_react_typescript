@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect/*, useState */} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
@@ -65,7 +65,7 @@ const Game = () =>{
 
  //----------------------------useState
 
- let [seconds, setSeconds] = useState<number>(0);
+//  let [seconds, setSeconds] = useState<number>(0);
 
  /*--------------------------------------------------------------------------------------------------------------------------------------------
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -126,8 +126,8 @@ const Game = () =>{
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart
-                       seconds ={seconds} 
-                       setSeconds ={setSeconds}
+                      //  seconds ={seconds} 
+                      //  setSeconds ={setSeconds}
                        dispatch={dispatch}
                        colorText={state.colorText}
                        isRunning={state.isRunning}
@@ -136,7 +136,7 @@ const Game = () =>{
         
          <div className="column_content" id="content">
             <GameDivPictures 
-                       level={state.level} seconds={seconds} 
+                       level={state.level} /*seconds={seconds} */
                        colorText={state.colorText} dispatch={dispatch}
                        selectedImgCount={ state.imgCount}
                        /> 

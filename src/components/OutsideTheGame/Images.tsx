@@ -12,9 +12,9 @@ const Images = () => {
       <div className="img-content">
         <h1>Hracie obrázky</h1>
         <div className="img-main-content">
-          {isLoading? (//-------------------------------------------------------if loading show H1
+          {(isLoading || imgNames.length===0)? (//-------------------------------------------------------if loading show H1
               <h1>Načítavajú sa obrázky</h1>
-          ) : (//---------------------------------------------------------------if not loading (after successful l.) show
+          ):(//---------------------------------------------------------------if not loading (after successful l.) show
             imgNames.map((oneImgName) => (
               <div className="" key={uuid.v4()}>
                 <Link to={`/about-game/images/${oneImgName}`}>

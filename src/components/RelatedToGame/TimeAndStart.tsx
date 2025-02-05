@@ -5,8 +5,8 @@ import { _stylingAfterStart } from '../../_inc/_inc_functions';
 import { MyTimeAndStartProps } from '../../_inc/my_types';
 import { useImgContext } from "../../context/ImgContext";
 
-export const TimeAndStart = ({seconds,colorText,isRunning,dispatch,setSeconds} :MyTimeAndStartProps) => {
-     const {  isLoading } = useImgContext();
+export const TimeAndStart = ({/*seconds,*/colorText,isRunning,dispatch/*,setSeconds*/} :MyTimeAndStartProps) => {
+     const {  isLoading, seconds, setSeconds } = useImgContext();
     
     useEffect(() => {
 

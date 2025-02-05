@@ -1,14 +1,16 @@
 import React, { createContext, useContext, ReactNode, useEffect, useState } from "react";
 import { fetchOnlyImgNames } from "../_inc/data";
-import { My_Type_Img_Name, ImgNamesinProps } from "../_inc/my_types";
+import { My_Type_Img_Name, UseContextProps } from "../_inc/my_types";
 import { preloadImages  } from '../_inc/data';
 
 
- const ImgContext = createContext<ImgNamesinProps>({ imgNames: [],  isLoading: true });
+ const ImgContext = createContext<UseContextProps>({ imgNames: [],  isLoading: true, seconds:0, setSeconds: () =>{} });
 
 export const ImgProvider =  ({ children }: { children: ReactNode }) => {
   const [imgNames, setImages] = useState<My_Type_Img_Name[]>([]);
   const [isLoading, setLoadingImg] = useState(true);
+  let [seconds, setSeconds] = useState<number>(0);
+  
 
   useEffect(() => {
     const fetchImgNamesFunc = async () => {
@@ -39,7 +41,7 @@ export const ImgProvider =  ({ children }: { children: ReactNode }) => {
       }, [isLoading, imgNames]);
 
   return (
-    <ImgContext.Provider value={{ imgNames, isLoading }}>
+    <ImgContext.Provider value={{ imgNames, isLoading, seconds, setSeconds }}>
       {children}
     </ImgContext.Provider>
   );

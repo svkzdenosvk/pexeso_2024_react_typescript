@@ -107,8 +107,8 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
 }
 
-  export const GameDivPictures = ({dispatch, seconds, colorText, level, selectedImgCount/*,imgNames*/ }:MyGameDivPicturesProps) =>{
-    const { imgNames, isLoading } = useImgContext();
+  export const GameDivPictures = ({dispatch, /*seconds,*/ colorText, level, selectedImgCount/*,imgNames*/ }:MyGameDivPicturesProps) =>{
+    const { imgNames, isLoading, seconds } = useImgContext();
   
     // ---------------------------useReducer
 
