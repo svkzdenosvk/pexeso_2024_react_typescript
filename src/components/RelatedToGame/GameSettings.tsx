@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
-import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
+// import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
 
  import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
+ import { useImgContext } from "../../context/ImgContext";
 
 const uuid = require('uuid')
 
@@ -14,6 +15,9 @@ const GameSettings = () => {
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
+
+  const { simpleCrypto } = useImgContext();
+  
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
@@ -53,8 +57,8 @@ const GameSettings = () => {
       setError(""); //-----------------------------------------------------------------reset error message
     }
   
-     const secretKey = "encryption-key-for-settings"; //-------------------------------shared key on both sides ->to give it in the useContext!!!!
-     const simpleCrypto = new SimpleCrypto(secretKey);
+    //  const secretKey = "encryption-key-for-settings"; //-------------------------------shared key on both sides ->to give it in the useContext!!!!
+    //  const simpleCrypto = new SimpleCrypto(secretKey);
   
   const chosenSettings: Encrypted = {
     level: levelChosen,

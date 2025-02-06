@@ -2,12 +2,14 @@ import React from 'react';
 
 import { useReducer, useEffect/*, useState */} from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
+// import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
+
+import { useImgContext } from "../../context/ImgContext";
 
  const reducer = (state: My_Type_UseReducer_Game_State, action: My_Type_UseReducer_Game_Action) => {
 
@@ -56,6 +58,7 @@ const defaultState: My_Type_UseReducer_Game_State  = {
 }
 
 const Game = () =>{
+  const { simpleCrypto } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -63,10 +66,7 @@ const Game = () =>{
   React.Reducer<My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action>
 >(reducer, defaultState);
 
- //----------------------------useState
-
-//  let [seconds, setSeconds] = useState<number>(0);
-
+ 
  /*--------------------------------------------------------------------------------------------------------------------------------------------
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
  
@@ -77,8 +77,8 @@ const Game = () =>{
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
 
-   const secretKey = "encryption-key-for-settings"; // same key as on settings page 
-   const simpleCrypto = new SimpleCrypto(secretKey);
+  //  const secretKey = "encryption-key-for-settings"; // same key as on settings page 
+  //  const simpleCrypto = new SimpleCrypto(secretKey);
 
     try {
       // decrypting of data
@@ -115,7 +115,7 @@ const Game = () =>{
     // window.location.reload();
    
   }
-}, [ settingsData, dispatch, navigate, state.colorBG]); 
+}, [ settingsData, dispatch, navigate, state.colorBG, simpleCrypto]); 
 
   return (
     <>

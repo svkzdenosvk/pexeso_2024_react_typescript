@@ -45,6 +45,9 @@ export type UseContextProps = {/*---------------------------------------------sh
   isLoading: boolean;
   seconds: number;
   setSeconds:  React.Dispatch<React.SetStateAction<number>>;
+  // simpleCrypto: Record<string, unknown>;
+  simpleCrypto: Record<string, any>;
+
 }
 
 export type Encrypted = {/*----------------------------------------------------encrypt-decrypt type of info to initialize the game */
