@@ -13,8 +13,8 @@ export const ImgProvider =  ({ children }: { children: ReactNode }) => {
   const [isLoading, setLoadingImg] = useState(true);
   let [seconds, setSeconds] = useState<number>(0);
   
-   const secretKey = "encryption-key-for-settings"; //-------------------------------shared key on both sides ->to give it in the useContext!!!!
-   const simpleCrypto = new SimpleCrypto(secretKey);
+   const secretKey = "encryption-key-for-settings"; //----------------------------shared key on both sides ->to give it in the useContext
+   const simpleCrypto = new SimpleCrypto(secretKey);//----------------------------shared SimpleCrypto object
 
   useEffect(() => {
     const fetchImgNamesFunc = async () => {

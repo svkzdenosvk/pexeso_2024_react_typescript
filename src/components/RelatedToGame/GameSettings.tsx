@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
-// import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
 
  import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
@@ -56,18 +55,14 @@ const GameSettings = () => {
     }else{ 
       setError(""); //-----------------------------------------------------------------reset error message
     }
-  
-    //  const secretKey = "encryption-key-for-settings"; //-------------------------------shared key on both sides ->to give it in the useContext!!!!
-    //  const simpleCrypto = new SimpleCrypto(secretKey);
-  
+    
   const chosenSettings: Encrypted = {
     level: levelChosen,
     imgCount: imgCountChosen,
     gameId: gameNumber
   };
    
-    const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
-  //const encryptedSettings = JSON.stringify(chosenSettings);//--encrypt data
+  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
 
   window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;
   };

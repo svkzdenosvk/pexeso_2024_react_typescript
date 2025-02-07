@@ -107,8 +107,8 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
 }
 
-  export const GameDivPictures = ({dispatch, /*seconds,*/ colorText, level, selectedImgCount/*,imgNames*/ }:MyGameDivPicturesProps) =>{
-    const { imgNames, isLoading, seconds } = useImgContext();
+  export const GameDivPictures = ({dispatch, colorText, level, selectedImgCount }:MyGameDivPicturesProps) =>{
+    const { imgNames, isLoading, seconds } = useImgContext();//---------------- useContext values
   
     // ---------------------------useReducer
 
@@ -165,11 +165,8 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
       }else return
   }, [seconds, dispatch, colorText, stateImg.isEnd ]); //---------------------------adding dependencies
 
-  // ---------------------------
-  // ---------------------------fn´s to show div>imgs
-  // ---------------------------
 
-  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){
+  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // -----------fn to show div>img
 
     let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
@@ -223,7 +220,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
     
   }, [stateImg.divImgs,checkEnd,level])
 
-  useEffect(() => {  
+  useEffect(() => {  //--------------------------------------------------------------check end useEffect
     checkEnd()
   }, [checkEnd,stateImg.isEnd])
 

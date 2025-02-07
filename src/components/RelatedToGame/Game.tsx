@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useReducer, useEffect/*, useState */} from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import SimpleCrypto from "simple-crypto-js"; //------------------------this provide crypting and decrypting params in URL
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
@@ -77,13 +76,9 @@ const Game = () =>{
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
 
-  //  const secretKey = "encryption-key-for-settings"; // same key as on settings page 
-  //  const simpleCrypto = new SimpleCrypto(secretKey);
-
     try {
       // decrypting of data
        let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
-       //let decryptedSettings: Encrypted = JSON.parse(decodeURIComponent(settingsData));
 
       if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])||
              !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
@@ -126,8 +121,6 @@ const Game = () =>{
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart
-                      //  seconds ={seconds} 
-                      //  setSeconds ={setSeconds}
                        dispatch={dispatch}
                        colorText={state.colorText}
                        isRunning={state.isRunning}
@@ -136,9 +129,8 @@ const Game = () =>{
         
          <div className="column_content" id="content">
             <GameDivPictures 
-                       level={state.level} /*seconds={seconds} */
-                       colorText={state.colorText} dispatch={dispatch}
-                       selectedImgCount={ state.imgCount}
+                       level={state.level} colorText={state.colorText}
+                       dispatch={dispatch} selectedImgCount={ state.imgCount}
                        /> 
          </div>
 

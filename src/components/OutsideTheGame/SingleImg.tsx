@@ -31,7 +31,7 @@ return (
   <div className="single-img-content">
       <h1>{imgNameH1.charAt(0).toUpperCase()+ imgNameH1.slice(1)}</h1>
       <div className="single-img-main-content">
-      {errorImgName ? (//-------------------------------------------------------if loading show
+      {errorImgName ? (//-------------------------------------------------------if name of img not exists in db
           <div >
             <h1>Error, tento obrázok neexistuje</h1>  
             <Link to="/about-game/images">Klikni sem a poď na stránku obrázkov</Link>

@@ -1,7 +1,6 @@
 // import { Dispatch, SetStateAction } from 'react';
 
 type _inc_Type ={
-    /*seconds: number;*/
     dispatch: React.Dispatch<My_Type_UseReducer_Game_Action>;
     colorText: My_Type_Color_Text;
 
@@ -32,7 +31,6 @@ export type My_Type_DivImg = My_Type_Image & {/*------------------------------di
   
 export type MyTimeAndStartProps = _inc_Type & {/*-----------------------------type of props of TimeAndStart component */
     isRunning: boolean;
-   /* setSeconds: Dispatch<SetStateAction<number>>;*/
 }
 
 export type MyGameDivPicturesProps= _inc_Type &{/*----------------------------type of props of GameDivPictures component */
@@ -45,7 +43,6 @@ export type UseContextProps = {/*---------------------------------------------sh
   isLoading: boolean;
   seconds: number;
   setSeconds:  React.Dispatch<React.SetStateAction<number>>;
-  // simpleCrypto: Record<string, unknown>;
   simpleCrypto: Record<string, any>;
 
 }
