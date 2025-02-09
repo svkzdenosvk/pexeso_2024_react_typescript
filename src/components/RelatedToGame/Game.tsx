@@ -86,10 +86,10 @@ const Game = () =>{
             
            navigate('/settings'); 
            
-           if(["medium", "hard"].includes(decryptedSettings.level)){
-             window.location.reload(); //--------------------------------reset color changes (background, ..) 
-           }
-      }    
+          //  if(["medium", "hard"].includes(decryptedSettings.level)){
+          //    window.location.reload(); //--------------------------------reset color changes (background, ..) 
+          //  }
+      }else{   
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
                     payload:{
@@ -98,7 +98,7 @@ const Game = () =>{
                             } })
 
           document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
-
+      } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
       navigate('/settings'); 
