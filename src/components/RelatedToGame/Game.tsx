@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { useReducer, useEffect/*, useState */} from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
+import { useReducer, useEffect} from "react";
+import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { GameDivPictures } from "./GameDivPictures"
@@ -57,7 +56,7 @@ const defaultState: My_Type_UseReducer_Game_State  = {
 }
 
 const Game = () =>{
-  const { simpleCrypto } = useImgContext();
+  const { settings } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -68,56 +67,47 @@ const Game = () =>{
  
  /*--------------------------------------------------------------------------------------------------------------------------------------------
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
- 
- let settingsData=useParams().settings
- const navigate = useNavigate();
-
 
  useEffect(() => {
-  if (settingsData) { // -----------------------------------------------if params were sent
+  if (settings) { // -----------------------------------------------if settings from useReducer were sent
 
     try {
-      // decrypting of data
-       let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
 
-      if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])||
-             !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
+      if (!my_Type_Guard_function(settings.level,["easy", "medium", "hard"])||
+             !my_Type_Guard_function_number(settings.imgCount,[5, 6, 7, 8]))
           {  
             
-           navigate('/settings'); 
-           
-          //  if(["medium", "hard"].includes(decryptedSettings.level)){
-          //    window.location.reload(); //--------------------------------reset color changes (background, ..) 
-          //  }
+           window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
+         
       }else{   
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
                     payload:{
-                              level: decryptedSettings.level as My_Type_Level,
-                              imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
+                              level: settings.level as My_Type_Level,
+                              imgCount: settings.imgCount as My_Type_ImgCount,
                             } })
 
           document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
       } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
-      navigate('/settings'); 
+
+      window.location.href = `/settings`/*----------------------------redirect and reload to reset useContext */
 
     }
   }else{
     
-    navigate('/settings'); 
-    // window.location.reload();
+    window.location.href = `/settings`/*------------------------------redirect and reload to reset useContext */
    
   }
-}, [ settingsData, dispatch, navigate, state.colorBG, simpleCrypto]); 
+}, [ dispatch, state.colorBG, settings]); 
 
   return (
     <>
          <div className="welcome">
          
-            <a href="/settings" className="end-game-btn" > {state.linkName} </a>
-                      
+            <a href="/settings" className="end-game-btn" > {state.linkName} </a>  {/* this way not with Link, because of reloading and reset settings*/}
+           
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart

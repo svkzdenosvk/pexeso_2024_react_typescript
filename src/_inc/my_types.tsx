@@ -43,11 +43,11 @@ export type UseContextProps = {/*---------------------------------------------sh
   isLoading: boolean;
   seconds: number;
   setSeconds:  React.Dispatch<React.SetStateAction<number>>;
-  simpleCrypto: Record<string, any>;
-
+  settings: My_Type_Game_Settings;
+  setSettings:  React.Dispatch<React.SetStateAction<My_Type_Game_Settings>>;
 }
 
-export type Encrypted = {/*----------------------------------------------------encrypt-decrypt type of info to initialize the game */
+export type My_Type_Game_Settings = {/*----------------------------------------------------type of settings to initialize the game */
   level: My_Type_Level;
   imgCount: My_Type_ImgCount;
   gameId: string;

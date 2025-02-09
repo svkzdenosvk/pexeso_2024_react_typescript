@@ -24,7 +24,7 @@ const App = () => {
   <ImgProvider>
     <BrowserRouter>
         <Routes>
-             <Route path="/game/:settings?" element={<Game/>}/>
+             <Route path="/game" element={<Game/>}/>
 
              <Route path="/" element={<SharedLayout/>}>
                 <Route index element={<Home/>}/>

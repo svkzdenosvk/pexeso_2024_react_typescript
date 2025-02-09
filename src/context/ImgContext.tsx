@@ -1,21 +1,18 @@
 import React, { createContext, useContext, ReactNode, useEffect, useState } from "react";
 import { fetchOnlyImgNames } from "../_inc/data";
-import { My_Type_Img_Name, UseContextProps } from "../_inc/my_types";
+import { My_Type_Img_Name, UseContextProps, My_Type_Game_Settings } from "../_inc/my_types";
 import { preloadImages  } from '../_inc/data';
 
-import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
 
-
- const ImgContext = createContext<UseContextProps>({ imgNames: [],  isLoading: true, seconds:0, setSeconds: () =>{}, simpleCrypto: {} });
+ const ImgContext = createContext<UseContextProps>({ imgNames: [],  isLoading: true, seconds:0, setSeconds: () =>{}, settings: {} as My_Type_Game_Settings, setSettings: () =>{} });
 
 export const ImgProvider =  ({ children }: { children: ReactNode }) => {
   const [imgNames, setImages] = useState<My_Type_Img_Name[]>([]);
   const [isLoading, setLoadingImg] = useState(true);
   let [seconds, setSeconds] = useState<number>(0);
-  
-   const secretKey = "encryption-key-for-settings"; //----------------------------shared key on both sides ->to give it in the useContext
-   const simpleCrypto = new SimpleCrypto(secretKey);//----------------------------shared SimpleCrypto object
+  let [settings, setSettings] = useState<My_Type_Game_Settings>({} as My_Type_Game_Settings);
 
+  
   useEffect(() => {
     const fetchImgNamesFunc = async () => {
       try {
@@ -45,7 +42,7 @@ export const ImgProvider =  ({ children }: { children: ReactNode }) => {
       }, [isLoading, imgNames]);
 
   return (
-    <ImgContext.Provider value={{ imgNames, isLoading, seconds, setSeconds, simpleCrypto }}>
+    <ImgContext.Provider value={{ imgNames, isLoading, seconds, setSeconds, settings, setSettings }}>
       {children}
     </ImgContext.Provider>
   );
@@ -58,3 +55,5 @@ export const useImgContext = () => {
   }
   return context;
 };
+
+

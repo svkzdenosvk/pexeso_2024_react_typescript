@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
 
- import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
+import {  useNavigate } from "react-router-dom";
+
+ import { My_Type_Game_Settings, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
  import { useImgContext } from "../../context/ImgContext";
 
@@ -15,8 +17,9 @@ const GameSettings = () => {
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
 
-  const { simpleCrypto } = useImgContext();
-  
+  const navigate = useNavigate();
+
+  const { setSettings } = useImgContext();
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
@@ -53,26 +56,29 @@ const GameSettings = () => {
       setError("Nastav počet obrázkov, s ktorými chceš hrať.")
       return
     }else{ 
-      setError(""); //-----------------------------------------------------------------reset error message
+      setError(""); //----------------------------------------------------------------reset error message
     }
     
-  const chosenSettings: Encrypted = {
+  const chosenSettings: My_Type_Game_Settings = {
     level: levelChosen,
     imgCount: imgCountChosen,
     gameId: gameNumber
   };
    
-  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  setSettings(chosenSettings)
 
-  window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;
+  navigate('/game'); /*---------------------------------------------------------------navigate to save data in useContext*/
+
+
   };
 
   return (
+    
     <form onSubmit={handleSubmit}>
       <h2>Nastavte parametre hry</h2>
 
       <fieldset>
-        <legend>Vyberte úroveň obtiažnosti:</legend>{/* ---------------------------------choose level */}
+        <legend>Vyberte úroveň obtiažnosti:</legend>{/* -------------------------------choose level */}
         {levels.map((level, index) => (
           <label key={index}>
             <input
@@ -87,7 +93,7 @@ const GameSettings = () => {
       </fieldset>
 
       <fieldset>
-        <legend>Vyberte počet obrázkov:</legend>{/* --------------------------------------choose count of images to play*/}
+        <legend>Vyberte počet obrázkov:</legend>{/* ------------------------------------choose count of images to play*/}
         {imgCount_values.map((value, index) => (
           <label key={index}>
             <input
@@ -96,7 +102,7 @@ const GameSettings = () => {
               value={value}
               onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
             />
-            {value * 2} {/* --------------------------------------------------------------pair is 5 * 2 = 10) */}
+            {value * 2} {/* ------------------------------------------------------------pair is 5 * 2 = 10) */}
           </label>
         ))}
       </fieldset>
@@ -116,10 +122,11 @@ const GameSettings = () => {
         ))}
       </fieldset> */}
 
-      {error && <p>{error}</p>} {/* -------------------------------------------------------error message */} 
+      {error && <p>{error}</p> /*-----------------------------------------------------error message */}
 
       <button type="submit">Hraj</button>
     </form>
+
   );
 };
 
