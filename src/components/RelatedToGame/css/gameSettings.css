@@ -1,3 +1,7 @@
+form{
+  min-width: 350px;/*----------------------------------prevent to change width by error message*/
+}
+
 form fieldset{
     border-radius:25px;
 }

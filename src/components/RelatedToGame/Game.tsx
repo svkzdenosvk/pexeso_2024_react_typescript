@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useReducer, useEffect/*, useState */} from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useReducer, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
@@ -70,8 +70,6 @@ const Game = () =>{
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
  
  let settingsData=useParams().settings
- const navigate = useNavigate();
-
 
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
@@ -84,11 +82,8 @@ const Game = () =>{
              !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
           {  
             
-           navigate('/settings'); 
-           
-          //  if(["medium", "hard"].includes(decryptedSettings.level)){
-          //    window.location.reload(); //--------------------------------reset color changes (background, ..) 
-          //  }
+            window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
+
       }else{   
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
@@ -101,16 +96,15 @@ const Game = () =>{
       } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
-      navigate('/settings'); 
+      window.location.href = `/settings`/*----------------------------redirect and reload to reset useContext */
 
     }
   }else{
     
-    navigate('/settings'); 
-    // window.location.reload();
+      window.location.href = `/settings`/*------------------------------redirect and reload to reset useContext */
    
   }
-}, [ settingsData, dispatch, navigate, state.colorBG, simpleCrypto]); 
+}, [ settingsData, dispatch, state.colorBG, simpleCrypto]); 
 
   return (
     <>

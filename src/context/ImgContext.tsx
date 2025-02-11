@@ -1,7 +1,6 @@
 import React, { createContext, useContext, ReactNode, useEffect, useState } from "react";
-import { fetchOnlyImgNames } from "../_inc/data";
 import { My_Type_Img_Name, UseContextProps } from "../_inc/my_types";
-import { preloadImages  } from '../_inc/data';
+import { preloadImages, fetchOnlyImgNames  } from '../_inc/data';
 
 import SimpleCrypto from "simple-crypto-js"; //-------------------------------------this provide crypting and decrypting params in URL
 

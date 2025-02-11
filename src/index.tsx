@@ -9,12 +9,9 @@ const container = document.getElementById('result')
 const loadingElement:HTMLElement | null  = document.getElementById('loading')
 
 if (loadingElement !== null) {
-  loadingElement.remove() //after loading delete temporary message
+  loadingElement.remove() //after loading delete temporary message -> shorter version document.getElementById('loading')?.remove();
 }
 
-//document.getElementById('loading')?.remove();
-
-// const root = createRoot(container);
 if (container) {
   const root = createRoot(container); 
   root.render(<App />);

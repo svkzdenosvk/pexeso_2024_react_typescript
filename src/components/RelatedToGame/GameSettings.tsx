@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import './css/gameSettings.css';
 
+import {  useNavigate } from "react-router-dom";
+
  import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
  import { useImgContext } from "../../context/ImgContext";
@@ -14,6 +16,7 @@ const GameSettings = () => {
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
+  const navigate = useNavigate();
 
   const { simpleCrypto } = useImgContext();
   
@@ -62,9 +65,10 @@ const GameSettings = () => {
     gameId: gameNumber
   };
    
-  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//--encrypt data
+  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//----encrypt data
 
-  window.location.href = `/game/${encodeURIComponent(encryptedSettings)}`;
+  navigate(`/game/${encodeURIComponent(encryptedSettings)}`); /*-----------------------navigate to not refreshing/reload page*/
+
   };
 
   return (
