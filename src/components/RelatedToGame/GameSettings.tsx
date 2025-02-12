@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef  } from "react";
 import './css/gameSettings.css';
 
 import {  useNavigate } from "react-router-dom";
@@ -17,9 +17,12 @@ const GameSettings = () => {
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const { simpleCrypto } = useImgContext();
+  const { simpleCrypto, setbgColor, setSeconds  } = useImgContext();
   
+  setbgColor("white")
+  setSeconds(0)
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
@@ -67,12 +70,14 @@ const GameSettings = () => {
    
   const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//----encrypt data
 
+  formRef.current?.reset();
+
   navigate(`/game/${encodeURIComponent(encryptedSettings)}`); /*-----------------------navigate to not refreshing/reload page*/
 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <h2>Nastavte parametre hry</h2>
 
       <fieldset>

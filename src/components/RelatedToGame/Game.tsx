@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useReducer, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link  } from "react-router-dom";
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount,Encrypted, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
@@ -39,9 +39,17 @@ import { useImgContext } from "../../context/ImgContext";
         ...state,
         level:action.payload.level,
         colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
-        colorBG:levelChanges[action.payload.level][1] as My_Type_Color_Background,
+        // colorBG:levelChanges[action.payload.level][1] as My_Type_Color_Background,
         imgCount:action.payload.imgCount,
       }
+
+    // case 'SET_BGCOLOR_GAME':
+
+    //   return { 
+    //     ...state,
+    //     colorBG: action.payload,
+    //   } 
+      
     default:
       return state;
   }
@@ -52,12 +60,12 @@ const defaultState: My_Type_UseReducer_Game_State  = {
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
   colorText:"black", 
-  colorBG:"white",
+  // colorBG:"white",
   imgCount:0 as My_Type_ImgCount
 }
 
 const Game = () =>{
-  const { simpleCrypto } = useImgContext();
+  const { simpleCrypto, setbgColor, setSeconds } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -70,7 +78,8 @@ const Game = () =>{
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
  
  let settingsData=useParams().settings
-
+   const navigate = useNavigate();
+ 
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
 
@@ -82,7 +91,8 @@ const Game = () =>{
              !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
           {  
             
-            window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
+            // window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
+            navigate('/settings')
 
       }else{   
 
@@ -92,25 +102,58 @@ const Game = () =>{
                               imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
                             } })
 
-          document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
+          const levelBgColor = {/*--------------------------------------------using dynamic object properties*/
+               easy:  "white" as My_Type_Color_Background,
+               medium: "#4d141d" as My_Type_Color_Background,
+               hard:  "black" as My_Type_Color_Background
+            }
+
+            setbgColor(levelBgColor[state.level])
+          // document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
       } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
-      window.location.href = `/settings`/*----------------------------redirect and reload to reset useContext */
+      window.location.href = `/settings`/*----------------------------redirect and reload  */
 
     }
   }else{
     
-      window.location.href = `/settings`/*------------------------------redirect and reload to reset useContext */
-   
+      window.location.href = `/settings`/*------------------------------redirect and reload  */
+      //navigate('/settings')
+
   }
-}, [ settingsData, dispatch, state.colorBG, simpleCrypto]); 
+}, [ settingsData, dispatch/*, state.colorBG*/, simpleCrypto, navigate, setbgColor, state.level ]); 
+
+//  useEffect(() => {  //--------------------------------------------------------------check end useEffect
+//     document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
+      
+//   }, [bgColor])
+
+ function backClick(){
+      setbgColor("white")
+      document.getElementById("result")?.setAttribute("style", "justify-content: start;");//maybe i will give it to gameSettings
+      // document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: white');
+
+      setSeconds(0)
+ }
+
 
   return (
     <>
          <div className="welcome">
          
-            <a href="/settings" className="end-game-btn" > {state.linkName} </a>
+            {/* <a onClick={()=> dispatch({type: "SET_BGCOLOR_GAME",payload:"white" }) } 
+               href="/settings" className="end-game-btn" > {state.linkName} </a> */}
+
+            <Link
+               onClick={() => backClick()}
+               to="/settings"
+
+               className="end-game-btn"
+            >
+               {state.linkName}
+            </Link>
+            
                       
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
