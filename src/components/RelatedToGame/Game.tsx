@@ -30,25 +30,17 @@ import { useImgContext } from "../../context/ImgContext";
     case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
         
     const levelChanges = {/*--------------------------------------------using dynamic object properties*/
-      easy:  ["black","white"],
-      medium:["white", "#4d141d"],
-      hard:  ["white","black"]
+      easy:  "black",
+      medium:"white",
+      hard:  "white"
     }
 
       return {
         ...state,
         level:action.payload.level,
-        colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
-        // colorBG:levelChanges[action.payload.level][1] as My_Type_Color_Background,
+        colorText:levelChanges[action.payload.level] as My_Type_Color_Text,
         imgCount:action.payload.imgCount,
       }
-
-    // case 'SET_BGCOLOR_GAME':
-
-    //   return { 
-    //     ...state,
-    //     colorBG: action.payload,
-    //   } 
       
     default:
       return state;
@@ -60,12 +52,11 @@ const defaultState: My_Type_UseReducer_Game_State  = {
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
   colorText:"black", 
-  // colorBG:"white",
   imgCount:0 as My_Type_ImgCount
 }
 
 const Game = () =>{
-  const { simpleCrypto, setbgColor, setSeconds } = useImgContext();
+  const { simpleCrypto, setbgColor} = useImgContext();
 
  // ---------------------------useReducer
 
@@ -79,6 +70,11 @@ const Game = () =>{
  
  let settingsData=useParams().settings
    const navigate = useNavigate();
+
+   useEffect(() =>{
+      document.getElementById("result")?.setAttribute("style", "justify-content: start;");//temporary solution -> reset just.-cont.:center after endgame
+   
+   },[])
  
  useEffect(() => {
   if (settingsData) { // -----------------------------------------------if params were sent
@@ -102,59 +98,35 @@ const Game = () =>{
                               imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
                             } })
 
-          const levelBgColor = {/*--------------------------------------------using dynamic object properties*/
+          const levelBgColor = {/*---------------------------------------using dynamic object properties*/
                easy:  "white" as My_Type_Color_Background,
                medium: "#4d141d" as My_Type_Color_Background,
                hard:  "black" as My_Type_Color_Background
             }
 
             setbgColor(levelBgColor[state.level])
-          // document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
       } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
-      window.location.href = `/settings`/*----------------------------redirect and reload  */
+      window.location.href = `/settings`/*-------------------------------redirect and reload  */
+     // navigate('/settings')
 
     }
   }else{
     
-      window.location.href = `/settings`/*------------------------------redirect and reload  */
+      window.location.href = `/settings`/*-------------------------------redirect and reload  */
       //navigate('/settings')
 
   }
-}, [ settingsData, dispatch/*, state.colorBG*/, simpleCrypto, navigate, setbgColor, state.level ]); 
-
-//  useEffect(() => {  //--------------------------------------------------------------check end useEffect
-//     document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
-      
-//   }, [bgColor])
-
- function backClick(){
-      setbgColor("white")
-      document.getElementById("result")?.setAttribute("style", "justify-content: start;");//maybe i will give it to gameSettings
-      // document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: white');
-
-      setSeconds(0)
- }
+}, [ settingsData, dispatch, simpleCrypto, navigate, setbgColor, state.level ]); 
 
 
   return (
     <>
          <div className="welcome">
-         
-            {/* <a onClick={()=> dispatch({type: "SET_BGCOLOR_GAME",payload:"white" }) } 
-               href="/settings" className="end-game-btn" > {state.linkName} </a> */}
-
-            <Link
-               onClick={() => backClick()}
-               to="/settings"
-
-               className="end-game-btn"
-            >
-               {state.linkName}
-            </Link>
+                
+            <Link to="/settings" className="end-game-btn"> {state.linkName} </Link>
             
-                      
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart
