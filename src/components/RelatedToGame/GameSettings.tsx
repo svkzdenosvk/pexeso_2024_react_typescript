@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import './css/gameSettings.css';
 
 import {  useNavigate } from "react-router-dom";
@@ -16,10 +16,14 @@ const GameSettings = () => {
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
-
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const { setSettings } = useImgContext();
+
+  const { setSettings, setbgColor, setSeconds } = useImgContext();
+
+  setbgColor("white")
+  setSeconds(0)
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
@@ -67,14 +71,15 @@ const GameSettings = () => {
    
   setSettings(chosenSettings)
 
-  navigate('/game'); /*---------------------------------------------------------------navigate to save data in useContext*/
+  formRef.current?.reset();
 
+  navigate('/game'); /*---------------------------------------------------------------navigate to save data in useContext*/
 
   };
 
   return (
     
-    <form onSubmit={handleSubmit}>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <h2>Nastavte parametre hry</h2>
 
       <fieldset>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useReducer, useEffect} from "react";
+import {  useNavigate, Link  } from "react-router-dom";
 import { My_Type_Level, My_Type_Color_Text, My_Type_Color_Background, My_Type_ImgCount, My_Type_UseReducer_Game_State, My_Type_UseReducer_Game_Action } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
@@ -29,16 +30,15 @@ import { useImgContext } from "../../context/ImgContext";
     case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
         
     const levelChanges = {/*--------------------------------------------using dynamic object properties*/
-      easy:  ["black","white"],
-      medium:["white", "#4d141d"],
-      hard:  ["white","black"]
+      easy:  "black",
+      medium:"white", 
+      hard:  "white"
     }
 
       return {
         ...state,
         level:action.payload.level,
-        colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
-        colorBG:levelChanges[action.payload.level][1] as My_Type_Color_Background,
+        colorText:levelChanges[action.payload.level] as My_Type_Color_Text,
         imgCount:action.payload.imgCount,
       }
     default:
@@ -51,12 +51,11 @@ const defaultState: My_Type_UseReducer_Game_State  = {
   isRunning:false,
   linkName:"Späť na nastavenia hry.",
   colorText:"black", 
-  colorBG:"white",
   imgCount:0 as My_Type_ImgCount
 }
 
 const Game = () =>{
-  const { settings } = useImgContext();
+  const { settings, setbgColor } = useImgContext();
 
  // ---------------------------useReducer
 
@@ -67,6 +66,12 @@ const Game = () =>{
  
  /*--------------------------------------------------------------------------------------------------------------------------------------------
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
+ const navigate = useNavigate();
+ 
+ useEffect(() =>{
+  document.getElementById("result")?.setAttribute("style", "justify-content: start;");//temporary solution -> reset just.-cont.:center after endgame
+
+ },[])
 
  useEffect(() => {
   if (settings) { // -----------------------------------------------if settings from useReducer were sent
@@ -77,8 +82,9 @@ const Game = () =>{
              !my_Type_Guard_function_number(settings.imgCount,[5, 6, 7, 8]))
           {  
             
-           window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
-         
+          //  window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
+           navigate('/settings')
+
       }else{   
 
           dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
@@ -86,8 +92,15 @@ const Game = () =>{
                               level: settings.level as My_Type_Level,
                               imgCount: settings.imgCount as My_Type_ImgCount,
                             } })
+                  
+            const levelBgColor = {/*---------------------------------------using dynamic object properties*/
+               easy:  "white" as My_Type_Color_Background,
+               medium: "#4d141d" as My_Type_Color_Background,
+               hard:  "black" as My_Type_Color_Background
+            }
 
-          document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ state.colorBG);
+            setbgColor(levelBgColor[state.level])
+
       } 
     } catch (error) {
       console.error("Dešifrovanie zlyhalo:", error);
@@ -100,14 +113,14 @@ const Game = () =>{
     window.location.href = `/settings`/*------------------------------redirect and reload to reset useContext */
    
   }
-}, [ dispatch, state.colorBG, settings]); 
+}, [ dispatch, navigate, settings, setbgColor, state.level]); 
 
   return (
     <>
          <div className="welcome">
          
-            <a href="/settings" className="end-game-btn" > {state.linkName} </a>  {/* this way not with Link, because of reloading and reset settings*/}
-           
+            <Link to="/settings" className="end-game-btn"> {state.linkName} </Link>
+
             <h3 style={{color: state.colorText}}> Pre začatie hry slačte tlačítko štart  </h3> 
 
             <TimeAndStart

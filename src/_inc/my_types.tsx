@@ -45,6 +45,8 @@ export type UseContextProps = {/*---------------------------------------------sh
   setSeconds:  React.Dispatch<React.SetStateAction<number>>;
   settings: My_Type_Game_Settings;
   setSettings:  React.Dispatch<React.SetStateAction<My_Type_Game_Settings>>;
+  bgColor:My_Type_Color_Background;
+  setbgColor:React.Dispatch<React.SetStateAction<My_Type_Color_Background>>;
 }
 
 export type My_Type_Game_Settings = {/*----------------------------------------------------type of settings to initialize the game */
@@ -64,7 +66,7 @@ export type My_Type_UseReducer_Game_State = {
   isRunning: boolean;
   linkName: string;
   colorText : My_Type_Color_Text;
-  colorBG: string; 
+  // colorBG: My_Type_Color_Background; 
   imgCount: My_Type_ImgCount;
 }
 

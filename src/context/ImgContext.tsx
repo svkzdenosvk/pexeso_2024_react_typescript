@@ -1,16 +1,19 @@
 import React, { createContext, useContext, ReactNode, useEffect, useState } from "react";
-import { fetchOnlyImgNames } from "../_inc/data";
-import { My_Type_Img_Name, UseContextProps, My_Type_Game_Settings } from "../_inc/my_types";
-import { preloadImages  } from '../_inc/data';
+import { fetchOnlyImgNames, preloadImages } from "../_inc/data";
+import { My_Type_Img_Name, UseContextProps, My_Type_Game_Settings, My_Type_Color_Background } from "../_inc/my_types";
 
 
- const ImgContext = createContext<UseContextProps>({ imgNames: [],  isLoading: true, seconds:0, setSeconds: () =>{}, settings: {} as My_Type_Game_Settings, setSettings: () =>{} });
+ const ImgContext = createContext<UseContextProps>({
+   imgNames: [],  isLoading: true, seconds:0, setSeconds: () =>{},
+   settings: {} as My_Type_Game_Settings, setSettings: () =>{},
+   bgColor:"white", setbgColor:() =>{} });
 
 export const ImgProvider =  ({ children }: { children: ReactNode }) => {
   const [imgNames, setImages] = useState<My_Type_Img_Name[]>([]);
   const [isLoading, setLoadingImg] = useState(true);
   let [seconds, setSeconds] = useState<number>(0);
   let [settings, setSettings] = useState<My_Type_Game_Settings>({} as My_Type_Game_Settings);
+  const [bgColor, setbgColor] = useState<My_Type_Color_Background>("white");
 
   
   useEffect(() => {
@@ -41,8 +44,13 @@ export const ImgProvider =  ({ children }: { children: ReactNode }) => {
           });
       }, [isLoading, imgNames]);
 
+      useEffect(() => {  //--------------------------------------------------------------check end useEffect
+        document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
+          
+      }, [bgColor])
+
   return (
-    <ImgContext.Provider value={{ imgNames, isLoading, seconds, setSeconds, settings, setSettings }}>
+    <ImgContext.Provider value={{ imgNames, isLoading, seconds, setSeconds, settings, setSettings, bgColor, setbgColor }}>
       {children}
     </ImgContext.Provider>
   );
