@@ -76,11 +76,6 @@ export type My_Type_UseReducer_Game_Action =
   | {
       type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
-    }
-  |  
-    {
-      type:'SET_BGCOLOR_GAME';
-      payload: My_Type_Color_Background
     };
 
 /*------------------------------------------------------------------------------useReducer GameDivPictures */
