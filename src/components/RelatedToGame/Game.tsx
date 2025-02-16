@@ -77,48 +77,45 @@ const Game = () =>{
    },[])
  
  useEffect(() => {
-  if (settingsData) { // -----------------------------------------------if params were sent
+
+    if (!settingsData) {//---------------------------------------------------------------when misssing parameters
+      navigate("/settings"); 
+      return;
+    }
+    
+    // decrypting of data
+    let decryptedSettings: Encrypted
 
     try {
-      // decrypting of data
-       let decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
-
-      if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])||
-             !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8]))
-          {  
-            
-            // window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
-            navigate('/settings')
-
-      }else{   
-
-          dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
-                    payload:{
-                              level: decryptedSettings.level as My_Type_Level,
-                              imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
-                            } })
-
-          const levelBgColor = {/*---------------------------------------using dynamic object properties*/
-               easy:  "white" as My_Type_Color_Background,
-               medium: "#4d141d" as My_Type_Color_Background,
-               hard:  "black" as My_Type_Color_Background
-            }
-
-            setbgColor(levelBgColor[state.level])
-      } 
+      decryptedSettings = simpleCrypto.decrypt(decodeURIComponent(settingsData)) as Encrypted;
     } catch (error) {
-      console.error("Dešifrovanie zlyhalo:", error);
-      window.location.href = `/settings`/*-------------------------------redirect and reload  */
-     // navigate('/settings')
-
+      console.error("❌ Chyba pri dešifrovaní:", error);
+      navigate("/settings"); // ---------------------------------------------------------error during en-decrypting -> redirect
+      return;
     }
-  }else{
-    
-      window.location.href = `/settings`/*-------------------------------redirect and reload  */
-      //navigate('/settings')
 
-  }
-}, [ settingsData, dispatch, simpleCrypto, navigate, setbgColor, state.level ]); 
+    if (!my_Type_Guard_function(decryptedSettings.level,["easy", "medium", "hard"])|| //-when not valid data
+        !my_Type_Guard_function_number(decryptedSettings.imgCount,[5, 6, 7, 8])) {  
+
+        navigate("/settings"); 
+        return;
+    } 
+
+    dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
+              payload:{
+                        level: decryptedSettings.level as My_Type_Level,
+                        imgCount: decryptedSettings.imgCount as My_Type_ImgCount,
+                      } })
+
+    const levelBgColor = {/*-------------------------------------------------------------using dynamic object properties*/
+         easy:  "white" as My_Type_Color_Background,
+         medium: "#4d141d" as My_Type_Color_Background,
+         hard:  "black" as My_Type_Color_Background
+    }
+
+    setbgColor(levelBgColor[state.level])
+       
+ }, [ settingsData, dispatch, simpleCrypto, navigate, setbgColor, state.level ]); 
 
 
   return (
