@@ -29,7 +29,7 @@ import { useImgContext } from "../../context/ImgContext";
     } 
     case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
         
-    const levelChanges = {/*--------------------------------------------using dynamic object properties*/
+    const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
       easy:  "black",
       medium:"white", 
       hard:  "white"
@@ -74,46 +74,28 @@ const Game = () =>{
  },[])
 
  useEffect(() => {
-  if (settings) { // -----------------------------------------------if settings from useReducer were sent
+    if (!settings || 
+      !my_Type_Guard_function(settings.level, ["easy", "medium", "hard"]) || 
+      !my_Type_Guard_function_number(settings.imgCount, [5, 6, 7, 8])) {
+  
+     navigate('/settings'); // --------------------------------------------------------redirect if settings are not exist or not valid
+     return;
+    } 
 
-    try {
-
-      if (!my_Type_Guard_function(settings.level,["easy", "medium", "hard"])||
-             !my_Type_Guard_function_number(settings.imgCount,[5, 6, 7, 8]))
-          {  
-            
-          //  window.location.href = `/settings`/*----------------------redirect and reload to reset useContext */
-           navigate('/settings')
-
-      }else{   
-
-          dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
-                    payload:{
-                              level: settings.level as My_Type_Level,
-                              imgCount: settings.imgCount as My_Type_ImgCount,
-                            } })
-                  
-            const levelBgColor = {/*---------------------------------------using dynamic object properties*/
-               easy:  "white" as My_Type_Color_Background,
-               medium: "#4d141d" as My_Type_Color_Background,
-               hard:  "black" as My_Type_Color_Background
-            }
-
-            setbgColor(levelBgColor[state.level])
-
-      } 
-    } catch (error) {
-      console.error("Dešifrovanie zlyhalo:", error);
-
-      window.location.href = `/settings`/*----------------------------redirect and reload to reset useContext */
-
-    }
-  }else{
-    
-    window.location.href = `/settings`/*------------------------------redirect and reload to reset useContext */
+     dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
+               payload:{
+                         level: settings.level as My_Type_Level,
+                         imgCount: settings.imgCount as My_Type_ImgCount,
+                       } })
+             
+       const levelBgColor = {/*--------------------------------------------------------using dynamic object properties*/
+          easy:  "white" as My_Type_Color_Background,
+          medium: "#4d141d" as My_Type_Color_Background,
+          hard:  "black" as My_Type_Color_Background
+       }
+    setbgColor(levelBgColor[settings.level])
    
-  }
-}, [ dispatch, navigate, settings, setbgColor, state.level]); 
+ }, [ dispatch, navigate, settings, setbgColor, state.level]); 
 
   return (
     <>
