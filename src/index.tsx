@@ -1,23 +1,24 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-
+import store from './store/index';
 import './index.css';
 import App from './App';
+import {Provider} from 'react-redux';
 
 const container = document.getElementById('result')
 
-const loadingElement:HTMLElement | null  = document.getElementById('loading')
+// const loadingElement:HTMLElement | null  = document.getElementById('loading')
 
-if (loadingElement !== null) {
-  loadingElement.remove() //after loading delete temporary message
-}
+// if (loadingElement !== null) {
+//   loadingElement.remove() //after loading delete temporary message
+// }
 
-//document.getElementById('loading')?.remove();
+document.getElementById('loading')?.remove(); //after loading delete temporary message
 
-// const root = createRoot(container);
 if (container) {
   const root = createRoot(container); 
-  root.render(<App />);
+
+  root.render(<Provider store={store}> <App /></Provider>);
 } else {
   console.error("Container element with ID 'result' not found.");
 }
