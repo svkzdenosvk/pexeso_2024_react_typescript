@@ -5,6 +5,8 @@ import { _stylingAfterStart } from '../../_inc/_inc_functions';
 import { MyTimeAndStartProps } from '../../_inc/my_types';
 import { useImgContext } from "../../context/ImgContext";
 
+import {useSelector, useDispatch} from 'react-redux'
+
 export const TimeAndStart = ({colorText,isRunning,dispatch} :MyTimeAndStartProps) => {
      const {  isLoading, seconds, setSeconds } = useImgContext();
     

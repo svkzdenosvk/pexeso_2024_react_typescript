@@ -103,4 +103,15 @@ export type My_Type_UseReducer_GameDivPictures_State = {
 
    };
 
- 
+ /*----------------------------------------redux----------------------------------------- */
+
+ export type My_Type_Redux_Game_Action =
+  | { type: 'SET_START_GAME' }
+  | { type: 'SET_STOP_GAME' }
+  | {
+      type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
+      payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
+    };
+
+ export type My_Type_Redux_Seconds_Action =
+ { type: 'SECONDS_COUNTER' };

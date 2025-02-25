@@ -4,7 +4,7 @@ const initialState = {seconds: 0,
                       isLoading: true,
                       ;}
 
-function counterReducer(state = initialState, action ){
+function gameReducer(state = initialState, action ){
     
     switch(action.type){
         case 'BUBUBU':
@@ -15,4 +15,4 @@ function counterReducer(state = initialState, action ){
     return state;
 }
 
-export default counterReducer;
+export default gameReducer;
