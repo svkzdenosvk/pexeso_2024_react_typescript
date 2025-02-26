@@ -115,3 +115,16 @@ export type My_Type_UseReducer_GameDivPictures_State = {
 
  export type My_Type_Redux_Seconds_Action =
  { type: 'SECONDS_COUNTER' };
+
+ export type My_Type_Redux_Seconds_State = {
+  seconds: number;
+  
+}
+
+export type My_Type_Redux_Root_State = {
+  game: { isLoading: boolean,
+          isRunning: boolean,
+          colorText : My_Type_Color_Text
+   };
+  time: { seconds: number };
+}   

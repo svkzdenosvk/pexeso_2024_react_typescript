@@ -4,7 +4,7 @@ import secondsReducer from "./secondsReducer";
 
 const rootReducer = combineReducers({
     game: gameReducer,
-    seconds: secondsReducer
+    time: secondsReducer
 });
 
 export default rootReducer;

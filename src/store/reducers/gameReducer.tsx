@@ -1,7 +1,8 @@
-const initialState = {seconds: 0,
-                      imgNames: ,
+const initialState = {imgNames: ,
                       bgColor: "black",
+                      colorText:"black",
                       isLoading: true,
+                      isRunning: false
                       ;}
 
 function gameReducer(state = initialState, action ){
