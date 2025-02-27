@@ -25,7 +25,7 @@ export const TimeAndStart = () => {
 
       // const startTime = Date.now();
       const interval = setInterval(() => {
-        // let countedSec: number = Math.floor((Date.now() - startTime) / 1000)
+
         dispatch({ type: 'COUNT_SECONDS' })
         // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ---------more accurate second counter (advice from chatGPT)
       }, 1000);

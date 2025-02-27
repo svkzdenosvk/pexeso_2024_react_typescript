@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { useReducer, useEffect, useCallback } from "react";
+import {  useEffect, useCallback } from "react";
 
 import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { MyGameDivPicturesProps, My_Type_ClassNames, My_Type_UseReducer_GameDivPictures_State, My_Type_DivImg, My_Type_UseReducer_GameDivPictures_Action } from '../../_inc/my_types';
+import { /*MyGameDivPicturesProps,*/My_Type_Redux_Root_State ,My_Type_ClassNames, My_Type_UseReducer_GameDivPictures_State, My_Type_DivImg, My_Type_UseReducer_GameDivPictures_Action } from '../../_inc/my_types';
 
-import { useImgContext } from "../../context/ImgContext";
+import {useSelector, useDispatch} from 'react-redux'
+
 
 
 const reducerImg = (stateImg: My_Type_UseReducer_GameDivPictures_State, action: My_Type_UseReducer_GameDivPictures_Action) => {
@@ -107,20 +108,26 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
 }
 
-  export const GameDivPictures = ({dispatch, colorText, level, selectedImgCount }:MyGameDivPicturesProps) =>{
-    const { imgNames, isLoading, seconds } = useImgContext();//---------------- useContext values
+  export const GameDivPictures = (/*{dispatch, colorText, level, selectedImgCount }:MyGameDivPicturesProps*/) =>{
+    // const { imgNames, isLoading, seconds } = useImgContext();//---------------- useContext values
   
-    // ---------------------------useReducer
+    // ---------------------------redux 
+     const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
+     const isEnd = useSelector((state: My_Type_Redux_Root_State) => state.game.isEnd);
+     const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
+     const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
+     const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
+     const divImgs = useSelector((state: My_Type_Redux_Root_State) => state.game.divImgs);
 
-  const [stateImg , dispatchImg] = useReducer<React.Reducer<My_Type_UseReducer_GameDivPictures_State, My_Type_UseReducer_GameDivPictures_Action>
->(reducerImg, defaultStateImg);
+      const dispatch = useDispatch();
+      
 
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
         const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
 
-        dispatchImg({type: "SELECTED_IMG_COUNT",payload: imgDivs })
+        dispatch({type: "SELECTED_IMG_COUNT",payload: imgDivs })
 
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -128,7 +135,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
     };
 
     fetchDivItemsWithCount(); //------------------------------------------------to call async f.
-  }, [selectedImgCount, imgNames]); // 
+  }, [ dispatch, imgNames]); // 
 
   // ---------------------------
   // ---------------------------ending fn
@@ -136,7 +143,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
   const checkEnd = useCallback(() => { /*----------------------------------------check if is end == each picture removed */
      
-        if(stateImg.isEnd){
+        if(isEnd){
 
           dispatch({type: "SET_STOP_GAME" })/*-----------------------------------stop increment seconds */
 
@@ -163,16 +170,16 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
           }
 
       }else return
-  }, [seconds, dispatch, colorText, stateImg.isEnd ]); //---------------------------adding dependencies
+  }, [seconds, dispatch, colorText, isEnd ]); //---------------------------adding dependencies
 
 
   function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // -----------fn to show div>img
 
-    let selectedArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
-    let rotateddArr = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
+    let selectedArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
+    let rotateddArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
 
     if(element.classList.contains('mask')&& (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
-       dispatchImg({type: "SHOW_ONE", payload: divObject })
+       dispatch({type: "SHOW_ONE", payload: divObject })
     }
   }
 

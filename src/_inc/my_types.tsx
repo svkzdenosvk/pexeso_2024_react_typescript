@@ -124,7 +124,11 @@ export type My_Type_UseReducer_GameDivPictures_State = {
 export type My_Type_Redux_Root_State = {
   game: { isLoading: boolean,
           isRunning: boolean,
-          colorText : My_Type_Color_Text
+          colorText: My_Type_Color_Text,
+          settings: My_Type_Game_Settings,
+          linkName: string,
+          imgNames: My_Type_Img_Name[],
+          isEnd: boolean
    };
   time: { seconds: number };
 }   
