@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useEffect} from "react";
 import {  useNavigate, Link  } from "react-router-dom";
-import { My_Type_Level, /*My_Type_Color_Text, My_Type_Color_Background,*/ My_Type_ImgCount, My_Type_Redux_Root_State } from '../../_inc/my_types';
+import { My_Type_Level, My_Type_ImgCount, My_Type_Redux_Root_State } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { GameDivPictures } from "./GameDivPictures"
@@ -44,15 +44,8 @@ const Game = () =>{
                          level: settings.level as My_Type_Level,
                          imgCount: settings.imgCount as My_Type_ImgCount,
                        } })
-             
-    //    const levelBgColor = {/*--------------------------------------------------------using dynamic object properties*/
-    //       easy:  "white" as My_Type_Color_Background,
-    //       medium: "#4d141d" as My_Type_Color_Background,
-    //       hard:  "black" as My_Type_Color_Background
-    //    }
-    // setbgColor(levelBgColor[settings.level])
-   
- }, [ dispatch, navigate, settings/*, setbgColor, state.level*/]); 
+                
+ }, [ dispatch, navigate, settings]); 
 
   return (
     <>

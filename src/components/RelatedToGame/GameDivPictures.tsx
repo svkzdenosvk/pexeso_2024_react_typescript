@@ -2,114 +2,15 @@ import React from 'react';
 
 import {  useEffect, useCallback } from "react";
 
-import { _shuffleArray, _fmtMSS } from '../../_inc/_inc_functions';
+import {  _fmtMSS } from '../../_inc/_inc_functions';
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { /*MyGameDivPicturesProps,*/My_Type_Redux_Root_State ,My_Type_ClassNames, My_Type_UseReducer_GameDivPictures_State, My_Type_DivImg, My_Type_UseReducer_GameDivPictures_Action } from '../../_inc/my_types';
+import { My_Type_Redux_Root_State , My_Type_DivImg } from '../../_inc/my_types';
 
 import {useSelector, useDispatch} from 'react-redux'
 
 
-
-const reducerImg = (stateImg: My_Type_UseReducer_GameDivPictures_State, action: My_Type_UseReducer_GameDivPictures_Action) => {
-  switch (action.type) {
-
-    case 'HARDEST_LEVEL_SHUFFLE':
-      _shuffleArray(stateImg.divImgs)
-
-      return { 
-        ...stateImg,
-        divImgs: stateImg.divImgs
-      } 
-    case 'SHOW_ONE':
-
-      let filteredArr: My_Type_DivImg[] =stateImg.divImgs.map(oneDiv => {
-          if (oneDiv.id === action.payload.id) {
-  
-            return { ...oneDiv, classNames: [
-              ...oneDiv.classNames.filter(className => className !== "mask"), "selected_Div_img" // remove 'mask' and add "selected" class
-            ] }
-          } else {
-            return oneDiv; //--------------------------------------------------return untouched object
-          }
-        });
-      
-      return { 
-        ...stateImg,
-        divImgs: filteredArr
-      } 
-    case 'UN_MATCH':
-      let afterUnMatchArr: My_Type_DivImg[] = stateImg.divImgs.map(oneDiv => {
-        if (oneDiv.classNames.includes("selected_Div_img")) {
-          return { ...oneDiv, classNames: [
-            ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
-          ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
-        } else {
-          return oneDiv;/*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
-        }
-      });
-
-      if(action.payload==="medium"/*||action.payload==="hardest"*/){
-
-         _shuffleArray(afterUnMatchArr)
-      }
-      return { 
-        ...stateImg,
-        divImgs: afterUnMatchArr
-      }
-    case 'MATCH':
-        let afterMatchArr = stateImg.divImgs.map(oneDiv => {
-          if (oneDiv.classNames.includes("selected_Div_img")) {
-            return { ...oneDiv, classNames: [
-              ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center"
-              
-            ] as My_Type_ClassNames[]
-             }/*-------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
-          } else {
-            return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
-          }
-        });
-
-      return { 
-        ...stateImg,
-        divImgs: afterMatchArr
-      }
-    case 'REMOVE_AFTER_MATCH':
-     
-      let afterAfterMatchArr = stateImg.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
-
-      let checkIsEnd=false
-
-      if(afterAfterMatchArr.length===0){
-         checkIsEnd = true
-      }
-      return { 
-        ...stateImg,
-        divImgs: afterAfterMatchArr,
-        isEnd: checkIsEnd
-      }  
-    case 'SELECTED_IMG_COUNT':
-
-      return { 
-        ...stateImg,
-        divImgs: action.payload,
-        isLoaded:false
-
-      } 
-    default:
-      return stateImg;
-  }
-}
-
-const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
-  isLoaded:true,
-  divImgs:[] as My_Type_DivImg[],
-  isEnd:false
-
-}
-
-  export const GameDivPictures = (/*{dispatch, colorText, level, selectedImgCount }:MyGameDivPicturesProps*/) =>{
-    // const { imgNames, isLoading, seconds } = useImgContext();//---------------- useContext values
+  export const GameDivPictures = () =>{
   
     // ---------------------------redux 
      const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
@@ -118,10 +19,12 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
      const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
      const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
      const divImgs = useSelector((state: My_Type_Redux_Root_State) => state.game.divImgs);
+     const selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
+     const level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
 
       const dispatch = useDispatch();
       
-
+      
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
@@ -135,7 +38,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
     };
 
     fetchDivItemsWithCount(); //------------------------------------------------to call async f.
-  }, [ dispatch, imgNames]); // 
+  }, [ selectedImgCount, dispatch, imgNames]); // 
 
   // ---------------------------
   // ---------------------------ending fn
@@ -187,21 +90,21 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
     setTimeout(function(){
           
-          let  selectedArr: My_Type_DivImg[] = stateImg.divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
+          let  selectedArr: My_Type_DivImg[] = divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
         
             if (selectedArr.length===2){
               //  document.body.style.pointerEvents = "none"//;---------------------prevent to show third image 
               if (selectedArr[0].name=== selectedArr[1].name){/* if match */
 
               // setTimeout(() => {
-                dispatchImg({type: "MATCH" })
+                dispatch({type: "MATCH" })
               // }, 200);
                 
                 void document.body.offsetHeight; // ---------------------------------reflow -> help from chat GPT to support animation 
 
                 setTimeout(() => {
              
-                  dispatchImg({type: "REMOVE_AFTER_MATCH" })
+                  dispatch({type: "REMOVE_AFTER_MATCH" })
                   // document.body.style.pointerEvents = "auto"//;-------------------prevent to show third image 
 
                 }, 200);
@@ -209,7 +112,7 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
                       
               }else {/* -------------------------------------------------------------if unmatch */
                
-                dispatchImg({type: "UN_MATCH",payload:level })           
+                dispatch({type: "UN_MATCH",payload:level })           
               }
             }
 
@@ -219,24 +122,24 @@ const defaultStateImg: My_Type_UseReducer_GameDivPictures_State  = {
 
     if (level === "hard") {//--------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
-        dispatchImg({ type: "HARDEST_LEVEL_SHUFFLE" });
+        dispatch({ type: "HARDEST_LEVEL_SHUFFLE" });
       }, 400);
   
       return () => clearInterval(intervalShuffleHardest);
     }
     
-  }, [stateImg.divImgs,checkEnd,level])
+  }, [dispatch,divImgs,checkEnd,level])
 
   useEffect(() => {  //--------------------------------------------------------------check end useEffect
     checkEnd()
-  }, [checkEnd,stateImg.isEnd])
+  }, [checkEnd,isEnd])
 
   return (
      <div className="row" id="row">
      {isLoading ? (//-----------------------------------------------------------------if loading show
         <h1 style={{color: colorText}} >Načítavajú sa obrázky</h1>
       ) : (//-------------------------------------------------------------------------if not loading (after successful l.) show
-        stateImg.divImgs.map((oneDiv:My_Type_DivImg) => ( //--------------------------array of img names -> div>img
+        divImgs.map((oneDiv:My_Type_DivImg) => ( //--------------------------array of img names -> div>img
 
           <div  key={oneDiv.id} 
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {

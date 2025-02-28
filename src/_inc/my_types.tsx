@@ -108,10 +108,20 @@ export type My_Type_UseReducer_GameDivPictures_State = {
  export type My_Type_Redux_Game_Action =
   | { type: 'SET_START_GAME' }
   | { type: 'SET_STOP_GAME' }
-  | {
-      type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
+  | { type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
-    };
+    }
+  | { type: 'HARDEST_LEVEL_SHUFFLE' }
+  | { type: 'SHOW_ONE';
+      payload: My_Type_DivImg
+    }
+  | { type: 'UN_MATCH';
+      payload: My_Type_Level 
+    }
+  | { type: 'MATCH' }
+  | { type: 'REMOVE_AFTER_MATCH' }
+  | { type: 'SELECTED_IMG_COUNT';
+      payload: My_Type_DivImg[] }  ;
 
  export type My_Type_Redux_Seconds_Action =
  { type: 'SECONDS_COUNTER' };
@@ -128,7 +138,10 @@ export type My_Type_Redux_Root_State = {
           settings: My_Type_Game_Settings,
           linkName: string,
           imgNames: My_Type_Img_Name[],
-          isEnd: boolean
+          isEnd: boolean,
+          divImgs: My_Type_DivImg[];
+          selectedImgCount: My_Type_ImgCount;
+          level: My_Type_Level
    };
   time: { seconds: number };
 }   

@@ -1,6 +1,8 @@
 import { My_Type_Redux_Game_Action, My_Type_Color_Text, My_Type_Img_Name,
-         My_Type_Game_Settings, My_Type_Level, My_Type_Color_Background, My_Type_DivImg } 
+         My_Type_Game_Settings, My_Type_Level, My_Type_Color_Background,
+         My_Type_DivImg, My_Type_ClassNames } 
          from '../../_inc/my_types';
+import { _shuffleArray } from '../../_inc/_inc_functions';
 
 
 const initialState = {imgNames: [] as My_Type_Img_Name[],
@@ -13,7 +15,7 @@ const initialState = {imgNames: [] as My_Type_Img_Name[],
                       level:"" as My_Type_Level,
                       isEnd:false,
                       divImgs:[] as My_Type_DivImg[],
-                      
+                      selectedImgCount: 5
                       }
 
 function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
@@ -23,22 +25,21 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
               return { 
                 ...state,
                 isRunning: true,
-                linkName: "Nová hra."
-        
+                linkName: "Nová hra."    
               }  
-            case 'SET_STOP_GAME':
-            return { 
-              ...state,
-              isRunning: false,
-              linkName: "Hraj znova"
-            } 
-            case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
+        case 'SET_STOP_GAME':
+              return { 
+                ...state,
+                isRunning: false,
+                linkName: "Hraj znova"
+              } 
+        case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
                 
-            const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
-              easy:  ["black","white"],
-              medium: ["white", "#4d141d"],
-              hard:  ["white", "black"]
-            }
+              const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
+                easy:  ["black","white"],
+                medium: ["white", "#4d141d"],
+                hard:  ["white", "black"]
+              }
         
               return {
                 ...state,
@@ -47,9 +48,92 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
                 imgCount:action.payload.imgCount,
               }
-            default:
+
+        case 'HARDEST_LEVEL_SHUFFLE':
+                _shuffleArray(state.divImgs)
+              
+              return { 
+                 ...state,
+                 divImgs: state.divImgs
+              } 
+        case 'SHOW_ONE':
+              
+              let filteredArr: My_Type_DivImg[] =state.divImgs.map(oneDiv => {
+                  if (oneDiv.id === action.payload.id) {
+                
+                    return { ...oneDiv, classNames: [
+                      ...oneDiv.classNames.filter(className => className !== "mask"), "selected_Div_img" // remove 'mask' and add "selected" class
+                    ] }
+                  } else {
+                    return oneDiv; //--------------------------------------------------return untouched object
+                  }
+              });
+                    
+              return { 
+                 ...state,
+                 divImgs: filteredArr
+              } 
+        case 'UN_MATCH':
+              let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
+                if (oneDiv.classNames.includes("selected_Div_img")) {
+                  return { ...oneDiv, classNames: [
+                    ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
+                  ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+                } else {
+                  return oneDiv;/*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
+                }
+              });
+              
+              if(action.payload==="medium"/*||action.payload==="hardest"*/){
+              
+                 _shuffleArray(afterUnMatchArr)
+              }
+              return { 
+                 ...state,
+                 divImgs: afterUnMatchArr
+              }
+        case 'MATCH':
+              let afterMatchArr = state.divImgs.map(oneDiv => {
+                if (oneDiv.classNames.includes("selected_Div_img")) {
+                  return { ...oneDiv, classNames: [
+                    ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center"
+                            
+                  ] as My_Type_ClassNames[]
+                   }/*-------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
+                } else {
+                  return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
+                }
+              });
+              
+              return { 
+                ...state,
+                divImgs: afterMatchArr
+              }
+        case 'REMOVE_AFTER_MATCH':
+                   
+              let afterAfterMatchArr = state.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
+              
+              let checkIsEnd=false
+              
+              if(afterAfterMatchArr.length===0){
+                 checkIsEnd = true
+               }
+              return { 
+                ...state,
+                divImgs: afterAfterMatchArr,
+                isEnd: checkIsEnd
+               }  
+        case 'SELECTED_IMG_COUNT':
+              
+              return { 
+                ...state,
+                divImgs: action.payload,
+                isLoaded:false
+               } 
+                 
+        default:
               return state;
-          }  
+        }  
     }
 
 export default gameReducer;
