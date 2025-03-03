@@ -1,13 +1,13 @@
 import { My_Type_Redux_Game_Action, My_Type_Color_Text, My_Type_Img_Name,
-         My_Type_Game_Settings, My_Type_Level, My_Type_Color_Background,
-         My_Type_DivImg, My_Type_ClassNames } 
+        /* My_Type_Game_Settings,*/ My_Type_Level, My_Type_Color_Background,
+         My_Type_DivImg, My_Type_ClassNames,My_Type_ImgCount } 
          from '../../_inc/my_types';
 import { _shuffleArray } from '../../_inc/_inc_functions';
 
 
 const initialState = {imgNames: [] as My_Type_Img_Name[],
-                      settings:{} as My_Type_Game_Settings,
-                      bgColor: "black",
+                    //   settings:{} as My_Type_Game_Settings,
+                      bgColor: "white",
                       colorText:"black",
                       isLoading: true,
                       isRunning: false,
@@ -15,7 +15,7 @@ const initialState = {imgNames: [] as My_Type_Img_Name[],
                       level:"" as My_Type_Level,
                       isEnd:false,
                       divImgs:[] as My_Type_DivImg[],
-                      selectedImgCount: 5
+                      selectedImgCount: 0 as My_Type_ImgCount
                       }
 
 function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
@@ -27,27 +27,27 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 isRunning: true,
                 linkName: "Nová hra."    
               }  
-        case 'SET_STOP_GAME':
-              return { 
-                ...state,
-                isRunning: false,
-                linkName: "Hraj znova"
-              } 
-        case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
+        // case 'SET_STOP_GAME':
+        //       return { 
+        //         ...state,
+        //         isRunning: false,
+        //         linkName: "Hraj znova"
+        //       } 
+        // case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
                 
-              const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
-                easy:  ["black","white"],
-                medium: ["white", "#4d141d"],
-                hard:  ["white", "black"]
-              }
+        //       const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
+        //         easy:  ["black","white"],
+        //         medium: ["white", "#4d141d"],
+        //         hard:  ["white", "black"]
+        //       }
         
-              return {
-                ...state,
-                bgColor:levelChanges[action.payload.level][1] as My_Type_Color_Background,
-                level:action.payload.level,
-                colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
-                imgCount:action.payload.imgCount,
-              }
+        //       return {
+        //         ...state,
+        //         bgColor:levelChanges[action.payload.level][1] as My_Type_Color_Background,
+        //         level:action.payload.level,
+        //         colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
+        //         imgCount:action.payload.imgCount,
+        //       }
 
         case 'HARDEST_LEVEL_SHUFFLE':
                 _shuffleArray(state.divImgs)
@@ -117,6 +117,9 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
               
               if(afterAfterMatchArr.length===0){
                  checkIsEnd = true
+                 //isRunning: false,
+                 //linkName: "Hraj znova"
+
                }
               return { 
                 ...state,
@@ -130,6 +133,29 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 divImgs: action.payload,
                 isLoaded:false
                } 
+        case 'RESET_SETTINGS':
+              
+              return { 
+                ...state,
+                level: "" as My_Type_Level,
+                bgColor:"white",
+                selectedImgCount: 0 as My_Type_ImgCount
+               } 
+        case 'SETTINGS_AND_STYLING':
+
+            const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
+                easy:  ["black","white"],
+                medium: ["white", "#4d141d"],
+                hard:  ["white", "black"]
+              }
+
+              return{
+                ...state,
+                level:action.payload.level,
+                bgColor:levelChanges[action.payload.level][1] as My_Type_Color_Background,
+                colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
+                selectedImgCount:action.payload.selectedImgCount as My_Type_ImgCount,
+               }
                  
         default:
               return state;

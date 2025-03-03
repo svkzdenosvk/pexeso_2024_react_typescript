@@ -10,6 +10,9 @@ function secondsReducer(state = initialState, action:My_Type_Redux_Seconds_Actio
         case 'SECONDS_COUNTER':
             // return { seconds:state.seconds+1}
             return { seconds: Math.floor((Date.now() - startTime) / 1000)}
+        case 'SECONDS_RESET':
+            // return { seconds:state.seconds+1}
+            return { seconds: 0}
             
         default:
             return state;

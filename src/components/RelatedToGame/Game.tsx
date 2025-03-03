@@ -14,8 +14,10 @@ import {useSelector, useDispatch} from 'react-redux'
 const Game = () =>{
 
   // ---------------------------redux
-
-  const settings = useSelector((state: My_Type_Redux_Root_State) => state.game.settings);
+  const level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
+  const selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
+  
+  // const settings = useSelector((state: My_Type_Redux_Root_State) => state.game.settings);
   const linkName = useSelector((state: My_Type_Redux_Root_State) => state.game.linkName);
   const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
   
@@ -31,9 +33,9 @@ const Game = () =>{
  },[])
 
  useEffect(() => {
-    if (!settings || 
-      !my_Type_Guard_function(settings.level, ["easy", "medium", "hard"]) || 
-      !my_Type_Guard_function_number(settings.imgCount, [5, 6, 7, 8])) {
+    if (/*!settings || */
+      !my_Type_Guard_function(/*settings.*/level, ["easy", "medium", "hard"]) || 
+      !my_Type_Guard_function_number(/*settings.*/selectedImgCount, [5, 6, 7, 8])) {
   
      navigate('/settings'); // --------------------------------------------------------redirect if settings are not exist or not valid
      return;
@@ -41,11 +43,11 @@ const Game = () =>{
 
      dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
                payload:{
-                         level: settings.level as My_Type_Level,
-                         imgCount: settings.imgCount as My_Type_ImgCount,
+                         level: /*settings.*/level as My_Type_Level,
+                         imgCount: /*settings.*/selectedImgCount as My_Type_ImgCount,
                        } })
                 
- }, [ dispatch, navigate, settings]); 
+ }, [ dispatch, level,selectedImgCount, navigate/*, settings*/]); 
 
   return (
     <>
