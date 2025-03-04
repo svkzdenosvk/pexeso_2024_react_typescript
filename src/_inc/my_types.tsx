@@ -113,20 +113,19 @@ export type My_Type_Svk_Eng_level ={
     }
   | { type: 'HARDEST_LEVEL_SHUFFLE' }
   | { type: 'SHOW_ONE';
-      payload: My_Type_DivImg
-    }
+      payload: My_Type_DivImg }
   | { type: 'UN_MATCH';
-      payload: My_Type_Level 
-    }
+      payload: My_Type_Level }
   | { type: 'MATCH' }
   | { type: 'REMOVE_AFTER_MATCH' }
   | { type: 'SELECTED_IMG_COUNT';
       payload: My_Type_DivImg[] } 
   | { type: 'RESET_SETTINGS' }
-  | {
-      type: 'SETTINGS_AND_STYLING';
-      payload: { level: My_Type_Level; selectedImgCount: My_Type_ImgCount };
-    }
+  | { type: 'SETTINGS_AND_STYLING';
+      payload: { level: My_Type_Level; selectedImgCount: My_Type_ImgCount };}
+  | { type: 'SET_IMG_NAMES';
+      payload: My_Type_Img_Name[]} 
+  | { type: 'SET_LOADING' }   
   ;
   
  export type My_Type_Redux_Seconds_Action =
@@ -142,6 +141,7 @@ export type My_Type_Redux_Root_State = {
   game: { isLoading: boolean,
           isRunning: boolean,
           colorText: My_Type_Color_Text,
+          bgColor: My_Type_Color_Background,
           // settings: My_Type_Game_Settings,
           linkName: string,
           imgNames: My_Type_Img_Name[],

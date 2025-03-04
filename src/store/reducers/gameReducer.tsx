@@ -156,6 +156,19 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
                 selectedImgCount:action.payload.selectedImgCount as My_Type_ImgCount,
                }
+        case 'SET_IMG_NAMES':
+              
+              return { 
+                ...state,
+                imgNames: action.payload,
+               }  
+        case 'SET_LOADING':
+              
+              return { 
+                ...state,
+                isLoading: false,
+               }        
+        
                  
         default:
               return state;
