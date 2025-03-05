@@ -16,24 +16,25 @@ export const TimeAndStart = () => {
      const isRunning = useSelector((state: My_Type_Redux_Root_State) => state.game.isRunning);
      const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
      const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
+     const isEnd = useSelector((state: My_Type_Redux_Root_State) => state.game.isEnd);
 
      const dispatch = useDispatch();
     
     useEffect(() => {
 
-      if (!isRunning || isLoading ) return;
+      if (!isRunning || isLoading || isEnd) return;
 
       // const startTime = Date.now();
       const interval = setInterval(() => {
 
-        dispatch({ type: 'COUNT_SECONDS' })
+        dispatch({ type: 'SECONDS_COUNTER' })
         // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ---------more accurate second counter (advice from chatGPT)
       }, 1000);
   
       return () => clearInterval(interval);
     }
 
-    , [isRunning,dispatch, isLoading]);
+    , [isRunning,dispatch, isLoading, isEnd]);
    
 
     function timer(){/*------------------------------------------------------button start */

@@ -1,12 +1,11 @@
 import { My_Type_Redux_Game_Action, My_Type_Color_Text, My_Type_Img_Name,
-        /* My_Type_Game_Settings,*/ My_Type_Level, My_Type_Color_Background,
+         My_Type_Level, My_Type_Color_Background,
          My_Type_DivImg, My_Type_ClassNames,My_Type_ImgCount } 
          from '../../_inc/my_types';
 import { _shuffleArray } from '../../_inc/_inc_functions';
 
 
 const initialState = {imgNames: [] as My_Type_Img_Name[],
-                    //   settings:{} as My_Type_Game_Settings,
                       bgColor: "white",
                       colorText:"black",
                       isLoading: true,
@@ -113,18 +112,12 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                    
               let afterAfterMatchArr = state.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
               
-              let checkIsEnd=false
-              
-              if(afterAfterMatchArr.length===0){
-                 checkIsEnd = true
-                 //isRunning: false,
-                 //linkName: "Hraj znova"
-
-               }
+              const isGameEnd = afterAfterMatchArr.length === 0;//--------------------if all pictures removed -> it´s end of the game 
+          
               return { 
                 ...state,
                 divImgs: afterAfterMatchArr,
-                isEnd: checkIsEnd
+                ...(isGameEnd && { isRunning: false, linkName: "Hraj znova", isEnd:true })//--if it´s end of the game                             
                }  
         case 'SELECTED_IMG_COUNT':
               
@@ -139,7 +132,8 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 ...state,
                 level: "" as My_Type_Level,
                 bgColor:"white",
-                selectedImgCount: 0 as My_Type_ImgCount
+                selectedImgCount: 0 as My_Type_ImgCount,
+                isRunning: false,
                } 
         case 'SETTINGS_AND_STYLING':
 
@@ -151,6 +145,8 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
 
               return{
                 ...state,
+                isEnd:false,
+                linkName:"Späť na nastavenia hry.",
                 level:action.payload.level,
                 bgColor:levelChanges[action.payload.level][1] as My_Type_Color_Background,
                 colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,

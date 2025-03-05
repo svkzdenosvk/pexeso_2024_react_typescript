@@ -5,7 +5,6 @@ import {  useNavigate } from "react-router-dom";
 
  import { /*y_Type_Game_Settings,*/ My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level, My_Type_Redux_Root_State } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
-//  import { useImgContext } from "../../context/ImgContext";
 
  import {useSelector, useDispatch} from 'react-redux'
 
@@ -14,23 +13,23 @@ import {  useNavigate } from "react-router-dom";
 // const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
 
 const GameSettings = () => {
-  let level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
-  let selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
+
+  //----------------------------redux
+
+  // let level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
+  // let selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
   
   const dispatch = useDispatch();
 
-  // const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
+
+  const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
-  // const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
+  const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
 
-  // const { setSettings/*, setbgColor, setSeconds*/ } = useImgContext();
-
-  // setbgColor("white")
-  // setSeconds(0)
   dispatch({type: "SECONDS_RESET" })
   dispatch({type: "RESET_SETTINGS" })
 
@@ -61,11 +60,11 @@ const GameSettings = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {/*-------------------after submit function */
     e.preventDefault();
     
-    if (!my_Type_Guard_function(level,levels_values)){  
+    if (!my_Type_Guard_function(levelChosen,levels_values)){  
       
       setError("Nastav level obtiažnosti")
       return
-    }  else if (!my_Type_Guard_function_number(selectedImgCount,imgCount_values)){  
+    }  else if (!my_Type_Guard_function_number(imgCountChosen,imgCount_values)){  
 
       setError("Nastav počet obrázkov, s ktorými chceš hrať.")
       return
@@ -73,19 +72,11 @@ const GameSettings = () => {
       setError(""); //----------------------------------------------------------------reset error message
     }
     
-  // const chosenSettings: My_Type_Game_Settings = {
-  //   level: levelChosen,
-  //   imgCount: imgCountChosen,
-  //   gameId: gameNumber
-  // };
-   
-  // setSettings(chosenSettings)
-
-
+  
      dispatch({type: "SETTINGS_AND_STYLING",
                  payload:{
-                           level: level as My_Type_Level,
-                           selectedImgCount: selectedImgCount as My_Type_ImgCount,
+                           level: levelChosen as My_Type_Level,
+                           selectedImgCount: imgCountChosen as My_Type_ImgCount,
                          } })
 
   formRef.current?.reset();
@@ -107,8 +98,7 @@ const GameSettings = () => {
               type="radio"
               name="level"
               value={level_name.value}
-              // onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value as My_Type_Level )}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => level=e.target.value as My_Type_Level }
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value as My_Type_Level )}
 
            />
             {level_name.label}
@@ -124,8 +114,7 @@ const GameSettings = () => {
               type="radio"
               name="imageCount"
               value={value}
-              // onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => selectedImgCount=(parseInt(e.target.value) as My_Type_ImgCount )}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
 
             />
             {value * 2} {/* ------------------------------------------------------------pair is 5 * 2 = 10) */}

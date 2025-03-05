@@ -8,8 +8,8 @@ function secondsReducer(state = initialState, action:My_Type_Redux_Seconds_Actio
 
     switch(action.type){
         case 'SECONDS_COUNTER':
-            // return { seconds:state.seconds+1}
-            return { seconds: Math.floor((Date.now() - startTime) / 1000)}
+             return { seconds:state.seconds+1}
+            // return { seconds: Math.floor((Date.now() - startTime) / 1000)}
         case 'SECONDS_RESET':
             // return { seconds:state.seconds+1}
             return { seconds: 0}

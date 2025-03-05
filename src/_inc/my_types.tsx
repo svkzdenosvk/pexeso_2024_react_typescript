@@ -1,7 +1,5 @@
-// import { Dispatch, SetStateAction } from 'react';
 
 type _inc_Type ={
-    // dispatch: React.Dispatch<My_Type_UseReducer_Game_Action>;
     colorText: My_Type_Color_Text;
 
   }
@@ -38,70 +36,10 @@ export type MyGameDivPicturesProps= _inc_Type &{/*----------------------------ty
   selectedImgCount: My_Type_ImgCount; 
 }
 
-// export type UseContextProps = {/*---------------------------------------------shared props from useContext -> img names from db  */
-//   imgNames: My_Type_Img_Name[];
-//   isLoading: boolean;
-//   seconds: number;
-//   setSeconds:  React.Dispatch<React.SetStateAction<number>>;
-//   settings: My_Type_Game_Settings;
-//   setSettings:  React.Dispatch<React.SetStateAction<My_Type_Game_Settings>>;
-//   bgColor:My_Type_Color_Background;
-//   setbgColor:React.Dispatch<React.SetStateAction<My_Type_Color_Background>>;
-// }
-
-// export type My_Type_Game_Settings = {/*----------------------------------------------------type of settings to initialize the game */
-//   level: My_Type_Level;
-//   imgCount: My_Type_ImgCount;
-//   gameId: string;
-// }
-
 export type My_Type_Svk_Eng_level ={
   value: My_Type_Level;
   label: My_Type_Level_Svk;
 }
-
-/*-----------------------------------------------------------------------------useReducer Game */
-// export type My_Type_UseReducer_Game_State = {
-//   level: My_Type_Level;
-//   isRunning: boolean;
-//   linkName: string;
-//   colorText : My_Type_Color_Text;
-//   // colorBG: My_Type_Color_Background; 
-//   imgCount: My_Type_ImgCount;
-// }
-
-// export type My_Type_UseReducer_Game_Action =
-//   | { type: 'SET_START_GAME' }
-//   | { type: 'SET_STOP_GAME' }
-//   | {
-//       type: 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT';
-//       payload: { level: My_Type_Level; imgCount: My_Type_ImgCount };
-//     };
-
-/*------------------------------------------------------------------------------useReducer GameDivPictures */
-// export type My_Type_UseReducer_GameDivPictures_State = {
-//    isLoaded: boolean;
-//    divImgs: My_Type_DivImg[];
-//    isEnd: boolean;
- 
-// //  }
-
-//  export type My_Type_UseReducer_GameDivPictures_Action =
-//  | { type: 'HARDEST_LEVEL_SHUFFLE' }
-//  | { 
-//      type: 'SHOW_ONE';
-//      payload: My_Type_DivImg
-//   }
-//  | { type: 'UN_MATCH';
-//      payload: My_Type_Level 
-//    }
-//  | { type: 'MATCH' }
-//  | { type: 'REMOVE_AFTER_MATCH' }
-//  | { 
-//      type: 'SELECTED_IMG_COUNT';
-//      payload: My_Type_DivImg[] 
-
-//    };
 
  /*----------------------------------------redux----------------------------------------- */
 
@@ -142,7 +80,6 @@ export type My_Type_Redux_Root_State = {
           isRunning: boolean,
           colorText: My_Type_Color_Text,
           bgColor: My_Type_Color_Background,
-          // settings: My_Type_Game_Settings,
           linkName: string,
           imgNames: My_Type_Img_Name[],
           isEnd: boolean,

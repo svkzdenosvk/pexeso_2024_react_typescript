@@ -37,7 +37,7 @@ import {useSelector, useDispatch} from 'react-redux'
       }
     };
 
-    fetchDivItemsWithCount(); //------------------------------------------------to call async f.
+    fetchDivItemsWithCount(); //-------------------------------------------------to call async f.
   }, [ selectedImgCount, dispatch, imgNames]); // 
 
   // ---------------------------
@@ -48,7 +48,7 @@ import {useSelector, useDispatch} from 'react-redux'
      
         if(isEnd){
 
-          dispatch({type: "SET_STOP_GAME" })/*-----------------------------------stop increment seconds */
+          // dispatch({type: "SET_STOP_GAME" })/*-----------------------------------stop increment seconds */
 
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
@@ -73,7 +73,7 @@ import {useSelector, useDispatch} from 'react-redux'
           }
 
       }else return
-  }, [seconds, dispatch, colorText, isEnd ]); //---------------------------adding dependencies
+  }, [seconds, dispatch, colorText, isEnd ]); //-----------------------------------adding dependencies
 
 
   function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // -----------fn to show div>img
@@ -93,19 +93,16 @@ import {useSelector, useDispatch} from 'react-redux'
           let  selectedArr: My_Type_DivImg[] = divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
         
             if (selectedArr.length===2){
-              //  document.body.style.pointerEvents = "none"//;---------------------prevent to show third image 
+
               if (selectedArr[0].name=== selectedArr[1].name){/* if match */
 
-              // setTimeout(() => {
                 dispatch({type: "MATCH" })
-              // }, 200);
-                
+                           
                 void document.body.offsetHeight; // ---------------------------------reflow -> help from chat GPT to support animation 
 
                 setTimeout(() => {
              
                   dispatch({type: "REMOVE_AFTER_MATCH" })
-                  // document.body.style.pointerEvents = "auto"//;-------------------prevent to show third image 
 
                 }, 200);
 
@@ -139,7 +136,7 @@ import {useSelector, useDispatch} from 'react-redux'
      {isLoading ? (//-----------------------------------------------------------------if loading show
         <h1 style={{color: colorText}} >Načítavajú sa obrázky</h1>
       ) : (//-------------------------------------------------------------------------if not loading (after successful l.) show
-        divImgs.map((oneDiv:My_Type_DivImg) => ( //--------------------------array of img names -> div>img
+        divImgs.map((oneDiv:My_Type_DivImg) => ( //-----------------------------------array of img names -> div>img
 
           <div  key={oneDiv.id} 
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => {

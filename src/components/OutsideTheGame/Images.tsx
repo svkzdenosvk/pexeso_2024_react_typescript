@@ -9,7 +9,6 @@ import {useSelector} from 'react-redux'
 const uuid = require('uuid')
 
 const Images = () => {
-  // const { imgNames, isLoading } = useImgContext();
    // ---------------------------redux
    const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
    const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
