@@ -32,21 +32,7 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
         //         isRunning: false,
         //         linkName: "Hraj znova"
         //       } 
-        // case 'SET_LEVEL_AND_STYLING_AND_IMGCOUNT':
-                
-        //       const levelChanges = {/*-----------------------------------------------------------using dynamic object properties*/
-        //         easy:  ["black","white"],
-        //         medium: ["white", "#4d141d"],
-        //         hard:  ["white", "black"]
-        //       }
         
-        //       return {
-        //         ...state,
-        //         bgColor:levelChanges[action.payload.level][1] as My_Type_Color_Background,
-        //         level:action.payload.level,
-        //         colorText:levelChanges[action.payload.level][0] as My_Type_Color_Text,
-        //         imgCount:action.payload.imgCount,
-        //       }
 
         case 'HARDEST_LEVEL_SHUFFLE':
                 _shuffleArray(state.divImgs)
@@ -119,7 +105,7 @@ function gameReducer(state = initialState, action:My_Type_Redux_Game_Action ){
                 divImgs: afterAfterMatchArr,
                 ...(isGameEnd && { isRunning: false, linkName: "Hraj znova", isEnd:true })//--if it´s end of the game                             
                }  
-        case 'SELECTED_IMG_COUNT':
+        case 'AFTER_SETTINGS_SELECTED_IMG_COUNT':
               
               return { 
                 ...state,

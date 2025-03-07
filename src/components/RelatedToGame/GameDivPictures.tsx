@@ -13,16 +13,10 @@ import {useSelector, useDispatch} from 'react-redux'
   export const GameDivPictures = () =>{
   
     // ---------------------------redux 
-     const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
-     const isEnd = useSelector((state: My_Type_Redux_Root_State) => state.game.isEnd);
-     const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
-     const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
-     const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
-     const divImgs = useSelector((state: My_Type_Redux_Root_State) => state.game.divImgs);
-     const selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
-     const level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
+    const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
+    const { imgNames, divImgs, selectedImgCount, level, isLoading, colorText, isEnd } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
 
-      const dispatch = useDispatch();
+    const dispatch = useDispatch();
       
       
   useEffect(() => {
@@ -30,7 +24,7 @@ import {useSelector, useDispatch} from 'react-redux'
       try {
         const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
 
-        dispatch({type: "SELECTED_IMG_COUNT",payload: imgDivs })
+        dispatch({type: "AFTER_SETTINGS_SELECTED_IMG_COUNT",payload: imgDivs })
 
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -48,7 +42,7 @@ import {useSelector, useDispatch} from 'react-redux'
      
         if(isEnd){
 
-          // dispatch({type: "SET_STOP_GAME" })/*-----------------------------------stop increment seconds */
+          // dispatch({type: "SET_STOP_GAME" })/*--------------------------------stop increment seconds */
 
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
@@ -73,10 +67,10 @@ import {useSelector, useDispatch} from 'react-redux'
           }
 
       }else return
-  }, [seconds, dispatch, colorText, isEnd ]); //-----------------------------------adding dependencies
+  }, [seconds/*, dispatch*/, colorText, isEnd ]); //------------------------------adding dependencies
 
 
-  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // -----------fn to show div>img
+  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // ---------fn to show div>img
 
     let selectedArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
@@ -98,7 +92,7 @@ import {useSelector, useDispatch} from 'react-redux'
 
                 dispatch({type: "MATCH" })
                            
-                void document.body.offsetHeight; // ---------------------------------reflow -> help from chat GPT to support animation 
+                void document.body.offsetHeight; // -------------------------------reflow -> help from chat GPT to support animation 
 
                 setTimeout(() => {
              
@@ -107,7 +101,7 @@ import {useSelector, useDispatch} from 'react-redux'
                 }, 200);
 
                       
-              }else {/* -------------------------------------------------------------if unmatch */
+              }else {/* ------------------------------------------------------------if unmatch */
                
                 dispatch({type: "UN_MATCH",payload:level })           
               }

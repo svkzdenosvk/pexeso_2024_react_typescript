@@ -3,10 +3,10 @@ import './css/gameSettings.css';
 
 import {  useNavigate } from "react-router-dom";
 
- import { /*y_Type_Game_Settings,*/ My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level, My_Type_Redux_Root_State } from '../../_inc/my_types';
+ import {  My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
- import {useSelector, useDispatch} from 'react-redux'
+ import { useDispatch} from 'react-redux'
 
 // const uuid = require('uuid')
 
@@ -16,22 +16,21 @@ const GameSettings = () => {
 
   //----------------------------redux
 
-  // let level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
-  // let selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
-  
   const dispatch = useDispatch();
 
+  //----------------------------useState
 
   const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
   const [error, setError] = useState(""); 
+ 
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
 
-  dispatch({type: "SECONDS_RESET" })
-  dispatch({type: "RESET_SETTINGS" })
+  dispatch({type: "SECONDS_RESET" })//-----------------------------------------------reset seconds 
+  dispatch({type: "RESET_SETTINGS" })//----------------------------------------------reset settings
 
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 

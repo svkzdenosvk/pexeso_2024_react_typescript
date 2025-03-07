@@ -14,12 +14,9 @@ import {useSelector, useDispatch} from 'react-redux'
 const Game = () =>{
 
   // ---------------------------redux
-  const level = useSelector((state: My_Type_Redux_Root_State) => state.game.level);
-  const selectedImgCount = useSelector((state: My_Type_Redux_Root_State) => state.game.selectedImgCount);
-  
-  const linkName = useSelector((state: My_Type_Redux_Root_State) => state.game.linkName);
-  const colorText = useSelector((state: My_Type_Redux_Root_State) => state.game.colorText);
-  
+
+  const { level, selectedImgCount, colorText, linkName } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+    
   const dispatch = useDispatch();
  
  /*--------------------------------------------------------------------------------------------------------------------------------------------

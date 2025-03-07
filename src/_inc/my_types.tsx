@@ -56,7 +56,7 @@ export type My_Type_Svk_Eng_level ={
       payload: My_Type_Level }
   | { type: 'MATCH' }
   | { type: 'REMOVE_AFTER_MATCH' }
-  | { type: 'SELECTED_IMG_COUNT';
+  | { type: 'AFTER_SETTINGS_SELECTED_IMG_COUNT';
       payload: My_Type_DivImg[] } 
   | { type: 'RESET_SETTINGS' }
   | { type: 'SETTINGS_AND_STYLING';

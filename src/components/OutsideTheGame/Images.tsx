@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import './css/images.css';
-// import { useImgContext } from "../../context/ImgContext-willbedeleted";
 import { My_Type_Redux_Root_State } from '../../_inc/my_types';
 
 import {useSelector} from 'react-redux'
@@ -9,10 +8,11 @@ import {useSelector} from 'react-redux'
 const uuid = require('uuid')
 
 const Images = () => {
+  
    // ---------------------------redux
-   const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
-   const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
-
+ 
+   const { isLoading, imgNames } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+   
 
     return (
       <div className="img-content">

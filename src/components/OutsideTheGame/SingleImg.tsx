@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useParams, Link} from "react-router-dom"
 import './css/singleImg.css';
 import { my_Type_Guard_function } from '../../_inc/_inc_functions';
-import { /*y_Type_Game_Settings,*/ My_Type_Redux_Root_State } from '../../_inc/my_types';
+import {  My_Type_Redux_Root_State } from '../../_inc/my_types';
 
 
 import {useSelector} from 'react-redux'
@@ -14,7 +14,7 @@ const SingleImg = () => {
 
   const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
 
-  // const { imgNames } = useImgContext();
+  // ---------------------------useState
 
   const [errorImgName, setErrorImgName] = useState(false);
   const [imgNameH1, setNameH1] = useState("");

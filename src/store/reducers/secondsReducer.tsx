@@ -1,6 +1,6 @@
 import { My_Type_Redux_Seconds_Action } from '../../_inc/my_types';
 
-const startTime = Date.now();
+// const startTime = Date.now();
 
 const initialState = {seconds: 0}
 
@@ -11,7 +11,6 @@ function secondsReducer(state = initialState, action:My_Type_Redux_Seconds_Actio
              return { seconds:state.seconds+1}
             // return { seconds: Math.floor((Date.now() - startTime) / 1000)}
         case 'SECONDS_RESET':
-            // return { seconds:state.seconds+1}
             return { seconds: 0}
             
         default:
