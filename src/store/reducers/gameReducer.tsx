@@ -4,6 +4,96 @@ import { My_Type_Redux_Game_Action, My_Type_Color_Text, My_Type_Img_Name,
          from '../../_inc/my_types';
 import { _shuffleArray } from '../../_inc/_inc_functions';
 
+import { createSlice } from "@reduxjs/toolkit";
+
+//---------------redux toolkit
+
+const gameSlice = createSlice({
+    name: "game",
+    initialState: {
+      imgNames: [] as My_Type_Img_Name[],
+      bgColor: "white",
+      colorText:"black",
+      isLoading: true,
+      isRunning: false,
+      linkName: "Späť na nastavenia hry.",
+      level:"" as My_Type_Level,
+      isEnd:false,
+      divImgs:[] as My_Type_DivImg[],
+      selectedImgCount: 0 as My_Type_ImgCount
+      },
+    reducers: {
+      set_start_game: (state) => {
+        state.isRunning= true;
+        state.linkName= "Nová hra."; 
+      },
+      hardest_level_shuffle: (state) => {
+        _shuffleArray(state.divImgs);
+      },
+      showOne: (state, action) => {
+        state.divImgs.forEach((oneDiv) => {
+          if (oneDiv.id === action.payload.id) {
+            oneDiv.classNames = [
+              ...oneDiv.classNames.filter((className) => className !== "mask"),
+              "selected_Div_img",
+            ];
+          }
+        });
+      },
+      un_match: (state, action) => {
+        state.divImgs.forEach(oneDiv => {
+          if (oneDiv.classNames.includes("selected_Div_img")) {
+            return { ...oneDiv, classNames: [
+              ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
+            ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+          } else {
+            return oneDiv;/*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
+          }
+        });
+        
+        if(action.payload==="medium"/*||action.payload==="hardest"*/){
+        
+           _shuffleArray(state.divImgs)
+        }
+      },
+      match: (state) =>{
+        state.divImgs.forEach(oneDiv => {
+          if (oneDiv.classNames.includes("selected_Div_img")) {
+            return { ...oneDiv, classNames: [
+              ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center"
+                      
+            ] as My_Type_ClassNames[]
+             }/*-------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
+          } else {
+            return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
+          }
+        });
+      },
+      remove_after_match:(state) =>{
+        state.divImgs.forEach(oneDiv => !oneDiv.classNames.includes("rotate-center"));
+              
+          const isGameEnd = state.divImgs.length === 0;//--------------------if all pictures removed -> it´s end of the game 
+          
+          if(isGameEnd){            
+           state.isRunning= false; state.linkName= "Hraj znova"; state.isEnd=true 
+          }
+      },
+      after_settings_selected_img_count: (state, action) => {
+        state.divImgs= action.payload;
+        state.isLoading=true; //asi dat true, lebo bola chyba tu isLoaded false .. tak odskušat spravanie !!!!!!
+      },
+      reset_settings: (state, action) => {
+        state.level= "" as My_Type_Level;
+        state.bgColor="white"; 
+        state.selectedImgCount = 0 as My_Type_ImgCount;
+        state.isRunning = false;
+
+      },
+    },
+  });
+  
+  export const { game_counter, game_reset } = gameSlice.actions;
+  export default gameSlice.reducer;
 
 const initialState = {imgNames: [] as My_Type_Img_Name[],
                       bgColor: "white",
