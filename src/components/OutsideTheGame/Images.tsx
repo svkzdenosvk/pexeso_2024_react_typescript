@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import './css/images.css';
-import { My_Type_Redux_Root_State } from '../../_inc/my_types';
+// import { My_Type_Redux_Root_State } from '../../_inc/my_types';
+import { RootState } from "../../store/store"; 
 
 import {useSelector} from 'react-redux'
 
@@ -11,8 +12,9 @@ const Images = () => {
   
    // ---------------------------redux
  
-   const { isLoading, imgNames } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
-   
+  //  const { isLoading, imgNames } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+  const { isLoading, imgNames } = useSelector((state: RootState) => state.game);//-------------with destructuring
+ 
 
     return (
       <div className="img-content">

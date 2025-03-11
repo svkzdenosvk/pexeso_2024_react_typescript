@@ -2,7 +2,9 @@ import React from 'react';
 
 import { useEffect } from 'react';
 import { _stylingAfterStart } from '../../_inc/_inc_functions';
-import { My_Type_Redux_Root_State } from '../../_inc/my_types';
+import { /*My_Type_Redux_Root_State*/ } from '../../_inc/my_types';
+
+import { RootState } from "../../store/store"; 
 
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -10,9 +12,9 @@ export const TimeAndStart = () => {
 
      // ---------------------------redux
 
-     const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
-     const { isRunning, isLoading, colorText, isEnd } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
-
+     const seconds = useSelector((state: RootState) => state.time.seconds);//-------------with destructuring
+     const { isRunning, isLoading, colorText, isEnd } = useSelector((state: RootState) => state.game);//-------------with destructuring
+      
      const dispatch = useDispatch();
     
     useEffect(() => {

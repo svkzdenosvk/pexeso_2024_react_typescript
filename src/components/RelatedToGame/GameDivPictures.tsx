@@ -5,7 +5,9 @@ import {  useEffect, useCallback } from "react";
 import {  _fmtMSS } from '../../_inc/_inc_functions';
 
 import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { My_Type_Redux_Root_State , My_Type_DivImg } from '../../_inc/my_types';
+import { /*My_Type_Redux_Root_State*/  My_Type_DivImg } from '../../_inc/my_types';
+import { RootState } from "../../store/store"; 
+
 
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -13,8 +15,11 @@ import {useSelector, useDispatch} from 'react-redux'
   export const GameDivPictures = () =>{
   
     // ---------------------------redux 
-    const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
-    const { imgNames, divImgs, selectedImgCount, level, isLoading, colorText, isEnd } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+    // const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
+    // const { imgNames, divImgs, selectedImgCount, level, isLoading, colorText, isEnd } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+
+    const seconds = useSelector((state: RootState) => state.time.seconds);//-------------with destructuring
+    const { imgNames, divImgs, selectedImgCount, level, isLoading, colorText, isEnd } = useSelector((state: RootState) => state.game);//-------------with destructuring
 
     const dispatch = useDispatch();
       
