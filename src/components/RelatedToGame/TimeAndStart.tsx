@@ -7,6 +7,9 @@ import { /*My_Type_Redux_Root_State*/ } from '../../_inc/my_types';
 import { RootState } from "../../store/store"; 
 
 import {useSelector, useDispatch} from 'react-redux'
+import { seconds_counter} from "../../store/reducers/secondsSlice"; 
+import { set_start_game } from '../../store/reducers/gameSlice';
+
 
 export const TimeAndStart = () => {
 
@@ -24,7 +27,9 @@ export const TimeAndStart = () => {
       // const startTime = Date.now();
       const interval = setInterval(() => {
 
-        dispatch({ type: 'SECONDS_COUNTER' })
+        // dispatch({ type: 'SECONDS_COUNTER' })
+        dispatch(seconds_counter())
+
         // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
       }, 1000);
   
@@ -38,7 +43,9 @@ export const TimeAndStart = () => {
      
       _stylingAfterStart();
 
-      dispatch({type: "SET_START_GAME" })
+      // dispatch({type: "SET_START_GAME" })
+      dispatch(set_start_game())
+
     }
     
     return (

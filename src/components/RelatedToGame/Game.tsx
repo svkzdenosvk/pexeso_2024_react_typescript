@@ -11,6 +11,7 @@ import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
 import {useSelector, useDispatch} from 'react-redux'
+import { settings_and_styling_before_start} from "../../store/reducers/gameSlice"; 
 
 
 const Game = () =>{
@@ -33,18 +34,22 @@ const Game = () =>{
 
  useEffect(() => {
     if (
-      !my_Type_Guard_function(level, ["easy", "medium", "hard"]) || 
-      !my_Type_Guard_function_number(selectedImgCount, [5, 6, 7, 8])) {
+      !my_Type_Guard_function(level, ["easy", "medium", "hard"])/* || 
+      !my_Type_Guard_function_number(selectedImgCount, [5, 6, 7, 8])*/) {
   
      navigate('/settings'); // --------------------------------------------------------redirect if settings are not exist or not valid
      return;
     } 
 
-     dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
-               payload:{
-                         level: level as My_Type_Level,
-                         imgCount: selectedImgCount as My_Type_ImgCount,
-                       } })
+    //  dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
+    //            payload:{
+    //                      level: level as My_Type_Level,
+    //                      imgCount: selectedImgCount as My_Type_ImgCount,
+    //                    } })
+     dispatch(settings_and_styling_before_start({
+       level: level as My_Type_Level,
+       imgCount: selectedImgCount as My_Type_ImgCount,
+     }));
                 
  }, [ dispatch, level,selectedImgCount, navigate]); 
 

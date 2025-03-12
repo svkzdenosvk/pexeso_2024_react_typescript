@@ -89,7 +89,7 @@ const gameSlice = createSlice({
         state.isRunning = false;
 
       },
-      settings_and_styling: (state, action) => {
+      settings_and_styling_before_start: (state, action) => {
        
         const levelChanges: Record<My_Type_Level, [My_Type_Color_Text, My_Type_Color_Background]> = {/*-----------------------------------------------------------using dynamic object properties*/
           easy:  ["black","white"],
@@ -115,7 +115,7 @@ const gameSlice = createSlice({
   });
   
      
-        export const { set_start_game, set_loading, set_img_names, settings_and_styling,
+        export const { set_start_game, set_loading, set_img_names, settings_and_styling_before_start,
                        after_settings_selected_img_count, remove_after_match, match, un_match,
                        reset_settings, showOne, hardest_level_shuffle     } = gameSlice.actions;
   export default gameSlice.reducer;

@@ -8,6 +8,9 @@ import {  useNavigate } from "react-router-dom";
 
  import { useDispatch} from 'react-redux'
 
+ import { settings_and_styling_before_start} from "../../store/reducers/gameSlice"; 
+
+
 // const uuid = require('uuid')
 
 // const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
@@ -72,11 +75,15 @@ const GameSettings = () => {
     }
     
   
-     dispatch({type: "SETTINGS_AND_STYLING",
-                 payload:{
-                           level: levelChosen as My_Type_Level,
-                           selectedImgCount: imgCountChosen as My_Type_ImgCount,
-                         } })
+    //  dispatch({type: "SETTINGS_AND_STYLING",
+    //              payload:{
+    //                        level: levelChosen as My_Type_Level,
+    //                        selectedImgCount: imgCountChosen as My_Type_ImgCount,
+    //                      } })
+    dispatch(settings_and_styling_before_start({
+           level: levelChosen as My_Type_Level,
+           selectedImgCount: imgCountChosen as My_Type_ImgCount,
+         }));
 
   formRef.current?.reset();
 

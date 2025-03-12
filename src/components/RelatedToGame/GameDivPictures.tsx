@@ -7,6 +7,8 @@ import {  _fmtMSS } from '../../_inc/_inc_functions';
 import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { /*My_Type_Redux_Root_State*/  My_Type_DivImg } from '../../_inc/my_types';
 import { RootState } from "../../store/store"; 
+import { after_settings_selected_img_count, showOne,match, remove_after_match,
+         un_match, hardest_level_shuffle } from "../../store/reducers/gameSlice"; 
 
 
 import {useSelector, useDispatch} from 'react-redux'
@@ -29,7 +31,9 @@ import {useSelector, useDispatch} from 'react-redux'
       try {
         const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
 
-        dispatch({type: "AFTER_SETTINGS_SELECTED_IMG_COUNT",payload: imgDivs })
+        // dispatch({type: "AFTER_SETTINGS_SELECTED_IMG_COUNT",payload: imgDivs })
+
+        dispatch(after_settings_selected_img_count(imgDivs))
 
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -46,8 +50,6 @@ import {useSelector, useDispatch} from 'react-redux'
   const checkEnd = useCallback(() => { /*----------------------------------------check if is end == each picture removed */
      
         if(isEnd){
-
-          // dispatch({type: "SET_STOP_GAME" })/*--------------------------------stop increment seconds */
 
           document.getElementById("seconds")?.setAttribute("style", "display: none;");
 
@@ -72,7 +74,7 @@ import {useSelector, useDispatch} from 'react-redux'
           }
 
       }else return
-  }, [seconds/*, dispatch*/, colorText, isEnd ]); //------------------------------adding dependencies
+  }, [seconds, colorText, isEnd ]); //------------------------------adding dependencies
 
 
   function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // ---------fn to show div>img
@@ -81,7 +83,10 @@ import {useSelector, useDispatch} from 'react-redux'
     let rotateddArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
 
     if(element.classList.contains('mask')&& (selectedArr.length===0||selectedArr.length===1)&&(rotateddArr.length===0)){/*-------------if divImg is not selected + prevent 3 imgs show*/
-       dispatch({type: "SHOW_ONE", payload: divObject })
+      //  dispatch({type: "SHOW_ONE", payload: divObject })
+
+       dispatch(showOne(divObject))
+
     }
   }
 
@@ -95,20 +100,25 @@ import {useSelector, useDispatch} from 'react-redux'
 
               if (selectedArr[0].name=== selectedArr[1].name){/* if match */
 
-                dispatch({type: "MATCH" })
+                // dispatch({type: "MATCH" })
+                dispatch(match())
+
                            
                 void document.body.offsetHeight; // -------------------------------reflow -> help from chat GPT to support animation 
 
                 setTimeout(() => {
              
-                  dispatch({type: "REMOVE_AFTER_MATCH" })
+                  // dispatch({type: "REMOVE_AFTER_MATCH" })
+                  dispatch(remove_after_match())
 
                 }, 200);
 
                       
               }else {/* ------------------------------------------------------------if unmatch */
                
-                dispatch({type: "UN_MATCH",payload:level })           
+                // dispatch({type: "UN_MATCH",payload:level })  
+                dispatch(un_match(level))
+         
               }
             }
 
@@ -118,7 +128,9 @@ import {useSelector, useDispatch} from 'react-redux'
 
     if (level === "hard") {//--------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
-        dispatch({ type: "HARDEST_LEVEL_SHUFFLE" });
+        // dispatch({ type: "HARDEST_LEVEL_SHUFFLE" });
+        dispatch(hardest_level_shuffle())
+
       }, 400);
   
       return () => clearInterval(intervalShuffleHardest);
