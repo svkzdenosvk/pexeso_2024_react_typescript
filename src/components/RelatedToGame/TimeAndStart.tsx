@@ -22,7 +22,7 @@ export const TimeAndStart = () => {
     
     useEffect(() => {
 
-      if (!isRunning || isLoading || isEnd) return;
+     if (!isRunning || isLoading || isEnd) return;
 
       // const startTime = Date.now();
       const interval = setInterval(() => {

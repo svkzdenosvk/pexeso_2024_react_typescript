@@ -29,8 +29,11 @@ import {useSelector, useDispatch} from 'react-redux'
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
-        const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
+        //  console.log("predfetchnute names:",imgNames)
+            // console.log("pocet pexeso kartičiek:",selectedImgCount)
 
+        const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
+// console.log("toto prislo po fetchi:",imgDivs)
         // dispatch({type: "AFTER_SETTINGS_SELECTED_IMG_COUNT",payload: imgDivs })
 
         dispatch(after_settings_selected_img_count(imgDivs))
@@ -144,7 +147,7 @@ import {useSelector, useDispatch} from 'react-redux'
 
   return (
      <div className="row" id="row">
-     {isLoading ? (//-----------------------------------------------------------------if loading show
+     {isLoading ? (//----------------------------------------------------------------if loading is done show
         <h1 style={{color: colorText}} >Načítavajú sa obrázky</h1>
       ) : (//-------------------------------------------------------------------------if not loading (after successful l.) show
         divImgs.map((oneDiv:My_Type_DivImg) => ( //-----------------------------------array of img names -> div>img

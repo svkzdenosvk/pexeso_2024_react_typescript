@@ -80,9 +80,9 @@ const gameSlice = createSlice({
       },
       after_settings_selected_img_count: (state, action) => {
         state.divImgs= action.payload;
-        state.isLoading=true; //asi dat true, lebo bola chyba tu isLoaded false .. tak odskušat spravanie !!!!!!
+        state.isLoading=false; //asi dat true, lebo bola chyba tu isLoaded false .. tak odskušat spravanie !!!!!!
       },
-      reset_settings: (state, action) => {
+      reset_settings: (state) => {
         state.level= "" as My_Type_Level;
         state.bgColor="white"; 
         state.selectedImgCount = 0 as My_Type_ImgCount;

@@ -77,21 +77,20 @@ import { My_Type_Img_Name, My_Type_ImgCount, My_Type_DivImg } from './my_types';
 //   return divItems; // ----------------------------------------------------return final array 
 // }
 
-export async function fetchImageDivsForCounts(selectedCountOfImg: My_Type_ImgCount, imgNames: My_Type_Img_Name[] ) {
- 
-  _shuffleArray(imgNames);//-------------------------------------------------shuffle to randomize order of all received picture 
-  
-   let afterCutArrImg = imgNames.slice(0, selectedCountOfImg)//--------------to cut selected count of pictures 
+export async function fetchImageDivsForCounts(selectedCountOfImg: My_Type_ImgCount, imgNamesInFunc: My_Type_Img_Name[] ) {
+
+  let shuffledImgNamesArray = _shuffleArray(imgNamesInFunc);//-------------------------------------------------shuffle to randomize order of all received picture 
+
+   let afterCutArrImg = shuffledImgNamesArray.slice(0, selectedCountOfImg)//--------------to cut selected count of pictures 
 
    const doubleImgs = [...afterCutArrImg, ...afterCutArrImg];
-
    
-  _shuffleArray(doubleImgs);//-----------------------------------------------to shuffle before every game
+  let shuffledImgNamesPairsArray = _shuffleArray(doubleImgs);//-----------------------------------------------to shuffle before every game
 
   //creation of 2-dimensional array: - out of component to make id´s stable
 // ['123e4567-e89b-12d3-a456-426614174000', 'blesk'],
 // ['123e4567-e89b-12d3-a456-426614174001', 'kvapka'],..
-  const imgsWithKeys = doubleImgs.map(pictureName => [uuid.v4(), pictureName]);
+  const imgsWithKeys = shuffledImgNamesPairsArray.map(pictureName => [uuid.v4(), pictureName]);
 
 let divItems: My_Type_DivImg[] = imgsWithKeys.map(([id, pictureName]) => ({//-array of objects: img {name,id, classes} -> div>img
     id: id,

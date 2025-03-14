@@ -17,6 +17,7 @@ import {  My_Type_Redux_Root_State } from './_inc/my_types';
 import { fetchOnlyImgNames, preloadImages } from "./_inc/data";
 
 import {useSelector, useDispatch} from 'react-redux'
+import { set_img_names, set_loading} from "./store/reducers/gameSlice"; 
 
 
 const App = () => {
@@ -33,7 +34,9 @@ const App = () => {
         try {
           let fetchedImgNames = await fetchOnlyImgNames(); // --loading img names from firebase
          
-          dispatch({type: "SET_IMG_NAMES",payload:fetchedImgNames })           
+          // dispatch({type: "SET_IMG_NAMES",payload:fetchedImgNames })  
+          dispatch(set_img_names(fetchedImgNames))
+                   
 
         } catch (error) {
           console.error("Error fetching names:", error);
@@ -41,15 +44,15 @@ const App = () => {
       };
   
       fetchImgNamesFunc(); //--------------------------------------------------------to call async f.
-    }, []);  
+    }, [dispatch]);  
   
     useEffect(() => {
     
           preloadImages(imgNames)/*--------------------------------------------------function to preload imgd */
             .then(() => {
 
-              dispatch({type: "SET_LOADING" })/*-------------------------------------set loading to false after imgs were loaded*/
-
+              // dispatch({type: "SET_LOADING" })/*-------------------------------------set loading to false after imgs were loaded*/
+              dispatch(set_loading())
             })
             .catch((err) => {
             // setError(err.message);    // save error message

@@ -8,7 +8,8 @@ import {  useNavigate } from "react-router-dom";
 
  import { useDispatch} from 'react-redux'
 
- import { settings_and_styling_before_start} from "../../store/reducers/gameSlice"; 
+ import { settings_and_styling_before_start, reset_settings} from "../../store/reducers/gameSlice"; 
+ import { seconds_reset} from "../../store/reducers/secondsSlice"; 
 
 
 // const uuid = require('uuid')
@@ -32,8 +33,10 @@ const GameSettings = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
 
-  dispatch({type: "SECONDS_RESET" })//-----------------------------------------------reset seconds 
-  dispatch({type: "RESET_SETTINGS" })//----------------------------------------------reset settings
+  // dispatch({type: "SECONDS_RESET" })//-----------------------------------------------reset seconds 
+  // dispatch({type: "RESET_SETTINGS" })//----------------------------------------------reset settings
+  dispatch(seconds_reset())//-----------------------------------------------reset seconds 
+  dispatch(reset_settings())//----------------------------------------------reset settings
 
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
