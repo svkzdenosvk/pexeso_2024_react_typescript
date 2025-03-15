@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react";
+import { useEffect} from "react";
+
 import './css/gameSettings.css';
 
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate, useLocation  } from "react-router-dom";
 
  import {  My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
  import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
@@ -32,13 +34,17 @@ const GameSettings = () => {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
+  const location = useLocation(); // watching URL
+
+  useEffect(() => {
+    dispatch(seconds_reset()); //-----------------------------------------------reset seconds 
+    dispatch(reset_settings()); //----------------------------------------------reset settings
+  }, [location.pathname, dispatch]); // trigger when path change
+
 
   // dispatch({type: "SECONDS_RESET" })//-----------------------------------------------reset seconds 
   // dispatch({type: "RESET_SETTINGS" })//----------------------------------------------reset settings
-  dispatch(seconds_reset())//-----------------------------------------------reset seconds 
-  dispatch(reset_settings())//----------------------------------------------reset settings
-
-
+  
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
   const levels: My_Type_Svk_Eng_level[] = [
