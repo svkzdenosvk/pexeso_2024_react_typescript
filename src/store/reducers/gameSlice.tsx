@@ -41,7 +41,9 @@ const gameSlice = createSlice({
         });
       },
       un_match: (state, action) => {
-        state.divImgs.forEach(oneDiv => {
+        // state.divImgs.forEach(oneDiv => {
+          let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
+  
           if (oneDiv.classNames.includes("selected_Div_img")) {
             return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
@@ -55,9 +57,12 @@ const gameSlice = createSlice({
         
            _shuffleArray(state.divImgs)
         }
+        state.divImgs=afterUnMatchArr;
       },
       match: (state) =>{
-        state.divImgs.forEach(oneDiv => {
+        // state.divImgs.forEach(oneDiv => {
+          let afterMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
+
           if (oneDiv.classNames.includes("selected_Div_img")) {
             return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "rotate-center"
@@ -68,15 +73,23 @@ const gameSlice = createSlice({
             return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
           }
         });
+
+      state.divImgs=afterMatchArr;
+
       },
       remove_after_match:(state) =>{
-        state.divImgs.forEach(oneDiv => !oneDiv.classNames.includes("rotate-center"));
+        // state.divImgs.forEach(oneDiv => !oneDiv.classNames.includes("rotate-center"));
+        let afterAfterMatchArr: My_Type_DivImg[] = state.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
+
               
-          const isGameEnd = state.divImgs.length === 0;//--------------------if all pictures removed -> it´s end of the game 
-          
-          if(isGameEnd){            
+          // const isGameEnd = state.divImgs.length === 0;//--------------------if all pictures removed -> it´s end of the game 
+          state.divImgs=afterAfterMatchArr;
+
+          if(state.divImgs.length === 0){    
+                   
            state.isRunning= false; state.linkName= "Hraj znova"; state.isEnd=true 
           }
+          
       },
       after_settings_selected_img_count: (state, action) => {
         state.divImgs= action.payload;

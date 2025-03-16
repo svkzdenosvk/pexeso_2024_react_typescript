@@ -29,11 +29,9 @@ import {useSelector, useDispatch} from 'react-redux'
   useEffect(() => {
     const fetchDivItemsWithCount = async () => {
       try {
-        //  console.log("predfetchnute names:",imgNames)
-            // console.log("pocet pexeso kartičiek:",selectedImgCount)
-
+        
         const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --loading from firebase
-// console.log("toto prislo po fetchi:",imgDivs)
+
         // dispatch({type: "AFTER_SETTINGS_SELECTED_IMG_COUNT",payload: imgDivs })
 
         dispatch(after_settings_selected_img_count(imgDivs))
