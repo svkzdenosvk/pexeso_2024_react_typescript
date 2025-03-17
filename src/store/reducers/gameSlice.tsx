@@ -28,7 +28,9 @@ const gameSlice = createSlice({
         state.linkName= "Nová hra."; 
       },
       hardest_level_shuffle: (state) => {
-        _shuffleArray(state.divImgs);
+        let afterUnMatchArr = _shuffleArray(state.divImgs);
+
+        state.divImgs=afterUnMatchArr;
       },
       showOne: (state, action) => {
         state.divImgs.forEach((oneDiv) => {
@@ -41,7 +43,6 @@ const gameSlice = createSlice({
         });
       },
       un_match: (state, action) => {
-        // state.divImgs.forEach(oneDiv => {
           let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
   
           if (oneDiv.classNames.includes("selected_Div_img")) {
@@ -55,12 +56,12 @@ const gameSlice = createSlice({
         
         if(action.payload==="medium"/*||action.payload==="hardest"*/){
         
-           _shuffleArray(state.divImgs)
+          afterUnMatchArr = _shuffleArray(afterUnMatchArr)
         }
-        state.divImgs=afterUnMatchArr;
+         state.divImgs=afterUnMatchArr;
       },
       match: (state) =>{
-        // state.divImgs.forEach(oneDiv => {
+       
           let afterMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
 
           if (oneDiv.classNames.includes("selected_Div_img")) {
@@ -78,12 +79,9 @@ const gameSlice = createSlice({
 
       },
       remove_after_match:(state) =>{
-        // state.divImgs.forEach(oneDiv => !oneDiv.classNames.includes("rotate-center"));
         let afterAfterMatchArr: My_Type_DivImg[] = state.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
-
               
-          // const isGameEnd = state.divImgs.length === 0;//--------------------if all pictures removed -> it´s end of the game 
-          state.divImgs=afterAfterMatchArr;
+          state.divImgs=afterAfterMatchArr;//--------------------if all pictures removed -> it´s end of the game 
 
           if(state.divImgs.length === 0){    
                    
