@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect} from "react";
-import {BrowserRouter, Routes, Route/*, Navigate*/ } from 'react-router-dom'
+import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import Game from "./components/RelatedToGame/Game"
 import SharedLayout from "./components/OutsideTheGame/SharedLayout"
 import Home from "./components/OutsideTheGame/Home"
@@ -12,9 +12,9 @@ import Images from "./components/OutsideTheGame/Images"
 import SingleImg from "./components/OutsideTheGame/SingleImg"
 import ErrorPage from "./components/ErrorPage"
 
-import {  My_Type_Redux_Root_State } from './_inc/my_types';
-
 import { fetchOnlyImgNames, preloadImages } from "./_inc/data";
+
+import { RootState } from "./store/store"; 
 
 import {useSelector, useDispatch} from 'react-redux'
 import { set_img_names, set_loading} from "./store/reducers/gameSlice"; 
@@ -22,10 +22,8 @@ import { set_img_names, set_loading} from "./store/reducers/gameSlice";
 
 const App = () => {
 
-  const imgNames = useSelector((state: My_Type_Redux_Root_State) => state.game.imgNames);
-  const isLoading = useSelector((state: My_Type_Redux_Root_State) => state.game.isLoading);
-  const bgColor = useSelector((state: My_Type_Redux_Root_State) => state.game.bgColor);
-
+  const { imgNames, isLoading, bgColor } = useSelector((state: RootState) => state.game);//-------------with destructuring
+  
   const dispatch = useDispatch();
   
 
@@ -34,10 +32,8 @@ const App = () => {
         try {
           let fetchedImgNames = await fetchOnlyImgNames(); // --loading img names from firebase
          
-          // dispatch({type: "SET_IMG_NAMES",payload:fetchedImgNames })  
           dispatch(set_img_names(fetchedImgNames))
                    
-
         } catch (error) {
           console.error("Error fetching names:", error);
         }
@@ -51,8 +47,7 @@ const App = () => {
           preloadImages(imgNames)/*--------------------------------------------------function to preload imgd */
             .then(() => {
 
-              // dispatch({type: "SET_LOADING" })/*-------------------------------------set loading to false after imgs were loaded*/
-              dispatch(set_loading())
+              dispatch(set_loading())/*----------------------------------------------set loading to false after imgs were loaded*/
             })
             .catch((err) => {
             // setError(err.message);    // save error message

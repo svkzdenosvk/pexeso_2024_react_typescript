@@ -37,14 +37,11 @@ const GameSettings = () => {
   const location = useLocation(); // watching URL
 
   useEffect(() => {
-    dispatch(seconds_reset()); //-----------------------------------------------reset seconds 
-    dispatch(reset_settings()); //----------------------------------------------reset settings
+    dispatch(seconds_reset()); //----------------------------------------------------reset seconds 
+    dispatch(reset_settings()); //---------------------------------------------------reset settings
   }, [location.pathname, dispatch]); // trigger when path change
 
 
-  // dispatch({type: "SECONDS_RESET" })//-----------------------------------------------reset seconds 
-  // dispatch({type: "RESET_SETTINGS" })//----------------------------------------------reset settings
-  
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
 
   const levels: My_Type_Svk_Eng_level[] = [
@@ -84,11 +81,6 @@ const GameSettings = () => {
     }
     
   
-    //  dispatch({type: "SETTINGS_AND_STYLING",
-    //              payload:{
-    //                        level: levelChosen as My_Type_Level,
-    //                        selectedImgCount: imgCountChosen as My_Type_ImgCount,
-    //                      } })
     dispatch(settings_and_styling_before_start({
            level: levelChosen as My_Type_Level,
            selectedImgCount: imgCountChosen as My_Type_ImgCount,

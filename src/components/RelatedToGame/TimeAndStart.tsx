@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useEffect } from 'react';
 import { _stylingAfterStart } from '../../_inc/_inc_functions';
-import { /*My_Type_Redux_Root_State*/ } from '../../_inc/my_types';
 
 import { RootState } from "../../store/store"; 
 
@@ -27,8 +26,7 @@ export const TimeAndStart = () => {
       // const startTime = Date.now();
       const interval = setInterval(() => {
 
-        // dispatch({ type: 'SECONDS_COUNTER' })
-        dispatch(seconds_counter())
+      dispatch(seconds_counter())
 
         // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
       }, 1000);
@@ -43,7 +41,6 @@ export const TimeAndStart = () => {
      
       _stylingAfterStart();
 
-      // dispatch({type: "SET_START_GAME" })
       dispatch(set_start_game())
 
     }

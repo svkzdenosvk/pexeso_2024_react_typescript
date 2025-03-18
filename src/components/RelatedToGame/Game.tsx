@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useEffect} from "react";
 import {  useNavigate, Link  } from "react-router-dom";
-import { My_Type_Level, My_Type_ImgCount/*, My_Type_Redux_Root_State*/ } from '../../_inc/my_types';
+// import { My_Type_Level, My_Type_ImgCount/*, My_Type_Redux_Root_State*/ } from '../../_inc/my_types';
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
 import { RootState } from "../../store/store"; 
@@ -11,14 +11,13 @@ import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
 import {useSelector, useDispatch} from 'react-redux'
-import { settings_and_styling_before_start} from "../../store/reducers/gameSlice"; 
+// import { settings_and_styling_before_start} from "../../store/reducers/gameSlice"; 
 
 
 const Game = () =>{
 
   // ---------------------------redux
 
-  // const { level, selectedImgCount, colorText, linkName } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
   const { level, selectedImgCount, colorText, linkName } = useSelector((state: RootState) => state.game);//-------------with destructuring
   
   const dispatch = useDispatch();
@@ -41,11 +40,6 @@ const Game = () =>{
      return;
     } 
 
-    //  dispatch({type: "SET_LEVEL_AND_STYLING_AND_IMGCOUNT",
-    //            payload:{
-    //                      level: level as My_Type_Level,
-    //                      imgCount: selectedImgCount as My_Type_ImgCount,
-    //                    } })
     //  dispatch(settings_and_styling_before_start({
     //    level: level as My_Type_Level,
     //    imgCount: selectedImgCount as My_Type_ImgCount,
