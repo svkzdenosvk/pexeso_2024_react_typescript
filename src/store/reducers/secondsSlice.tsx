@@ -1,4 +1,3 @@
-// import { My_Type_Redux_Seconds_Action } from '../../_inc/my_types';
 
 import { createSlice } from "@reduxjs/toolkit";
 

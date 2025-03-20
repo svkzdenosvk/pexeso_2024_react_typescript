@@ -1,9 +1,4 @@
 
-type _inc_Type ={
-    colorText: My_Type_Color_Text;
-
-  }
-
 export type My_Type_Level = "easy"| "medium"| "hard";
 export type My_Type_Level_Svk = "Ľahký"| "Stredný"| "Ťažký";
 
@@ -27,15 +22,6 @@ export type My_Type_DivImg = My_Type_Image & {/*------------------------------di
    classNames: My_Type_ClassNames[];
 }
   
-export type MyTimeAndStartProps = _inc_Type & {/*-----------------------------type of props of TimeAndStart component */
-    isRunning: boolean;
-}
-
-export type MyGameDivPicturesProps= _inc_Type &{/*----------------------------type of props of GameDivPictures component */
-  level: My_Type_Level;
-  selectedImgCount: My_Type_ImgCount; 
-}
-
 export type My_Type_Svk_Eng_level ={
   value: My_Type_Level;
   label: My_Type_Level_Svk;

@@ -40,7 +40,7 @@ const App = () => {
       };
   
       fetchImgNamesFunc(); //--------------------------------------------------------to call async f.
-    }, []);  
+    }, [dispatch]);  
   
     useEffect(() => {
     

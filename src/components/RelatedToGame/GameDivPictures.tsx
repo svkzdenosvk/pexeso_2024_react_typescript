@@ -70,10 +70,10 @@ import {useSelector, useDispatch} from 'react-redux'
           }
 
       }else return
-  }, [seconds, colorText, isEnd ]); //--------------------------------------------adding dependencies
+  }, [seconds, colorText, isEnd ]); //-------------------------------------------adding dependencies
 
 
-  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // ---------fn to show div>img
+  function showImg(element:HTMLDivElement,divObject:My_Type_DivImg){  // --------fn to show div>img
 
     let selectedArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("selected_Div_img"));
     let rotateddArr = divImgs.filter(oneDiv => oneDiv.classNames.includes("rotate-center")); /* after match */
@@ -106,18 +106,18 @@ import {useSelector, useDispatch} from 'react-redux'
                 }, 200);
 
                       
-              }else {/* ------------------------------------------------------------if unmatch */
+              }else {/* -----------------------------------------------------------if unmatch */
                
                 dispatch(un_match(level))
          
               }
             }
 
-            document.body.style.pointerEvents = "auto";/*----------------------------give back functionality to pointer*/
+            document.body.style.pointerEvents = "auto";/*---------------------------give back functionality to pointer*/
 
     }, 200);
 
-    if (level === "hard") {//--------------------------------------------------------in the hardest level shuffeling every 400 ms
+    if (level === "hard") {//-------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
         dispatch(hardest_level_shuffle())
 

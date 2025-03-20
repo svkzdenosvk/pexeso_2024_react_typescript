@@ -23,13 +23,11 @@ export const TimeAndStart = () => {
 
      if (!isRunning || isLoading || isEnd) return;
 
-      // const startTime = Date.now();
       const interval = setInterval(() => {
 
       dispatch(seconds_counter())
 
-        // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
-      }, 1000);
+     }, 1000);
   
       return () => clearInterval(interval);
     }
@@ -37,7 +35,7 @@ export const TimeAndStart = () => {
     , [isRunning,dispatch, isLoading, isEnd]);
    
 
-    function timer(){/*------------------------------------------------------button start */
+    function timer(){/*--------------------------------------------------------------------button start */
      
       _stylingAfterStart();
 

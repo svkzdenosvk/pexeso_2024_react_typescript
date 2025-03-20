@@ -12,7 +12,6 @@ const Images = () => {
   
    // ---------------------------redux
  
-  //  const { isLoading, imgNames } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
   const { isLoading, imgNames } = useSelector((state: RootState) => state.game);//-------------with destructuring
  
 
