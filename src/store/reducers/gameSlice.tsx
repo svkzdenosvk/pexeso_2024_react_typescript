@@ -83,11 +83,16 @@ const gameSlice = createSlice({
               
           state.divImgs=afterAfterMatchArr;//--------------------if all pictures removed -> it´s end of the game 
 
-          if(state.divImgs.length === 0){    
+          // if(state.divImgs.length === 0){    
                    
-           state.isRunning= false; state.linkName= "Hraj znova"; state.isEnd=true 
-          }
+          //  state.isRunning= false; state.linkName= "Hraj znova"; state.isEnd=true 
+          // }
           
+      },
+      end_game:(state)=>{
+        state.isRunning= false; 
+        state.linkName= "Hraj znova";
+        state.isEnd=true 
       },
       after_settings_selected_img_count: (state, action) => {
         state.divImgs= action.payload;
@@ -128,6 +133,6 @@ const gameSlice = createSlice({
      
         export const { set_start_game, set_loading, set_img_names, settings_and_styling_before_start,
                        after_settings_selected_img_count, remove_after_match, match, un_match,
-                       reset_settings, showOne, hardest_level_shuffle     } = gameSlice.actions;
+                       reset_settings, showOne, hardest_level_shuffle, end_game   } = gameSlice.actions;
   export default gameSlice.reducer;
 

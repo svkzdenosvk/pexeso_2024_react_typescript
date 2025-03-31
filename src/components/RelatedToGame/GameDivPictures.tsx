@@ -7,7 +7,7 @@ import {  _fmtMSS } from '../../_inc/_inc_functions';
 import { fetchImageDivsForCounts  } from '../../_inc/data';
 import { My_Type_DivImg } from '../../_inc/my_types';
 import { RootState } from "../../store/store"; 
-import { after_settings_selected_img_count, showOne,match, remove_after_match,
+import { after_settings_selected_img_count, showOne,match/*, remove_after_match*/,
          un_match, hardest_level_shuffle } from "../../store/reducers/gameSlice"; 
 
 import {useSelector, useDispatch} from 'react-redux'
@@ -97,13 +97,13 @@ import {useSelector, useDispatch} from 'react-redux'
 
                 dispatch(match())
                            
-                void document.body.offsetHeight; // -------------------------------reflow -> help from chat GPT to support animation 
+                // void document.body.offsetHeight; // -------------------------------reflow -> help from chat GPT to support animation 
 
-                setTimeout(() => {
+                // setTimeout(() => {
              
-                  dispatch(remove_after_match())
+                //   dispatch(remove_after_match())
 
-                }, 200);
+                // }, 200);
 
                       
               }else {/* -----------------------------------------------------------if unmatch */
