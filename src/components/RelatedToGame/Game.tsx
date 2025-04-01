@@ -4,20 +4,26 @@ import { useEffect} from "react";
 import {  useNavigate, Link  } from "react-router-dom";
 import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
 
+import { fetchImageDivsForCounts  } from '../../_inc/data';
+import { after_settings_selected_img_count } from "../../store/reducers/gameSlice"; 
+
+import { My_Type_DivImg } from '../../_inc/my_types';
+
 import { RootState } from "../../store/store"; 
 
 import { GameDivPictures } from "./GameDivPictures"
 import {TimeAndStart} from "./TimeAndStart"
 
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 
 const Game = () =>{
 
   // ---------------------------redux
 
-  const { level, selectedImgCount, colorText, linkName } = useSelector((state: RootState) => state.game);//-------------with destructuring
-   
+  const {imgNames, level, selectedImgCount, colorText, linkName } = useSelector((state: RootState) => state.game);//-------------with destructuring
 
+  const dispatch = useDispatch();
+  
  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
  const navigate = useNavigate();
  
@@ -33,9 +39,23 @@ const Game = () =>{
   
      navigate('/settings'); // --------------------------------------------------------redirect if settings are not exist or not valid
      return;
-    } 
+    } else{
+      const fetchDivItemsWithCount = async () => {
+            try {
+              
+              const imgDivs: My_Type_DivImg[] = await fetchImageDivsForCounts(selectedImgCount,imgNames); // --create array of div > imgs 
+      
+              dispatch(after_settings_selected_img_count(imgDivs))
+      
+            } catch (error) {
+              console.error("Error fetching items:", error);
+            }
+          };
+      
+          fetchDivItemsWithCount(); //-------------------------------------------------to call async f.
+    }
                 
- }, [ level,selectedImgCount, navigate]); 
+ }, [ level,selectedImgCount, navigate, dispatch, imgNames]); 
 
   return (
     <>

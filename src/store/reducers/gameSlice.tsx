@@ -81,12 +81,8 @@ const gameSlice = createSlice({
       remove_after_match:(state) =>{
         let afterAfterMatchArr: My_Type_DivImg[] = state.divImgs.filter(oneDiv => !oneDiv.classNames.includes("rotate-center"));
               
-          state.divImgs=afterAfterMatchArr;//--------------------if all pictures removed -> it´s end of the game 
+          state.divImgs=afterAfterMatchArr;//----------------------------------if all pictures removed -> it´s end of the game 
 
-          // if(state.divImgs.length === 0){    
-                   
-          //  state.isRunning= false; state.linkName= "Hraj znova"; state.isEnd=true 
-          // }
           
       },
       end_game:(state)=>{
@@ -98,14 +94,14 @@ const gameSlice = createSlice({
         state.divImgs= action.payload;
         // state.isLoading=false; //asi dat true, lebo bola chyba tu isLoaded false .. tak odskušat spravanie !!!!!!
       },
-      reset_settings: (state) => {
+      reset_settings: (state) => {//-------------------------------------------evrytime we return on settings page
         state.level= "" as My_Type_Level;
         state.bgColor="white"; 
         state.selectedImgCount = 0 as My_Type_ImgCount;
         state.isRunning = false;
 
       },
-      settings_and_styling_before_start: (state, action) => {
+      settings_and_styling_before_start: (state, action) => {//----------------after set the settings (but before clicking to start button) 
        
         const levelChanges: Record<My_Type_Level, [My_Type_Color_Text, My_Type_Color_Background]> = {/*-----------------------------------------------------------using dynamic object properties*/
           easy:  ["black","white"],
@@ -113,17 +109,17 @@ const gameSlice = createSlice({
           hard:  ["white", "black"]
         }
 
-        state.isEnd=false;
+        state.isEnd=false;//----maybe this move to reset_settings action !!!!!!! needed to test that !!!!!!!!!
         state.linkName="Späť na nastavenia hry.";
         state.level= action.payload.level;
         state.bgColor= levelChanges[action.payload.level as My_Type_Level][1] as My_Type_Color_Background;
         state.colorText= levelChanges[action.payload.level as My_Type_Level][0] as My_Type_Color_Text;
         state.selectedImgCount=action.payload.selectedImgCount as My_Type_ImgCount;
       },
-      set_img_names: (state, action) => {
+      set_img_names: (state, action) => {//-------------------------------------after fetching names from db
         state.imgNames= action.payload;
       },
-      set_loading: (state) => {
+      set_loading: (state) => {//-----------------------------------------------after loading imgs (in app.tsx)
         state.isLoading= false;
       },     
       
