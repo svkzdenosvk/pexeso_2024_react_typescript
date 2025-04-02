@@ -6,7 +6,7 @@ import { My_Type_Img_Name, My_Type_ImgCount, My_Type_DivImg } from './my_types';
 
   const uuid = require('uuid')
 
-  export async function fetchOnlyImgNames(){
+  export async function fetchOnlyImgNames(){//-----------------------------fun. to fetch img names from db
     let arrImg: My_Type_Img_Name[] = []; //------------------------------- create empty array -> it will be filled with img´s names 
   
     try { // --------------------------------------------------------------loading docs from Firebase
@@ -28,64 +28,15 @@ import { My_Type_Img_Name, My_Type_ImgCount, My_Type_DivImg } from './my_types';
   
   }
 
-// export async function fetchImageNames(){
-//   let arrImg: My_Type_Image[] = []; //---------------------------------- create empty array -> it will be filled with img´s names 
+export async function createDivsArrayFromImgNamesAndCountImg(selectedCountOfImg: My_Type_ImgCount, imgNamesInFunc: My_Type_Img_Name[] ) {
 
-//   try { // --------------------------------------------------------------loading docs from Firebase
-    
-//     const snapshot = await getDocs(collection(projectFirestore, "pexeso-img-names"));
-//     snapshot.forEach((doc) => {
-//       const name: My_Type_Img_Name = doc.data().name;
-//       const id: string = doc.id; //--------------------------------------get id of document 
+  let shuffledImgNamesArray = _shuffleArray(imgNamesInFunc);//--------------shuffle to randomize order of all received picture 
 
-//       if (name) {
-//         arrImg.push({ id, name }); //------------------------------------add name to array 
-//       }
-//     });
-//   } catch (error) {
-//     console.error("Chyba pri načítaní dát z Firestore:", error);
-//     return []; // -------------------------------------------------------if error return empty array 
-//   }
-
-//   return arrImg
-
-// }
-
-// export async function fetchImageDivs() {
-//   let fetchedImageNamesAndId: My_Type_Image[] = []; //-------------------create empty array -> it will be filled with img´s names
-
-//   fetchedImageNamesAndId= await fetchImageNames()
-
-//   let arrImg: My_Type_Img_Name[] = fetchedImageNamesAndId.map(imgNameAndId => imgNameAndId.name) // return only name of picture
-
-
-//   const doubleImgs: My_Type_Img_Name[] = [...arrImg, ...arrImg];
-
-//   _shuffleArray(doubleImgs);//-------------------------------------------to shuffle before every game
-
-//   //creation of 2-dimensional array: - out of component to make id´s stable
-// // ['123e4567-e89b-12d3-a456-426614174000', 'blesk'],
-// // ['123e4567-e89b-12d3-a456-426614174001', 'kvapka'],..
-//   const imgsWithKeys = doubleImgs.map(pictureName => [uuid.v4(), pictureName]);
-
-// let divItems = imgsWithKeys.map(([id, pictureName]) => ({ //--------------array of img names -> div>img
-//     id: id,
-//     name: pictureName,
-//     classNames: ["mask"],
-//   }));
-
-//   return divItems; // ----------------------------------------------------return final array 
-// }
-
-export async function fetchImageDivsForCounts(selectedCountOfImg: My_Type_ImgCount, imgNamesInFunc: My_Type_Img_Name[] ) {
-
-  let shuffledImgNamesArray = _shuffleArray(imgNamesInFunc);//-------------------------------------------------shuffle to randomize order of all received picture 
-
-   let afterCutArrImg = shuffledImgNamesArray.slice(0, selectedCountOfImg)//--------------to cut selected count of pictures 
+   let afterCutArrImg = shuffledImgNamesArray.slice(0, selectedCountOfImg)//to cut selected count of pictures 
 
    const doubleImgs = [...afterCutArrImg, ...afterCutArrImg];
    
-  let shuffledImgNamesPairsArray = _shuffleArray(doubleImgs);//-----------------------------------------------to shuffle before every game
+  let shuffledImgNamesPairsArray = _shuffleArray(doubleImgs);//-------------to shuffle before every game
 
   //creation of 2-dimensional array: - out of component to make id´s stable
 // ['123e4567-e89b-12d3-a456-426614174000', 'blesk'],
@@ -101,7 +52,7 @@ let divItems: My_Type_DivImg[] = imgsWithKeys.map(([id, pictureName]) => ({//-ar
   return divItems; // ------------------------------------------------------return final array 
 }
 
-export function preloadImages(imgNamesArr: My_Type_Img_Name[]) { //-------function during loading images 
+export function preloadImages(imgNamesArr: My_Type_Img_Name[]) { //---------function during loading images 
   return Promise.all(
     imgNamesArr.map((picture) => {
       return new Promise((resolve, reject) => {

@@ -21,16 +21,17 @@ import { set_img_names, set_loading} from "./store/reducers/gameSlice";
 
 
 const App = () => {
+  //----------------------------redux
 
   const { imgNames, isLoading, bgColor } = useSelector((state: RootState) => state.game);//-------------with destructuring
   
   const dispatch = useDispatch();
-  
+  //------------------------------------------------------------------------------------------------------------
 
   useEffect(() => {
       const fetchImgNamesFunc = async () => {
         try {
-          let fetchedImgNames = await fetchOnlyImgNames(); // --loading img names from firebase
+          let fetchedImgNames = await fetchOnlyImgNames(); // ----------------------loading img names from firebase
          
           dispatch(set_img_names(fetchedImgNames))
                    
@@ -42,25 +43,25 @@ const App = () => {
       fetchImgNamesFunc(); //--------------------------------------------------------to call async f.
     }, [dispatch]);  
   
-    useEffect(() => {
+  useEffect(() => {
     
-          preloadImages(imgNames)/*--------------------------------------------------function to preload imgd */
-            .then(() => {
+     preloadImages(imgNames)/*--------------------------------------------------function to preload imgd */
+       .then(() => {
 
-              dispatch(set_loading())/*----------------------------------------------set loading to false after imgs were loaded*/
-            })
-            .catch((err) => {
-            // setError(err.message);    // save error message
-            console.log("Not all images were loaded")
-            // setLoadingImg(false);        //----------------------------------------set loading to false
+         dispatch(set_loading())/*----------------------------------------------set loading to false after imgs were loaded*/
+       })
+       .catch((err) => {
+       // setError(err.message);    // save error message
+       console.log("Not all images were loaded")
+       // setLoadingImg(false);        //----------------------------------------set loading to false
            
-            });
-        }, [isLoading, imgNames, dispatch]);
+        });
+  }, [isLoading, imgNames, dispatch]);
   
-        useEffect(() => {  //--------------------------------------------------------------check end useEffect
-          document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
+  useEffect(() => {  //--------------------------------------------------------------check end useEffect
+    document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
             
-        }, [bgColor])
+  }, [bgColor])
 
   return (
 

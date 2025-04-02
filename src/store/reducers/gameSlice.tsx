@@ -23,16 +23,16 @@ const gameSlice = createSlice({
       selectedImgCount: 0 as My_Type_ImgCount
       },
     reducers: {
-      set_start_game: (state) => {
+      set_start_game: (state) => {//-------------------------------------------start the game
         state.isRunning= true;
         state.linkName= "Nová hra."; 
       },
-      hardest_level_shuffle: (state) => {
+      hardest_level_shuffle: (state) => {//-------------------------------------when level is the "hardest" shuffle cards every 0.4 sec. 
         let afterUnMatchArr = _shuffleArray(state.divImgs);
 
         state.divImgs=afterUnMatchArr;
       },
-      showOne: (state, action) => {
+      showOne: (state, action) => {//-------------------------------------------show/reveal one picture after click on that
         state.divImgs.forEach((oneDiv) => {
           if (oneDiv.id === action.payload.id) {
             oneDiv.classNames = [
@@ -42,7 +42,7 @@ const gameSlice = createSlice({
           }
         });
       },
-      un_match: (state, action) => {
+      un_match: (state, action) => {//-------------------------------------------after revealing 2 pictures which are not same 
           let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
   
           if (oneDiv.classNames.includes("selected_Div_img")) {
@@ -60,7 +60,7 @@ const gameSlice = createSlice({
         }
          state.divImgs=afterUnMatchArr;
       },
-      match: (state) =>{
+      match: (state) =>{//-------------------------------------------------------when 2 revealed pictures are same
        
           let afterMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
 
@@ -85,7 +85,7 @@ const gameSlice = createSlice({
 
           
       },
-      end_game:(state)=>{
+      end_game:(state)=>{//----------------------------------------------------the game is over after all imgs has been removed 
         state.isRunning= false; 
         state.linkName= "Hraj znova";
         state.isEnd=true 

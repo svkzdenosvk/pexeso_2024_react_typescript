@@ -21,7 +21,8 @@ import {useSelector, useDispatch} from 'react-redux'
     const { /*imgNames,*/ divImgs/*, selectedImgCount*/, level, isLoading, colorText, isEnd } = useSelector((state: RootState) => state.game);//-------------with destructuring
 
     const dispatch = useDispatch();
-      
+    
+    /*--------------------------------------------------------------------------------------------------------------------------------------------*/
  
   // ---------------------------
   // ---------------------------ending fn

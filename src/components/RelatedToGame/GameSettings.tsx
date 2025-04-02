@@ -14,10 +14,6 @@ import {  useNavigate, useLocation  } from "react-router-dom";
  import { seconds_reset} from "../../store/reducers/secondsSlice"; 
 
 
-// const uuid = require('uuid')
-
-// const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
-
 const GameSettings = () => {
 
   //----------------------------redux
@@ -34,12 +30,12 @@ const GameSettings = () => {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const location = useLocation(); // watching URL
+  const location = useLocation(); // ------------------------------------------------watching URL
 
   useEffect(() => {
     dispatch(seconds_reset()); //----------------------------------------------------reset seconds 
     dispatch(reset_settings()); //---------------------------------------------------reset settings
-  }, [location.pathname, dispatch]); // trigger when path change
+  }, [location.pathname, dispatch]); // ---------------------------------------------trigger when path change
 
 
   const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
@@ -81,7 +77,7 @@ const GameSettings = () => {
     }
     
   
-    dispatch(settings_and_styling_before_start({
+    dispatch(settings_and_styling_before_start({//------------------------------------set mainly level and count of images to play with
            level: levelChosen as My_Type_Level,
            selectedImgCount: imgCountChosen as My_Type_ImgCount,
          }));

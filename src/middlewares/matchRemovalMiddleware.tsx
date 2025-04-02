@@ -10,6 +10,7 @@ export const matchRemovalMiddleware: Middleware<{}> = (storeAPI) => (next) => (a
     next(action); // -----------------------------------------------------------firstly trigger match action
 
     void document.body.offsetHeight;
+    
     setTimeout(() => {
         storeAPI.dispatch(remove_after_match());//------------------------------after match -> remove pictures (it´s about animations)
      
