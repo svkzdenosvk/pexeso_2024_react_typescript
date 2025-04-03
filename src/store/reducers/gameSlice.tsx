@@ -27,12 +27,12 @@ const gameSlice = createSlice({
         state.isRunning= true;
         state.linkName= "Nová hra."; 
       },
-      hardest_level_shuffle: (state) => {//-------------------------------------when level is the "hardest" shuffle cards every 0.4 sec. 
+      hardest_level_shuffle: (state) => {//------------------------------------when level is the "hardest" shuffle cards every 0.4 sec. 
         let afterUnMatchArr = _shuffleArray(state.divImgs);
 
         state.divImgs=afterUnMatchArr;
       },
-      showOne: (state, action) => {//-------------------------------------------show/reveal one picture after click on that
+      showOne: (state, action) => {//------------------------------------------show/reveal one picture after click on that
         state.divImgs.forEach((oneDiv) => {
           if (oneDiv.id === action.payload.id) {
             oneDiv.classNames = [
@@ -42,15 +42,15 @@ const gameSlice = createSlice({
           }
         });
       },
-      un_match: (state, action) => {//-------------------------------------------after revealing 2 pictures which are not same 
+      un_match: (state, action) => {//-----------------------------------------after revealing 2 pictures which are not same 
           let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
   
           if (oneDiv.classNames.includes("selected_Div_img")) {
             return { ...oneDiv, classNames: [
               ...oneDiv.classNames.filter(className => className !== "selected_Div_img"), "mask" // remove "selected" and add "mask" class
-            ] }/*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+            ] }/*--------------------------------------------------------------change 2 selected img´s to nonselected and hide */
           } else {
-            return oneDiv;/*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
+            return oneDiv;/*---------------------------------------------------if img wasn´t selected -> nothing to change  */
           }
         });
         
@@ -60,7 +60,7 @@ const gameSlice = createSlice({
         }
          state.divImgs=afterUnMatchArr;
       },
-      match: (state) =>{//-------------------------------------------------------when 2 revealed pictures are same
+      match: (state) =>{//-----------------------------------------------------when 2 revealed pictures are same
        
           let afterMatchArr: My_Type_DivImg[] = state.divImgs.map(oneDiv => {
 
@@ -92,13 +92,14 @@ const gameSlice = createSlice({
       },
       after_settings_selected_img_count: (state, action) => {
         state.divImgs= action.payload;
-        // state.isLoading=false; //asi dat true, lebo bola chyba tu isLoaded false .. tak odskušat spravanie !!!!!!
+        // state.isLoading=false; //-------------------------------------------maybe for the future to test this  !!!!!!
       },
       reset_settings: (state) => {//-------------------------------------------evrytime we return on settings page
         state.level= "" as My_Type_Level;
         state.bgColor="white"; 
         state.selectedImgCount = 0 as My_Type_ImgCount;
         state.isRunning = false;
+        state.isEnd=false;
 
       },
       settings_and_styling_before_start: (state, action) => {//----------------after set the settings (but before clicking to start button) 
@@ -109,7 +110,7 @@ const gameSlice = createSlice({
           hard:  ["white", "black"]
         }
 
-        state.isEnd=false;//----maybe this move to reset_settings action !!!!!!! needed to test that !!!!!!!!!
+        //state.isEnd=false;//-------------------------------------------------maybe this could be decommented .. in case of problems in the future 
         state.linkName="Späť na nastavenia hry.";
         state.level= action.payload.level;
         state.bgColor= levelChanges[action.payload.level as My_Type_Level][1] as My_Type_Color_Background;

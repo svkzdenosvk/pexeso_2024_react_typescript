@@ -23,7 +23,7 @@ import { set_img_names, set_loading} from "./store/reducers/gameSlice";
 const App = () => {
   //----------------------------redux
 
-  const { imgNames, isLoading, bgColor } = useSelector((state: RootState) => state.game);//-------------with destructuring
+  const { imgNames, isLoading, bgColor } = useSelector((state: RootState) => state.game);//---with destructuring
   
   const dispatch = useDispatch();
   //------------------------------------------------------------------------------------------------------------
@@ -53,12 +53,12 @@ const App = () => {
        .catch((err) => {
        // setError(err.message);    // save error message
        console.log("Not all images were loaded")
-       // setLoadingImg(false);        //----------------------------------------set loading to false
-           
+       // setLoadingImg(false);        //---------------------------------------set loading to false
+       window.location.reload();    
         });
   }, [isLoading, imgNames, dispatch]);
   
-  useEffect(() => {  //--------------------------------------------------------------check end useEffect
+  useEffect(() => {  //---------------------------------------------------------check end useEffect
     document.getElementsByTagName("BODY")[0].setAttribute('style', 'background-color: '+ bgColor);
             
   }, [bgColor])
