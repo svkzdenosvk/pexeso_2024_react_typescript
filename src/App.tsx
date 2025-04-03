@@ -54,7 +54,7 @@ const App = () => {
        // setError(err.message);    // save error message
        console.log("Not all images were loaded")
        // setLoadingImg(false);        //---------------------------------------set loading to false
-       window.location.reload();    
+       window.location.reload();    //------------------------------------------reload page when imgs weren´t loaded correctly
         });
   }, [isLoading, imgNames, dispatch]);
   
