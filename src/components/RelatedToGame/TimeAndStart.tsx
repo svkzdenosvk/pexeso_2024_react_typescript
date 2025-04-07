@@ -1,50 +1,57 @@
-import React from 'react';
+import React from "react";
 
-import { useEffect } from 'react';
-import { _stylingAfterStart } from '../../_inc/_inc_functions';
-import { My_Type_Redux_Root_State } from '../../_inc/my_types';
+import { useEffect } from "react";
+import { _stylingAfterStart } from "../../_inc/_inc_functions";
+import { My_Type_Redux_Root_State } from "../../_inc/my_types";
 
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 
 export const TimeAndStart = () => {
+  // ---------------------------redux
 
-     // ---------------------------redux
+  const seconds = useSelector(
+    (state: My_Type_Redux_Root_State) => state.time.seconds,
+  );
+  const { isRunning, isLoading, colorText, isEnd } = useSelector(
+    (state: My_Type_Redux_Root_State) => state.game,
+  ); //-------------with destructuring
 
-     const seconds = useSelector((state: My_Type_Redux_Root_State) => state.time.seconds);
-     const { isRunning, isLoading, colorText, isEnd } = useSelector((state: My_Type_Redux_Root_State) => state.game);//-------------with destructuring
+  const dispatch = useDispatch();
 
-     const dispatch = useDispatch();
-    
-    useEffect(() => {
+  useEffect(() => {
+    if (!isRunning || isLoading || isEnd) return;
 
-      if (!isRunning || isLoading || isEnd) return;
+    // const startTime = Date.now();
+    const interval = setInterval(() => {
+      dispatch({ type: "SECONDS_COUNTER" });
+      // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
+    }, 1000);
 
-      // const startTime = Date.now();
-      const interval = setInterval(() => {
+    return () => clearInterval(interval);
+  }, [isRunning, dispatch, isLoading, isEnd]);
 
-        dispatch({ type: 'SECONDS_COUNTER' })
-        // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
-      }, 1000);
-  
-      return () => clearInterval(interval);
-    }
+  function timer() {
+    /*------------------------------------------------------button start */
 
-    , [isRunning,dispatch, isLoading, isEnd]);
-   
+    _stylingAfterStart();
 
-    function timer(){/*------------------------------------------------------button start */
-     
-      _stylingAfterStart();
-
-      dispatch({type: "SET_START_GAME" })
-    }
-    
-    return (
-      <div id="timeAndStart">
-          <div style={{color: colorText}} id="seconds"  >{seconds} s</div>
-
-          <div onClick={() => {timer()}} id="start" >START</div>
-      </div>
-    )
+    dispatch({ type: "SET_START_GAME" });
   }
-  
+
+  return (
+    <div id="timeAndStart">
+      <div style={{ color: colorText }} id="seconds">
+        {seconds} s
+      </div>
+
+      <div
+        onClick={() => {
+          timer();
+        }}
+        id="start"
+      >
+        START
+      </div>
+    </div>
+  );
+};

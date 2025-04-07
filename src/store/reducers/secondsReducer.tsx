@@ -1,22 +1,23 @@
-import { My_Type_Redux_Seconds_Action } from '../../_inc/my_types';
+import { My_Type_Redux_Seconds_Action } from "../../_inc/my_types";
 
 // const startTime = Date.now();
 
-const initialState = {seconds: 0}
+const initialState = { seconds: 0 };
 
-function secondsReducer(state = initialState, action:My_Type_Redux_Seconds_Action ){
+function secondsReducer(
+  state = initialState,
+  action: My_Type_Redux_Seconds_Action,
+) {
+  switch (action.type) {
+    case "SECONDS_COUNTER":
+      return { seconds: state.seconds + 1 };
+    // return { seconds: Math.floor((Date.now() - startTime) / 1000)}
+    case "SECONDS_RESET":
+      return { seconds: 0 };
 
-    switch(action.type){
-        case 'SECONDS_COUNTER':
-             return { seconds:state.seconds+1}
-            // return { seconds: Math.floor((Date.now() - startTime) / 1000)}
-        case 'SECONDS_RESET':
-            return { seconds: 0}
-            
-        default:
-            return state;
-    
-    }
+    default:
+      return state;
+  }
 }
 
 export default secondsReducer;
