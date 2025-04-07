@@ -1,30 +1,38 @@
-import React, { useState, useRef  } from "react";
-import './css/gameSettings.css';
+import React, { useState, useRef } from "react";
+import "./css/gameSettings.css";
 
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
- import { Encrypted, My_Type_ImgCount, My_Type_Level, My_Type_Svk_Eng_level } from '../../_inc/my_types';
- import {  my_Type_Guard_function, my_Type_Guard_function_number } from '../../_inc/_inc_functions';
- import { useImgContext } from "../../context/ImgContext";
+import {
+  Encrypted,
+  My_Type_ImgCount,
+  My_Type_Level,
+  My_Type_Svk_Eng_level,
+} from "../../_inc/my_types";
+import {
+  my_Type_Guard_function,
+  my_Type_Guard_function_number,
+} from "../../_inc/_inc_functions";
+import { useImgContext } from "../../context/ImgContext";
 
-const uuid = require('uuid')
+const uuid = require("uuid");
 
-const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
+const gameNumber: string = uuid.v4(); //-----------------------------------------------unique string
 
 const GameSettings = () => {
-  const [levelChosen, setlevelChosen] = useState("" as My_Type_Level ); 
+  const [levelChosen, setlevelChosen] = useState("" as My_Type_Level);
   // const [selectedImages, setSelectedImages] = useState([]); //--------------------choosen images
   const [imgCountChosen, setimgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { simpleCrypto, setbgColor, setSeconds  } = useImgContext();
-  
-  setbgColor("white")
-  setSeconds(0)
+  const { simpleCrypto, setbgColor, setSeconds } = useImgContext();
 
-  const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game 
+  setbgColor("white");
+  setSeconds(0);
+
+  const imgCount_values: My_Type_ImgCount[] = [5, 6, 7, 8]; // ----------------------count of images for game
 
   const levels: My_Type_Svk_Eng_level[] = [
     { value: "easy", label: "Ľahký" },
@@ -32,10 +40,10 @@ const GameSettings = () => {
     { value: "hard", label: "Ťažký" },
   ];
 
- const levels_values: My_Type_Level[] =["easy","medium","hard"]
-  
+  const levels_values: My_Type_Level[] = ["easy", "medium", "hard"];
+
   // const imageOptions = ["vesmir", "kvapka", "more", "sun", "vibracia", "vietor", "drevo", "blesk"];
- 
+
   // let levelChosen="";
   // let imgCountChosen=null;
   // const handleImageSelection = (e) => {
@@ -47,70 +55,78 @@ const GameSettings = () => {
   //   }
   // };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {/*-------------------after submit function */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    /*-------------------after submit function */
     e.preventDefault();
-    
-    if (!my_Type_Guard_function(levelChosen,levels_values)){  
-      
-      setError("Nastav level obtiažnosti")
-      return
-    }  else if (!my_Type_Guard_function_number(imgCountChosen,imgCount_values)){  
 
-      setError("Nastav počet obrázkov, s ktorými chceš hrať.")
-      return
-    }else{ 
+    if (!my_Type_Guard_function(levelChosen, levels_values)) {
+      setError("Nastav level obtiažnosti");
+      return;
+    } else if (
+      !my_Type_Guard_function_number(imgCountChosen, imgCount_values)
+    ) {
+      setError("Nastav počet obrázkov, s ktorými chceš hrať.");
+      return;
+    } else {
       setError(""); //-----------------------------------------------------------------reset error message
     }
-    
-  const chosenSettings: Encrypted = {
-    level: levelChosen,
-    imgCount: imgCountChosen,
-    gameId: gameNumber
-  };
-   
-  const encryptedSettings = simpleCrypto.encrypt(JSON.stringify(chosenSettings));//----encrypt data
 
-  formRef.current?.reset();
+    const chosenSettings: Encrypted = {
+      level: levelChosen,
+      imgCount: imgCountChosen,
+      gameId: gameNumber,
+    };
 
-  navigate(`/game/${encodeURIComponent(encryptedSettings)}`); /*-----------------------navigate to not refreshing/reload page*/
+    const encryptedSettings = simpleCrypto.encrypt(
+      JSON.stringify(chosenSettings),
+    ); //----encrypt data
 
+    formRef.current?.reset();
+
+    navigate(
+      `/game/${encodeURIComponent(encryptedSettings)}`,
+    ); /*-----------------------navigate to not refreshing/reload page*/
   };
 
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <h2>Nastavte parametre hry</h2>
-
       <fieldset>
-        <legend>Vyberte úroveň obtiažnosti:</legend>{/* ---------------------------------choose level */}
+        <legend>Vyberte úroveň obtiažnosti:</legend>
+        {/* ---------------------------------choose level */}
         {levels.map((level, index) => (
           <label key={index}>
             <input
               type="radio"
               name="level"
               value={level.value}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setlevelChosen(e.target.value as My_Type_Level )}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setlevelChosen(e.target.value as My_Type_Level)
+              }
             />
             {level.label}
           </label>
         ))}
       </fieldset>
-
       <fieldset>
-        <legend>Vyberte počet obrázkov:</legend>{/* --------------------------------------choose count of images to play*/}
+        <legend>Vyberte počet obrázkov:</legend>
+        {/* --------------------------------------choose count of images to play*/}
         {imgCount_values.map((value, index) => (
           <label key={index}>
             <input
               type="radio"
               name="imageCount"
               value={value}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount )}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setimgCountChosen(parseInt(e.target.value) as My_Type_ImgCount)
+              }
             />
-            {value * 2} {/* --------------------------------------------------------------pair is 5 * 2 = 10) */}
+            {value * 2}{" "}
+            {/* --------------------------------------------------------------pair is 5 * 2 = 10) */}
           </label>
         ))}
       </fieldset>
-
-          {/* Checklist of images
+      {/* Checklist of images
       <fieldset>
         <legend>Vyberte obrázky:</legend>
         {imageOptions.map((image) => (
@@ -124,9 +140,8 @@ const GameSettings = () => {
           </label>
         ))}
       </fieldset> */}
-
-      {error && <p>{error}</p>} {/* -------------------------------------------------------error message */} 
-
+      {error && <p>{error}</p>}{" "}
+      {/* -------------------------------------------------------error message */}
       <button type="submit">Hraj</button>
     </form>
   );

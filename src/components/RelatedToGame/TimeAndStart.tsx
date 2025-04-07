@@ -1,42 +1,51 @@
-import React from 'react';
+import React from "react";
 
-import { useEffect } from 'react';
-import { _stylingAfterStart } from '../../_inc/_inc_functions';
-import { MyTimeAndStartProps } from '../../_inc/my_types';
+import { useEffect } from "react";
+import { _stylingAfterStart } from "../../_inc/_inc_functions";
+import { MyTimeAndStartProps } from "../../_inc/my_types";
 import { useImgContext } from "../../context/ImgContext";
 
-export const TimeAndStart = ({colorText,isRunning,dispatch} :MyTimeAndStartProps) => {
-     const {  isLoading, seconds, setSeconds } = useImgContext();
-    
-    useEffect(() => {
+export const TimeAndStart = ({
+  colorText,
+  isRunning,
+  dispatch,
+}: MyTimeAndStartProps) => {
+  const { isLoading, seconds, setSeconds } = useImgContext();
 
-      if (!isRunning || isLoading ) return;
+  useEffect(() => {
+    if (!isRunning || isLoading) return;
 
-      const startTime = Date.now();
-      const interval = setInterval(() => {
-        // let countedSec: number = Math.floor((Date.now() - startTime) / 1000)
-        setSeconds(Math.floor((Date.now() - startTime) / 1000));// ---------more accurate second counter (advice from chatGPT)
-      }, 1000);
-  
-      return () => clearInterval(interval);
-    }
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      // let countedSec: number = Math.floor((Date.now() - startTime) / 1000)
+      setSeconds(Math.floor((Date.now() - startTime) / 1000)); // ---------more accurate second counter (advice from chatGPT)
+    }, 1000);
 
-    , [isRunning,setSeconds, isLoading]);
-   
+    return () => clearInterval(interval);
+  }, [isRunning, setSeconds, isLoading]);
 
-    function timer(){/*------------------------------------------------------button start */
-     
-      _stylingAfterStart();
+  function timer() {
+    /*------------------------------------------------------button start */
 
-      dispatch({type: "SET_START_GAME" })
-    }
-    
-    return (
-      <div id="timeAndStart">
-          <div style={{color: colorText}} id="seconds"  >{seconds} s</div>
+    _stylingAfterStart();
 
-          <div onClick={() => {timer()}} id="start" >START</div>
-      </div>
-    )
+    dispatch({ type: "SET_START_GAME" });
   }
-  
+
+  return (
+    <div id="timeAndStart">
+      <div style={{ color: colorText }} id="seconds">
+        {seconds} s
+      </div>
+
+      <div
+        onClick={() => {
+          timer();
+        }}
+        id="start"
+      >
+        START
+      </div>
+    </div>
+  );
+};
