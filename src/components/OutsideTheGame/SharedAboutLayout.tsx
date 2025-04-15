@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import "./css/sharedAboutLayout.css";
+import "@pexeso/components/OutsideTheGame/css/sharedAboutLayout.css";
 
 const SharedAboutLayout = () => {
   return (

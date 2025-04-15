@@ -1,8 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { store } from "./store/store";
-import "./index.css";
-import App from "./App";
+import { store } from "@pexeso/store/store";
+import "@pexeso/index.css";
+import App from "@pexeso/App";
 import { Provider } from "react-redux";
 
 const container = document.getElementById("result");

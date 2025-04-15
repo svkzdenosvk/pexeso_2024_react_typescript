@@ -3,7 +3,7 @@ import {
   remove_after_match,
   match,
   end_game,
-} from "../store/reducers/gameSlice";
+} from "@pexeso/store/reducers/gameSlice";
 
 export const matchRemovalMiddleware: Middleware<{}> =
   (storeAPI) => (next) => (action) => {

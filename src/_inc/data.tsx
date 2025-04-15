@@ -67,7 +67,9 @@ export function preloadImages(imgNamesArr: My_Type_Img_Name[]) {
     imgNamesArr.map((picture) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = "../pictures/pexeso/" + picture + ".jpg";
+        //  img.src = "../pictures/pexeso/" + picture + ".jpg";
+        img.src = "/pictures/pexeso/" + picture + ".jpg";
+
         img.onload = () => resolve(picture);
         img.onerror = () => reject(new Error(`Chyba načítania: ${picture}`));
       });

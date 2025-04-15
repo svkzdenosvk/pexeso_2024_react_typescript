@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/rules.css";
+import "@pexeso/components/OutsideTheGame/css/rules.css";
 
 const Rules = () => {
   return (

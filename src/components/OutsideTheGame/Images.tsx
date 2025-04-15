@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./css/images.css";
+import "@pexeso/components/OutsideTheGame/css/images.css";
+
 import { RootState } from "../../store/store";
 
 import { useSelector } from "react-redux";
@@ -26,7 +27,8 @@ const Images = () => {
             <div className="" key={uuid.v4()}>
               <Link to={`/about-game/images/${oneImgName}`}>
                 <img
-                  src={`../pictures/pexeso/${oneImgName}.jpg`}
+                  // src={`../pictures/pexeso/${oneImgName}.jpg`}
+                  src={`/pictures/pexeso/${oneImgName}.jpg`}
                   alt="Pexeso img"
                 />
               </Link>

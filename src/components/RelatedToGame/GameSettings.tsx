@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
 
-import "./css/gameSettings.css";
+import "@pexeso/components/RelatedToGame/css/gameSettings.css";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -9,19 +9,19 @@ import {
   My_Type_ImgCount,
   My_Type_Level,
   My_Type_Svk_Eng_level,
-} from "../../_inc/my_types";
+} from "@pexeso/_inc/my_types";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
-} from "../../_inc/_inc_functions";
+} from "@pexeso/_inc/_inc_functions";
 
 import { useDispatch } from "react-redux";
 
 import {
   settings_and_styling_before_start,
   reset_settings,
-} from "../../store/reducers/gameSlice";
-import { seconds_reset } from "../../store/reducers/secondsSlice";
+} from "@pexeso/store/reducers/gameSlice";
+import { seconds_reset } from "@pexeso/store/reducers/secondsSlice";
 
 const GameSettings = () => {
   //----------------------------redux

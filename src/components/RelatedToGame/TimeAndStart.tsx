@@ -1,19 +1,19 @@
 import React from "react";
 
 import { useEffect } from "react";
-import { _stylingAfterStart } from "../../_inc/_inc_functions";
+import { _stylingAfterStart } from "@pexeso/_inc/_inc_functions";
 
-import { RootState } from "../../store/store";
+import { RootState } from "@pexeso/store/store";
 
 import { useSelector, useDispatch } from "react-redux";
-import { seconds_counter } from "../../store/reducers/secondsSlice";
-import { set_start_game } from "../../store/reducers/gameSlice";
+import { seconds_counter } from "@pexeso/store/reducers/secondsSlice";
+import { set_start_game } from "@pexeso/store/reducers/gameSlice";
 
 export const TimeAndStart = () => {
   // ---------------------------redux
   const seconds = useSelector((state: RootState) => state.time.seconds);
   const { isRunning, isLoading, colorText, isEnd } = useSelector(
-    (state: RootState) => state.game
+    (state: RootState) => state.game,
   ); //-------------with destructuring
   const dispatch = useDispatch();
   //------------------------------------------------------------------------------------------------

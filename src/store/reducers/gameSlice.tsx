@@ -6,12 +6,12 @@ import {
   My_Type_DivImg,
   My_Type_ClassNames,
   My_Type_ImgCount,
-} from "../../_inc/my_types";
-import { _shuffleArray } from "../../_inc/_inc_functions";
+} from "@pexeso/_inc/my_types";
+import { _shuffleArray } from "@pexeso/_inc/_inc_functions";
 
 import { createSlice } from "@reduxjs/toolkit";
 
-//---------------redux toolkit
+//----------------------------------------------------------------------------redux toolkit
 
 const gameSlice = createSlice({
   name: "game",
@@ -29,18 +29,18 @@ const gameSlice = createSlice({
   },
   reducers: {
     set_start_game: (state) => {
-      //-------------------------------------------start the game
+      //-----------------------------------------------------------------------start the game
       state.isRunning = true;
       state.linkName = "Nová hra.";
     },
     hardest_level_shuffle: (state) => {
-      //------------------------------------when level is the "hardest" shuffle cards every 0.4 sec.
+      //-----------------------------------------------------------------------when level is the "hardest" shuffle cards every 0.4 sec.
       let afterUnMatchArr = _shuffleArray(state.divImgs);
 
       state.divImgs = afterUnMatchArr;
     },
     showOne: (state, action) => {
-      //------------------------------------------show/reveal one picture after click on that
+      //-----------------------------------------show/reveal one picture after click on that
       state.divImgs.forEach((oneDiv) => {
         if (oneDiv.id === action.payload.id) {
           oneDiv.classNames = [
@@ -51,20 +51,20 @@ const gameSlice = createSlice({
       });
     },
     un_match: (state, action) => {
-      //-----------------------------------------after revealing 2 pictures which are not same
+      //------------------------------------------after revealing 2 pictures which are not same
       let afterUnMatchArr: My_Type_DivImg[] = state.divImgs.map((oneDiv) => {
         if (oneDiv.classNames.includes("selected_Div_img")) {
           return {
             ...oneDiv,
             classNames: [
               ...oneDiv.classNames.filter(
-                (className) => className !== "selected_Div_img"
+                (className) => className !== "selected_Div_img",
               ),
               "mask", // remove "selected" and add "mask" class
             ],
-          }; /*--------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+          }; /*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
         } else {
-          return oneDiv; /*---------------------------------------------------if img wasn´t selected -> nothing to change  */
+          return oneDiv; /*----------------------------------------------------if img wasn´t selected -> nothing to change  */
         }
       });
 
@@ -82,13 +82,13 @@ const gameSlice = createSlice({
             ...oneDiv,
             classNames: [
               ...oneDiv.classNames.filter(
-                (className) => className !== "selected_Div_img"
+                (className) => className !== "selected_Div_img",
               ),
               "rotate-center",
             ] as My_Type_ClassNames[],
-          }; /*-------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
+          }; /*--------------------------------------------------------------- remove selected and add rotate -> change 2 selected img´s to nonselected and hide */
         } else {
-          return oneDiv; /*---------------------------------------------------if img wasn´t selected -> nothing to change  */
+          return oneDiv; /*----------------------------------------------------if img wasn´t selected -> nothing to change  */
         }
       });
 
@@ -96,23 +96,23 @@ const gameSlice = createSlice({
     },
     remove_after_match: (state) => {
       let afterAfterMatchArr: My_Type_DivImg[] = state.divImgs.filter(
-        (oneDiv) => !oneDiv.classNames.includes("rotate-center")
+        (oneDiv) => !oneDiv.classNames.includes("rotate-center"),
       );
 
-      state.divImgs = afterAfterMatchArr; //----------------------------------if all pictures removed -> it´s end of the game
+      state.divImgs = afterAfterMatchArr; //-----------------------------------if all pictures removed -> it´s end of the game
     },
     end_game: (state) => {
-      //----------------------------------------------------the game is over after all imgs has been removed
+      //-----------------------------------------------------------------------the game is over after all imgs has been removed
       state.isRunning = false;
       state.linkName = "Hraj znova";
       state.isEnd = true;
     },
     after_settings_selected_img_count: (state, action) => {
       state.divImgs = action.payload;
-      // state.isLoading=false; //-------------------------------------------maybe for the future to test this  !!!!!!
+      // state.isLoading=false; //---------------------------------------------maybe for the future to test this  !!!!!!
     },
     reset_settings: (state) => {
-      //-------------------------------------------evrytime we return on settings page
+      //-----------------------------------------------------------------------evrytime we return on settings page
       state.level = "" as My_Type_Level;
       state.bgColor = "white";
       state.selectedImgCount = 0 as My_Type_ImgCount;
@@ -120,19 +120,19 @@ const gameSlice = createSlice({
       state.isEnd = false;
     },
     settings_and_styling_before_start: (state, action) => {
-      //----------------after set the settings (but before clicking to start button)
+      //-----------------------------------------------------------------------after set the settings (but before clicking to start button)
 
       const levelChanges: Record<
         My_Type_Level,
         [My_Type_Color_Text, My_Type_Color_Background]
       > = {
-        /*-----------------------------------------------------------using dynamic object properties*/
+        /*----------------------------------------------------------------------using dynamic object properties*/
         easy: ["black", "white"],
         medium: ["white", "#4d141d"],
         hard: ["white", "black"],
       };
 
-      //state.isEnd=false;//-------------------------------------------------maybe this could be decommented .. in case of problems in the future
+      //state.isEnd=false;//----------------------------------------------------maybe this could be decommented .. in case of problems in the future
       state.linkName = "Späť na nastavenia hry.";
       state.level = action.payload.level;
       state.bgColor = levelChanges[
@@ -145,11 +145,11 @@ const gameSlice = createSlice({
         .selectedImgCount as My_Type_ImgCount;
     },
     set_img_names: (state, action) => {
-      //-------------------------------------after fetching names from db
+      //------------------------------------------------------------------------after fetching names from db
       state.imgNames = action.payload;
     },
     set_loading: (state) => {
-      //-----------------------------------------------after loading imgs (in app.tsx)
+      //------------------------------------------------------------------------after loading imgs (in app.tsx)
       state.isLoading = false;
     },
   },

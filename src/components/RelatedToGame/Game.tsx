@@ -5,14 +5,14 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
-} from "../../_inc/_inc_functions";
+} from "@pexeso/_inc/_inc_functions";
 
-import { createDivsArrayFromImgNamesAndCountImg } from "../../_inc/data";
-import { after_settings_selected_img_count } from "../../store/reducers/gameSlice";
+import { createDivsArrayFromImgNamesAndCountImg } from "@pexeso/_inc/data";
+import { after_settings_selected_img_count } from "@pexeso/store/reducers/gameSlice";
 
-import { My_Type_DivImg } from "../../_inc/my_types";
+import { My_Type_DivImg } from "@pexeso/_inc/my_types";
 
-import { RootState } from "../../store/store";
+import { RootState } from "@pexeso/store/store";
 
 import { GameDivPictures } from "./GameDivPictures";
 import { TimeAndStart } from "./TimeAndStart";

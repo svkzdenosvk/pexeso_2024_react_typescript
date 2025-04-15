@@ -2,17 +2,16 @@ import React from "react";
 
 import { useEffect, useCallback } from "react";
 
-import { _fmtMSS } from "../../_inc/_inc_functions";
+import { _fmtMSS } from "@pexeso/_inc/_inc_functions";
 
-// import { fetchImageDivsForCounts  } from '../../_inc/data';
-import { My_Type_DivImg } from "../../_inc/my_types";
-import { RootState } from "../../store/store";
+import { My_Type_DivImg } from "@pexeso/_inc/my_types";
+import { RootState } from "@pexeso/store/store";
 import {
-  /*after_settings_selected_img_count,*/ showOne,
-  match /*, remove_after_match*/,
+  showOne,
+  match,
   un_match,
   hardest_level_shuffle,
-} from "../../store/reducers/gameSlice";
+} from "@pexeso/store/reducers/gameSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -20,13 +19,9 @@ export const GameDivPictures = () => {
   // ---------------------------redux
 
   const seconds = useSelector((state: RootState) => state.time.seconds); //-------------with destructuring
-  const {
-    /*imgNames,*/ divImgs /*, selectedImgCount*/,
-    level,
-    isLoading,
-    colorText,
-    isEnd,
-  } = useSelector((state: RootState) => state.game); //-------------with destructuring
+  const { divImgs, level, isLoading, colorText, isEnd } = useSelector(
+    (state: RootState) => state.game,
+  ); //-------------with destructuring
 
   const dispatch = useDispatch();
 
@@ -157,6 +152,7 @@ export const GameDivPictures = () => {
             >
               <img
                 src={"/pictures/pexeso/" + oneDiv.name + ".jpg"}
+
                 alt="Smiley face"
               />
             </div>

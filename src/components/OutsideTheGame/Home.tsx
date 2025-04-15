@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/home.css";
+import "@pexeso/components/OutsideTheGame/css/home.css";
 
 const Home = () => {
   return (

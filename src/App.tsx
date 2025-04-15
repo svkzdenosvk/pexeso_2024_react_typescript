@@ -1,23 +1,23 @@
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Game from "./components/RelatedToGame/Game";
-import SharedLayout from "./components/OutsideTheGame/SharedLayout";
-import Home from "./components/OutsideTheGame/Home";
-import GameSettings from "./components/RelatedToGame/GameSettings";
-import Rules from "./components/OutsideTheGame/Rules";
-import SharedAboutLayout from "./components/OutsideTheGame/SharedAboutLayout";
-import AboutGame from "./components/OutsideTheGame/AboutGame";
-import Images from "./components/OutsideTheGame/Images";
-import SingleImg from "./components/OutsideTheGame/SingleImg";
-import ErrorPage from "./components/ErrorPage";
+import Game from "@pexeso/components/RelatedToGame/Game";
+import SharedLayout from "@pexeso/components/OutsideTheGame/SharedLayout";
+import Home from "@pexeso/components/OutsideTheGame/Home";
+import GameSettings from "@pexeso/components/RelatedToGame/GameSettings";
+import Rules from "@pexeso/components/OutsideTheGame/Rules";
+import SharedAboutLayout from "@pexeso/components/OutsideTheGame/SharedAboutLayout";
+import AboutGame from "@pexeso/components/OutsideTheGame/AboutGame";
+import Images from "@pexeso/components/OutsideTheGame/Images";
+import SingleImg from "@pexeso/components/OutsideTheGame/SingleImg";
+import ErrorPage from "@pexeso/components/ErrorPage";
 
-import { fetchOnlyImgNames, preloadImages } from "./_inc/data";
+import { fetchOnlyImgNames, preloadImages } from "@pexeso/_inc/data";
 
-import { RootState } from "./store/store";
+import { RootState } from "@pexeso/store/store";
 
 import { useSelector, useDispatch } from "react-redux";
-import { set_img_names, set_loading } from "./store/reducers/gameSlice";
+import { set_img_names, set_loading } from "@pexeso/store/reducers/gameSlice";
 
 const App = () => {
   //----------------------------redux
@@ -46,22 +46,22 @@ const App = () => {
   useEffect(() => {
     preloadImages(
       imgNames,
-    ) /*--------------------------------------------------function to preload imgd */
+    ) /*---------------------------------------------------------------------------function to preload imgd */
       .then(() => {
         dispatch(
           set_loading(),
-        ); /*----------------------------------------------set loading to false after imgs were loaded*/
+        ); /*----------------------------------------------------------------------set loading to false after imgs were loaded*/
       })
       .catch((err) => {
         // setError(err.message);    // save error message
         console.log("Not all images were loaded");
-        // setLoadingImg(false);        //---------------------------------------set loading to false
-        window.location.reload(); //------------------------------------------reload page when imgs weren´t loaded correctly
+        // setLoadingImg(false);        //-----------------------------------------set loading to false
+        window.location.reload(); //-----------------------------------------------reload page when imgs weren´t loaded correctly
       });
   }, [isLoading, imgNames, dispatch]);
 
   useEffect(() => {
-    //---------------------------------------------------------check end useEffect
+    //-----------------------------------------------------------------------------check end useEffect
     document
       .getElementsByTagName("BODY")[0]
       .setAttribute("style", "background-color: " + bgColor);
