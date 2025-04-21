@@ -1,16 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route /*, Navigate*/ } from "react-router-dom";
-import Game from "./components/RelatedToGame/Game";
-import SharedLayout from "./components/OutsideTheGame/SharedLayout";
-import Home from "./components/OutsideTheGame/Home";
-import Settings from "./components/RelatedToGame/GameSettings";
-import Rules from "./components/OutsideTheGame/Rules";
-import SharedAboutLayout from "./components/OutsideTheGame/SharedAboutLayout";
-import AboutGame from "./components/OutsideTheGame/AboutGame";
-import Images from "./components/OutsideTheGame/Images";
-import SingleImg from "./components/OutsideTheGame/SingleImg";
-import ErrorPage from "./components/ErrorPage";
+import Game from "@pexeso/components/RelatedToGame/Game";
+import SharedLayout from "@pexeso/components/OutsideTheGame/SharedLayout";
+import Home from "@pexeso/components/OutsideTheGame/Home";
+import GameSettings from "@pexeso/components/RelatedToGame/GameSettings";
+import Rules from "@pexeso/components/OutsideTheGame/Rules";
+import SharedAboutLayout from "@pexeso/components/OutsideTheGame/SharedAboutLayout";
+import AboutGame from "@pexeso/components/OutsideTheGame/AboutGame";
+import Images from "@pexeso/components/OutsideTheGame/Images";
+import SingleImg from "@pexeso/components/OutsideTheGame/SingleImg";
+import ErrorPage from "@pexeso/components/ErrorPage";
 
 import { My_Type_Redux_Root_State } from "./_inc/my_types";
 
@@ -43,7 +43,7 @@ const App = () => {
     };
 
     fetchImgNamesFunc(); //--------------------------------------------------------to call async f.
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     preloadImages(
@@ -75,7 +75,7 @@ const App = () => {
 
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings" element={<GameSettings />} />
 
           <Route path="/about-game" element={<SharedAboutLayout />}>
             <Route index element={<AboutGame />} />

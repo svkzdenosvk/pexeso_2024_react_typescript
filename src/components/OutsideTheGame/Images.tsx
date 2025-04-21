@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./css/images.css";
-import { My_Type_Redux_Root_State } from "../../_inc/my_types";
+import "@pexeso/components/OutsideTheGame/css/images.css";
+import { My_Type_Redux_Root_State } from "@pexeso/_inc/my_types";
 
 import { useSelector } from "react-redux";
 

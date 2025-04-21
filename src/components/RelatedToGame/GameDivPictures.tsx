@@ -2,10 +2,10 @@ import React from "react";
 
 import { useEffect, useCallback } from "react";
 
-import { _fmtMSS } from "../../_inc/_inc_functions";
+import { _fmtMSS } from "@pexeso/_inc/_inc_functions";
 
-import { fetchImageDivsForCounts } from "../../_inc/data";
-import { My_Type_Redux_Root_State, My_Type_DivImg } from "../../_inc/my_types";
+import { fetchImageDivsForCounts } from "@pexeso/_inc/data";
+import { My_Type_Redux_Root_State, My_Type_DivImg } from "@pexeso/_inc/my_types";
 
 import { useSelector, useDispatch } from "react-redux";
 

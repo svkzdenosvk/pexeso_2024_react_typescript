@@ -2,7 +2,7 @@ import React from "react";
 
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import "./css/sharedLayout.css";
+import "@pexeso/components/OutsideTheGame/css/sharedLayout.css";
 
 function SharedLayout() {
   return (

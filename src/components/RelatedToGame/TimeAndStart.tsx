@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useEffect } from "react";
-import { _stylingAfterStart } from "../../_inc/_inc_functions";
-import { My_Type_Redux_Root_State } from "../../_inc/my_types";
+import { _stylingAfterStart } from "@pexeso/_inc/_inc_functions";
+import { My_Type_Redux_Root_State } from "@pexeso//_inc/my_types";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,10 +21,8 @@ export const TimeAndStart = () => {
   useEffect(() => {
     if (!isRunning || isLoading || isEnd) return;
 
-    // const startTime = Date.now();
     const interval = setInterval(() => {
       dispatch({ type: "SECONDS_COUNTER" });
-      // setSeconds(Math.floor((Date.now() - startTime) / 1000));// ------more accurate second counter (advice from chatGPT)
     }, 1000);
 
     return () => clearInterval(interval);

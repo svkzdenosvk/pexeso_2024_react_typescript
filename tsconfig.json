@@ -30,10 +30,16 @@
     /* Specify what module code is generated. */
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
-    // "baseUrl": "./",
-    // "baseUrl": "src",                                  /* Specify the base directory to resolve non-relative module names. */
+   
+  //this parts baseUrl and paths ➡️ Toto povie TypeScriptu: „kedykoľvek použiješ @pexeso/niečo, pozri sa do src/niečo.″
+
+     "baseUrl": ".",
+   // "baseUrl": "pexeso-2025-typescript" /* Specify the base directory to resolve non-relative module names. */,
     /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},
+    "paths": {
+      "@pexeso/*": ["src/*"],
+      "@assets/*": ["public/*"]
+    },
     // "paths": {
     //      "@context/*": ["context/*"]
 

@@ -7,8 +7,8 @@ import {
   My_Type_DivImg,
   My_Type_ClassNames,
   My_Type_ImgCount,
-} from "../../_inc/my_types";
-import { _shuffleArray } from "../../_inc/_inc_functions";
+} from "@pexeso//_inc/my_types";
+import { _shuffleArray } from "@pexeso/_inc/_inc_functions";
 
 const initialState = {
   imgNames: [] as My_Type_Img_Name[],
@@ -31,13 +31,7 @@ function gameReducer(state = initialState, action: My_Type_Redux_Game_Action) {
         isRunning: true,
         linkName: "Nová hra.",
       };
-    // case 'SET_STOP_GAME':
-    //       return {
-    //         ...state,
-    //         isRunning: false,
-    //         linkName: "Hraj znova"
-    //       }
-
+  
     case "HARDEST_LEVEL_SHUFFLE":
       _shuffleArray(state.divImgs);
 
@@ -75,7 +69,7 @@ function gameReducer(state = initialState, action: My_Type_Redux_Game_Action) {
               ),
               "mask", // remove "selected" and add "mask" class
             ],
-          }; /*----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
+          }; /*-----------------------------------------------------------------change 2 selected img´s to nonselected and hide */
         } else {
           return oneDiv; /*-----------------------------------------------------if img wasn´t selected -> nothing to change  */
         }
@@ -141,7 +135,7 @@ function gameReducer(state = initialState, action: My_Type_Redux_Game_Action) {
       };
     case "SETTINGS_AND_STYLING":
       const levelChanges = {
-        /*-----------------------------------------------------------using dynamic object properties*/
+        /*----------------------------------------------------------------------using dynamic object properties*/
         easy: ["black", "white"],
         medium: ["white", "#4d141d"],
         hard: ["white", "black"],

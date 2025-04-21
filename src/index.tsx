@@ -22,7 +22,7 @@ if (container) {
     <Provider store={store}>
       {" "}
       <App />
-    </Provider>,
+    </Provider>
   );
 } else {
   console.error("Container element with ID 'result' not found.");

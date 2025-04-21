@@ -6,11 +6,11 @@ import {
   My_Type_Level,
   My_Type_ImgCount,
   My_Type_Redux_Root_State,
-} from "../../_inc/my_types";
+} from "@pexeso/_inc/my_types";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
-} from "../../_inc/_inc_functions";
+} from "@pexeso/_inc/_inc_functions";
 
 import { GameDivPictures } from "./GameDivPictures";
 import { TimeAndStart } from "./TimeAndStart";

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import "./css/singleImg.css";
-import { my_Type_Guard_function } from "../../_inc/_inc_functions";
-import { My_Type_Redux_Root_State } from "../../_inc/my_types";
+import "@pexeso/components/OutsideTheGame/css/singleImg.css";
+import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
+import { My_Type_Redux_Root_State } from "@pexeso/_inc/my_types";
 
 import { useSelector } from "react-redux";
 
@@ -52,7 +52,7 @@ const SingleImg = () => {
           // <div class="single-img-main-content-core">
           <>
             <img
-              src={`../../pictures/pexeso/${imgName}.jpg`}
+              src={`/pictures/pexeso/${imgName}.jpg`}
               alt="Pexeso img"
             />
             <Link className="link-back-to-images" to="/about-game/images">

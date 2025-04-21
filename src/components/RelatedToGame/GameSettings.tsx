@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./css/gameSettings.css";
+import "@pexeso/components/RelatedToGame/css/gameSettings.css";
 
 import { useNavigate } from "react-router-dom";
 
@@ -7,17 +7,13 @@ import {
   My_Type_ImgCount,
   My_Type_Level,
   My_Type_Svk_Eng_level,
-} from "../../_inc/my_types";
+} from "@pexeso/_inc/my_types";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
-} from "../../_inc/_inc_functions";
+} from "@pexeso/_inc/_inc_functions";
 
 import { useDispatch } from "react-redux";
-
-// const uuid = require('uuid')
-
-// const gameNumber: string = uuid.v4()//-----------------------------------------------unique string
 
 const GameSettings = () => {
   //----------------------------redux
