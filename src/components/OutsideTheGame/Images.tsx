@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "@pexeso/components/OutsideTheGame/css/images.css";
 
-import { RootState } from "../../store/store";
+import { RootState } from "@pexeso/store/store";
 
 import { useSelector } from "react-redux";
 

@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "@pexeso/components/OutsideTheGame/css/singleImg.css";
 
-import { my_Type_Guard_function } from "../../_inc/_inc_functions";
-import { My_Type_Redux_Root_State } from "../../_inc/my_types";
+import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
+// import { My_Type_Redux_Root_State } from "@pexeso/_inc/my_types";
+import { RootState } from "@pexeso/store/store";
+
 
 import { useSelector } from "react-redux";
 
 const SingleImg = () => {
   // ---------------------------redux
 
-  const imgNames = useSelector(
-    (state: My_Type_Redux_Root_State) => state.game.imgNames,
-  );
+  // const imgNames = useSelector(
+  //   (state: My_Type_Redux_Root_State) => state.game.imgNames,
+  // );
+  const { imgNames } = useSelector((state: RootState) => state.game); //-------------with destructuring
 
   // ---------------------------useState
 
