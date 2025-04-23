@@ -1,35 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import "@pexeso/components/OutsideTheGame/css/singleImg.css";
+import { useSelector } from "react-redux";
+import styled, { keyframes } from "styled-components";
 
 import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
-// import { My_Type_Redux_Root_State } from "@pexeso/_inc/my_types";
 import { RootState } from "@pexeso/store/store";
 
+// --- styled-components
 
-import { useSelector } from "react-redux";
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const MainContent = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 200px;
+  height: 200px;
+`;
+
+const pulseShadow = keyframes`
+  0% {
+    box-shadow: 0 2px 0px white;
+  }
+  50% {
+    box-shadow: 0 6px 10px goldenrod;
+  }
+  100% {
+    box-shadow: 0 2px 0px white;
+  }
+`;
+
+const BackLink = styled(Link)`
+  text-decoration: none;
+  color: grey;
+  font-weight: bold;
+  padding: 10px 25px;
+  display: inline-block;
+  border-radius: 25px;
+  animation: ${pulseShadow} 1.5s infinite ease-in-out;
+
+  &:hover {
+    color: goldenrod;
+    transition: color 0.3s ease;
+    box-shadow: 0px 7px 10px grey;
+  }
+`;
+
 
 const SingleImg = () => {
-  // ---------------------------redux
-
-  // const imgNames = useSelector(
-  //   (state: My_Type_Redux_Root_State) => state.game.imgNames,
-  // );
-  const { imgNames } = useSelector((state: RootState) => state.game); //-------------with destructuring
-
-  // ---------------------------useState
+  const { imgNames } = useSelector((state: RootState) => state.game);
 
   const [errorImgName, setErrorImgName] = useState(false);
   const [imgNameH1, setNameH1] = useState("");
 
-  let imgName = useParams().name ?? "Error"; // --------------------------------if undefined -> "Error" string
+  let imgName = useParams().name ?? "Error";
 
-  if (imgNameH1 === "vesmir") {
-    setNameH1("vesmír");
-  }
-  if (imgNameH1 === "vibracia") {
-    setNameH1("vibrácia");
-  }
+  if (imgNameH1 === "vesmir") setNameH1("vesmír");
+  if (imgNameH1 === "vibracia") setNameH1("vibrácia");
 
   useEffect(() => {
     if (!my_Type_Guard_function(imgName, imgNames)) {
@@ -42,32 +80,26 @@ const SingleImg = () => {
   }, [imgName, imgNames]);
 
   return (
-    <div className="single-img-content">
+    <Content>
       <h1>{imgNameH1.charAt(0).toUpperCase() + imgNameH1.slice(1)}</h1>
-      <div className="single-img-main-content">
-        {errorImgName ? ( //-------------------------------------------------------if name of img not exists in db
+      <MainContent>
+        {errorImgName ? (
           <div>
             <h1>Error, tento obrázok neexistuje</h1>
-            <Link to="/about-game/images">
+            <BackLink to="/about-game/images">
               Klikni sem a poď na stránku obrázkov
-            </Link>
+            </BackLink>
           </div>
         ) : (
-          // <div class="single-img-main-content-core">
           <>
-            <img
-              // src={`../../pictures/pexeso/${imgName}.jpg`}
-              src={`/pictures/pexeso/${imgName}.jpg`}
-              alt="Pexeso img"
-            />
-            <Link className="link-back-to-images" to="/about-game/images">
+            <Img src={`/pictures/pexeso/${imgName}.jpg`} alt="Pexeso img" />
+            <BackLink to="/about-game/images">
               Späť na stránku obrázkov
-            </Link>
+            </BackLink>
           </>
-          // {/* </div> */}
         )}
-      </div>
-    </div>
+      </MainContent>
+    </Content>
   );
 };
 

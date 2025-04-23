@@ -1,42 +1,69 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "@pexeso/components/OutsideTheGame/css/images.css";
-
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
 
-import { useSelector } from "react-redux";
-
+// import { v4 as uuidv4 } from "uuid";
 const uuid = require("uuid");
 
+
+// ---------- styled-components
+
+const ImgContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const ImgMainContent = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 1%;
+`;
+
+const ImgWrapper = styled.div``;
+
+const StyledImg = styled.img`
+  &:hover {
+    transition: box-shadow 0.3s ease;
+    -webkit-box-shadow: 0px 0px 28px 19px goldenrod;
+    -moz-box-shadow: 0px 0px 28px 19px goldenrod;
+    box-shadow: 0px 0px 28px 19px goldenrod;
+    cursor: pointer;
+  }
+`;
+
+// ---------- component
+
 const Images = () => {
-  // ---------------------------redux
-
-  const { isLoading, imgNames } = useSelector((state: RootState) => state.game); //-------------with destructuring
-
-  //----------------------------------------------------------------------------------------------------
+  const { isLoading, imgNames } = useSelector((state: RootState) => state.game);
 
   return (
-    <div className="img-content">
+    <ImgContent>
       <h1>Hracie obrázky</h1>
-      <div className="img-main-content">
-        {isLoading || imgNames.length === 0 ? ( //---------------------------------------------if loading show H1
+      <ImgMainContent>
+        {isLoading || imgNames.length === 0 ? (
           <h1>Načítavajú sa obrázky</h1>
         ) : (
-          //--------------------------------------------------------------------------------if not loading (after successful l.) show
           imgNames.map((oneImgName) => (
-            <div className="" key={uuid.v4()}>
+            <ImgWrapper key={uuid.v4()}>
               <Link to={`/about-game/images/${oneImgName}`}>
-                <img
-                  // src={`../pictures/pexeso/${oneImgName}.jpg`}
+                <StyledImg
                   src={`/pictures/pexeso/${oneImgName}.jpg`}
                   alt="Pexeso img"
                 />
               </Link>
-            </div>
+            </ImgWrapper>
           ))
         )}
-      </div>
-    </div>
+      </ImgMainContent>
+    </ImgContent>
   );
 };
 

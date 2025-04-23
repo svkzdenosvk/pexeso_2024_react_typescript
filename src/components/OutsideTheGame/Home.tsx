@@ -1,12 +1,21 @@
-import React from "react";
-import "@pexeso/components/OutsideTheGame/css/home.css";
+import React from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  min-height: 70vh;
+`;
+
+const Title = styled.h1`
+  font-size: calc(2rem + 5vw);
+`;
 
 const Home = () => {
   return (
-    <div className="main-content-home">
-      <h1> Pexeso </h1>
-    </div>
+    <Wrapper>
+      <Title>Pexeso</Title>
+    </Wrapper>
   );
 };
 
 export default Home;
+
