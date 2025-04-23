@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const RulesWrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -91,7 +91,7 @@ const LevelSection = styled.div`
     padding-left: 1.5em;
 
     &::before {
-      content: "✽\00a0\00a0\00a0\00a0";
+      content: "✽\00a0\00a0\00a0\00a0"; /* own symbol with non breaking spaces */
       position: absolute;
       left: 0;
     }
@@ -106,7 +106,7 @@ const LevelSection = styled.div`
 
 const Rules = () => {
   return (
-    <RulesWrapper>
+    <Wrapper>
       <h1>Pravidlá</h1>
       <RulesMain>
         <h2>Princíp</h2>
@@ -132,7 +132,7 @@ const Rules = () => {
           </ul>
         </LevelSection>
       </RulesMain>
-    </RulesWrapper>
+    </Wrapper>
   );
 };
 

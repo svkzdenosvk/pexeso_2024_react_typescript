@@ -8,14 +8,14 @@ import { RootState } from "@pexeso/store/store";
 
 // --- styled-components
 
-const Content = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
-const MainContent = styled.div`
+const SingleImgMain = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
@@ -64,7 +64,7 @@ const SingleImg = () => {
   const [errorImgName, setErrorImgName] = useState(false);
   const [imgNameH1, setNameH1] = useState("");
 
-  let imgName = useParams().name ?? "Error";
+  let imgName = useParams().name ?? "Error";// --------------------------------if undefined -> "Error" string
 
   if (imgNameH1 === "vesmir") setNameH1("vesmír");
   if (imgNameH1 === "vibracia") setNameH1("vibrácia");
@@ -80,10 +80,10 @@ const SingleImg = () => {
   }, [imgName, imgNames]);
 
   return (
-    <Content>
+    <Wrapper>
       <h1>{imgNameH1.charAt(0).toUpperCase() + imgNameH1.slice(1)}</h1>
-      <MainContent>
-        {errorImgName ? (
+      <SingleImgMain>
+        {errorImgName ? (//-------------------------------------------------------if name of img not exists in db
           <div>
             <h1>Error, tento obrázok neexistuje</h1>
             <BackLink to="/about-game/images">
@@ -98,8 +98,8 @@ const SingleImg = () => {
             </BackLink>
           </>
         )}
-      </MainContent>
-    </Content>
+      </SingleImgMain>
+    </Wrapper>
   );
 };
 

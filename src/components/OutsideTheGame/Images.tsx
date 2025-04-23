@@ -10,14 +10,14 @@ const uuid = require("uuid");
 
 // ---------- styled-components
 
-const ImgContent = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
-const ImgMainContent = styled.div`
+const ImagesArray = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
@@ -27,7 +27,7 @@ const ImgMainContent = styled.div`
   gap: 1%;
 `;
 
-const ImgWrapper = styled.div``;
+const ImgOne = styled.div``;
 
 const StyledImg = styled.img`
   &:hover {
@@ -42,28 +42,28 @@ const StyledImg = styled.img`
 // ---------- component
 
 const Images = () => {
-  const { isLoading, imgNames } = useSelector((state: RootState) => state.game);
+  const { isLoading, imgNames } = useSelector((state: RootState) => state.game);//-------------with destructuring
 
   return (
-    <ImgContent>
+    <Wrapper>
       <h1>Hracie obrázky</h1>
-      <ImgMainContent>
-        {isLoading || imgNames.length === 0 ? (
+      <ImagesArray>
+        {isLoading || imgNames.length === 0 ? (//----------------------------------------------if loading show H1
           <h1>Načítavajú sa obrázky</h1>
-        ) : (
+        ) : (//--------------------------------------------------------------------------------after loading show images
           imgNames.map((oneImgName) => (
-            <ImgWrapper key={uuid.v4()}>
+            <ImgOne key={uuid.v4()}>
               <Link to={`/about-game/images/${oneImgName}`}>
                 <StyledImg
                   src={`/pictures/pexeso/${oneImgName}.jpg`}
                   alt="Pexeso img"
                 />
               </Link>
-            </ImgWrapper>
+            </ImgOne>
           ))
         )}
-      </ImgMainContent>
-    </ImgContent>
+      </ImagesArray>
+    </Wrapper>
   );
 };
 

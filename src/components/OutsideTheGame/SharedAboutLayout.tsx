@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Navigation = styled.div`
+const NavigationAbout = styled.div`
   display: flex;
   flex-direction: column;
   width: 30vw;
@@ -55,7 +55,7 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-const MainContent = styled.div`
+const MainContentAbout = styled.div`
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -82,16 +82,16 @@ const MainContent = styled.div`
 const SharedAboutLayout = () => {
   return (
     <Wrapper>
-      <Navigation>
+      <NavigationAbout>
         <Nav>
           <StyledLink to="/about-game/rules">Pravidlá</StyledLink>
           <StyledLink to="/about-game/images">Obrazky</StyledLink>
         </Nav>
-      </Navigation>
+      </NavigationAbout>
 
-      <MainContent>
+      <MainContentAbout>
         <Outlet />
-      </MainContent>
+      </MainContentAbout>
     </Wrapper>
   );
 };

@@ -22,7 +22,8 @@ const Navigation = styled.div`
 const Nav = styled.nav`
   display: flex;
   width: 100%;
-  background-color: grey;
+  background-color: #808080;
+
 
   @media (max-width: 436px) {
     flex-direction: column;
