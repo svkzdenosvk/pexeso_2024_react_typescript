@@ -1,7 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { store } from "@pexeso/store/store";
-import "@pexeso/index.css";
+// import "@pexeso/index.css";
+import { GlobalStyle } from '@pexeso/GlobalStyle';
+
 import App from "@pexeso/App";
 import { Provider } from "react-redux";
 
@@ -20,7 +22,7 @@ if (container) {
 
   root.render(
     <Provider store={store}>
-      {" "}
+      <GlobalStyle />
       <App />
     </Provider>,
   );
