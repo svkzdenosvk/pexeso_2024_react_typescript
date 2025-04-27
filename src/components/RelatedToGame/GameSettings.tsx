@@ -2,13 +2,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import styled, { keyframes } from "styled-components";
 
 import {
   settings_and_styling_before_start,
   reset_settings,
 } from "@pexeso/store/reducers/gameSlice";
 import { seconds_reset } from "@pexeso/store/reducers/secondsSlice";
+
 import {
   My_Type_ImgCount,
   My_Type_Level,
@@ -19,48 +19,64 @@ import {
   my_Type_Guard_function_number,
 } from "@pexeso/_inc/_inc_functions";
 
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Alert,
+  Typography,
+} from "@mui/material";
+
+import { styled } from '@mui/material/styles';
+import { keyframes } from '@mui/system';
+
 const pulseShadow = keyframes`
   0% { box-shadow: 0 2px 0px white; }
   50% { box-shadow: 0 6px 10px goldenrod; }
   100% { box-shadow: 0 2px 0px white; }
 `;
 
-const Form = styled.form`
-  min-width: 350px;
-`;
+const buttonStyles = {
+  textDecoration: 'none',
+  width:'50%',
+  border: 'none',
+  background: 'transparent',
+  color: 'black',
+  margin: '10px auto',
+  fontWeight: 'bold',
+  padding: '10px 25px',
+  display: 'inline',
+  borderRadius: '25px',
+  animation: `${pulseShadow} 1.5s infinite ease-in-out`,
+  '&:hover': {
+    color: 'goldenrod',
+    transition: 'color 0.3s ease',
+    boxShadow: '0px 7px 10px grey',
+  },
+};
 
-const Fieldset = styled.fieldset`
-  border-radius: 25px;
-  & + & { margin-top: 10px; }
-`;
+const alertStyles ={
+  borderRadius: '25px',
+  padding: '15px 25px',
+  fontWeight: "bold",
+  justifyContent: "center", // zarovná text aj ikonu do stredu
+  textAlign: "center",
+  '& .MuiAlert-message': {
+    width: '100%',
+    textAlign: 'center',
+  },
+}
 
-const Legend = styled.legend`
-  font-weight: bold;
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  font-weight: bold;
-`;
-
-const SubmitButton = styled.button`
-  text-decoration: none;
-  border: none;
-  background: transparent;
-  color: black;
-  margin-top: 10px;
-  font-weight: bold;
-  padding: 10px 25px;
-  display: inline-block;
-  border-radius: 25px;
-  animation: ${pulseShadow} 1.5s infinite ease-in-out;
-
-  &:hover {
-    color: goldenrod;
-    transition: color 0.3s ease;
-    box-shadow: 0px 7px 10px grey;
-  }
-`;
+const MyFormControl = styled(FormControl)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  textAlign: 'center',
+}));
 
 const GameSettings = () => {
   const dispatch = useDispatch();
@@ -69,7 +85,7 @@ const GameSettings = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [levelChosen, setLevelChosen] = useState("" as My_Type_Level);
-  const [imgCountChosen, setImgCountChosen] = useState(0 as My_Type_ImgCount); //----count of choosen images
+  const [imgCountChosen, setImgCountChosen] = useState(0 as My_Type_ImgCount);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -109,47 +125,72 @@ const GameSettings = () => {
   };
 
   return (
-    <Form ref={formRef} onSubmit={handleSubmit}>
-      <h2>Nastavte parametre hry</h2>
+    <Box
+      component="form"
+      ref={formRef}
+      onSubmit={handleSubmit}
+      sx={{
+        minWidth: 350,
+        p: 3,
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <Typography variant="h5" component="h2" gutterBottom>
+        Nastavte parametre hry
+      </Typography>
 
-      <Fieldset>
-        <Legend>Vyberte úroveň obtiažnosti:</Legend>
-        {levels.map((lvl, i) => (
-          <label key={i}>
-            <input
-              type="radio"
-              name="level"
+      <MyFormControl  /*component="fieldset"*/>
+        <FormLabel component="legend">Vyberte úroveň obtiažnosti:</FormLabel>
+        <RadioGroup row
+          name="level"
+          onChange={(e) => setLevelChosen(e.target.value as My_Type_Level)}
+        >
+          {levels.map((lvl, i) => (
+            <FormControlLabel
+              key={i}
               value={lvl.value}
-              onChange={(e) =>
-                setLevelChosen(e.target.value as My_Type_Level)
-              }
+              control={<Radio />}
+              label={lvl.label}
             />
-            {lvl.label}
-          </label>
-        ))}
-      </Fieldset>
+          ))}
+        </RadioGroup>
+      </MyFormControl>
 
-      <Fieldset>
-        <Legend>Vyberte počet obrázkov:</Legend>
-        {imgCountValues.map((cnt, i) => (
-          <label key={i}>
-            <input
-              type="radio"
-              name="imageCount"
-              value={cnt}
-              onChange={(e) =>
-                setImgCountChosen(parseInt(e.target.value) as My_Type_ImgCount)
-              }
+      <MyFormControl /*component="fieldset"*/>
+        <FormLabel component="legend">Vyberte počet obrázkov:</FormLabel>
+        <RadioGroup row
+          name="imageCount"
+          onChange={(e) =>
+            setImgCountChosen(parseInt(e.target.value) as My_Type_ImgCount)
+          }
+        >
+          {imgCountValues.map((cnt, i) => (
+            <FormControlLabel
+              key={i}
+              value={cnt.toString()}
+              control={<Radio />}
+              label={`${cnt * 2}`}
             />
-            {cnt * 2}
-          </label>
-        ))}
-      </Fieldset>
+          ))}
+        </RadioGroup>
+      </MyFormControl>
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && (
+        <Alert severity="error" sx={alertStyles}>
+          {error}
+        </Alert>
+      )}
 
-      <SubmitButton type="submit">Hraj</SubmitButton>
-    </Form>
+      <Button
+        type="submit"
+        // variant="contained"
+        sx={buttonStyles}
+      >
+        Hraj
+      </Button>
+    </Box>
   );
 };
 
