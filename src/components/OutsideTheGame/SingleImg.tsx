@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
 import { RootState } from "@pexeso/store/store";
+
+import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
 // --- styled-components
 
@@ -27,34 +30,6 @@ const SingleImgMain = styled.div`
 const Img = styled.img`
   width: 200px;
   height: 200px;
-`;
-
-const pulseShadow = keyframes`
-  0% {
-    box-shadow: 0 2px 0px white;
-  }
-  50% {
-    box-shadow: 0 6px 10px goldenrod;
-  }
-  100% {
-    box-shadow: 0 2px 0px white;
-  }
-`;
-
-const BackLink = styled(Link)`
-  text-decoration: none;
-  color: grey;
-  font-weight: bold;
-  padding: 10px 25px;
-  display: inline-block;
-  border-radius: 25px;
-  animation: ${pulseShadow} 1.5s infinite ease-in-out;
-
-  &:hover {
-    color: goldenrod;
-    transition: color 0.3s ease;
-    box-shadow: 0px 7px 10px grey;
-  }
 `;
 
 
@@ -86,16 +61,19 @@ const SingleImg = () => {
         {errorImgName ? (//-------------------------------------------------------if name of img not exists in db
           <div>
             <h1>Error, tento obrázok neexistuje</h1>
-            <BackLink to="/about-game/images">
+          
+            <MyMUIButton sx={pulsatingButtonStyles} to="/about-game/images">
               Klikni sem a poď na stránku obrázkov
-            </BackLink>
+            </MyMUIButton>
           </div>
         ) : (
           <>
             <Img src={`/pictures/pexeso/${imgName}.jpg`} alt="Pexeso img" />
-            <BackLink to="/about-game/images">
+
+            <MyMUIButton sx={pulsatingButtonStyles} to="/about-game/images">
               Späť na stránku obrázkov
-            </BackLink>
+            </MyMUIButton>
+          
           </>
         )}
       </SingleImgMain>

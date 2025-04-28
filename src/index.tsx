@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { store } from "@pexeso/store/store";
 // import "@pexeso/index.css";
-import { GlobalStyle } from '@pexeso/GlobalStyle';
+import { GlobalStyle } from '@pexeso/components/StylingComp/GlobalStyle';
 
 import App from "@pexeso/App";
 import { Provider } from "react-redux";

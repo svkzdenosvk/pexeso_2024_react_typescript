@@ -9,6 +9,36 @@ import { useSelector, useDispatch } from "react-redux";
 import { seconds_counter } from "@pexeso/store/reducers/secondsSlice";
 import { set_start_game } from "@pexeso/store/reducers/gameSlice";
 
+import {Button} from '@mui/material';
+
+const startButtonStyles = {
+  color: 'white',
+  borderRadius: '50%',
+  backgroundColor: '#99103a',
+  padding: '20px',
+  fontSize: '300%', // alebo môžeš napísať napríklad '3rem' ak chceš byť čitateľnejší
+  float: 'left',
+  fontWeight: 'bold',
+
+  '&:hover': {
+    color: '#cc0606',
+  },
+} as const;
+
+// #start {
+//   color: white;
+//   border-radius: 50%;
+//   background-color: #99103a;
+//   padding: 20px;
+//       font-size: 300%;
+//       float: left;
+//       font-weight: bold;
+
+//   &:hover {
+//     color: #cc0606;
+//   }
+// }
+
 export const TimeAndStart = () => {
   // ---------------------------redux
   const seconds = useSelector((state: RootState) => state.time.seconds);
@@ -42,14 +72,9 @@ export const TimeAndStart = () => {
         {seconds} s
       </div>
 
-      <div
-        onClick={() => {
-          timer();
-        }}
-        id="start"
-      >
-        START
-      </div>
+      <Button variant="contained"  id="start" sx={startButtonStyles} onClick={() => { timer(); }} > 
+      START</Button>
+
     </div>
   );
 };

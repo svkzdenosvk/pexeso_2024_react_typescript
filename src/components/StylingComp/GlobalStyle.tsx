@@ -30,22 +30,11 @@ export const GlobalStyle = createGlobalStyle`
   #timeAndStart {
     display: flex;
 
-    #seconds,
-    #start {
+    #seconds {
       padding: 20px;
       font-size: 300%;
       float: left;
       font-weight: bold;
-    }
-
-    #start {
-      color: white;
-      border-radius: 50%;
-      background-color: #99103a;
-
-      &:hover {
-        color: #cc0606;
-      }
     }
   }
 
@@ -67,31 +56,6 @@ export const GlobalStyle = createGlobalStyle`
 
     h3 {
       text-align: center;
-    }
-
-    .end-game-btn {
-      background-color: grey;
-      max-width: 300px;
-      border: none;
-      color: white;
-      font-weight: bold;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px auto;
-      cursor: pointer;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s, transform 0.2s;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        color: goldenrod;
-        background-color: #696969;
-      }
     }
   }
 
@@ -180,8 +144,8 @@ export const GlobalStyle = createGlobalStyle`
       margin-bottom: 0px;
     }
 
-    #levelBtns div {
-      margin-top: 2%;
-    }
+    // #levelBtns div {
+    //   margin-top: 2%;
+    // }
   }
 `;

@@ -1,4 +1,4 @@
-// GameSettings.tsx
+
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,7 @@ import {
 
 import {
   Box,
-  Button,
+  // Button,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -32,32 +32,9 @@ import {
 } from "@mui/material";
 
 import { styled } from '@mui/material/styles';
-import { keyframes } from '@mui/system';
 
-const pulseShadow = keyframes`
-  0% { box-shadow: 0 2px 0px white; }
-  50% { box-shadow: 0 6px 10px goldenrod; }
-  100% { box-shadow: 0 2px 0px white; }
-`;
-
-const buttonStyles = {
-  textDecoration: 'none',
-  width:'50%',
-  border: 'none',
-  background: 'transparent',
-  color: 'black',
-  margin: '10px auto',
-  fontWeight: 'bold',
-  padding: '10px 25px',
-  display: 'inline',
-  borderRadius: '25px',
-  animation: `${pulseShadow} 1.5s infinite ease-in-out`,
-  '&:hover': {
-    color: 'goldenrod',
-    transition: 'color 0.3s ease',
-    boxShadow: '0px 7px 10px grey',
-  },
-};
+import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
 const alertStyles ={
   borderRadius: '25px',
@@ -183,13 +160,10 @@ const GameSettings = () => {
         </Alert>
       )}
 
-      <Button
-        type="submit"
-        // variant="contained"
-        sx={buttonStyles}
-      >
-        Hraj
-      </Button>
+      <MyMUIButton sx={pulsatingButtonStyles} type="submit">
+         Hraj
+      </MyMUIButton>
+     
     </Box>
   );
 };

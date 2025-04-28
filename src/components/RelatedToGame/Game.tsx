@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
@@ -18,6 +18,33 @@ import { GameDivPictures } from "./GameDivPictures";
 import { TimeAndStart } from "./TimeAndStart";
 
 import { useSelector, useDispatch } from "react-redux";
+
+import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
+
+const gameLinkButtonStyles = {
+  backgroundColor: "grey",
+  maxWidth: "300px",
+  border: "none",
+  color: "white",
+  fontWeight: "bold",
+  padding: "15px 32px",
+  textAlign: "center",
+  textDecoration: "none",
+  display: "inline-block",
+  fontSize: "16px",
+  margin: "4px auto",
+  cursor: "pointer",
+  borderRadius: "8px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  transition: "background-color 0.3s, transform 0.2s",
+  alignItems: "center",
+  justifyContent: "center",
+
+  "&:hover": {
+    color: "goldenrod",
+    backgroundColor: "#696969",
+  },
+} as const;
 
 const Game = () => {
   // ---------------------------redux
@@ -49,7 +76,7 @@ const Game = () => {
           const imgDivs: My_Type_DivImg[] =
             await createDivsArrayFromImgNamesAndCountImg(
               selectedImgCount,
-              imgNames,
+              imgNames
             ); // --create array of div > imgs
 
           dispatch(after_settings_selected_img_count(imgDivs));
@@ -65,10 +92,9 @@ const Game = () => {
   return (
     <>
       <div className="welcome">
-        <Link to="/settings" className="end-game-btn">
-          {" "}
-          {linkName}{" "}
-        </Link>
+        <MyMUIButton sx={gameLinkButtonStyles} to="/settings">
+          {linkName}
+        </MyMUIButton>
 
         <h3 style={{ color: colorText }}>
           {" "}
