@@ -8,10 +8,10 @@ const uuid = require("uuid");
 
 export async function fetchOnlyImgNames() {
   //-----------------------------fun. to fetch img names from db
-  let arrImg: My_Type_Img_Name[] = []; //------------------------------- create empty array -> it will be filled with img´s names
+  let arrImg: My_Type_Img_Name[] = []; //---------------------------------- create empty array -> it will be filled with img´s names
 
   try {
-    // --------------------------------------------------------------loading docs from Firebase
+    // ---------------------------------------------------------------------loading docs from Firebase
 
     const snapshot = await getDocs(
       collection(projectFirestore, "pexeso-img-names"),
@@ -20,12 +20,12 @@ export async function fetchOnlyImgNames() {
       const name: My_Type_Img_Name = doc.data().name;
 
       if (name) {
-        arrImg.push(name); //--------------------------------------------add name to array
+        arrImg.push(name); //-----------------------------------------------add name to array
       }
     });
   } catch (error) {
     console.error("Chyba pri načítaní dát z Firestore:", error);
-    return []; // -------------------------------------------------------if error return empty array
+    return []; // ----------------------------------------------------------if error return empty array
   }
 
   return arrImg;
@@ -67,10 +67,17 @@ export function preloadImages(imgNamesArr: My_Type_Img_Name[]) {
     imgNamesArr.map((picture) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        //  img.src = "../pictures/pexeso/" + picture + ".jpg";
-        img.src = "/pictures/pexeso/" + picture + ".jpg";
 
-        img.onload = () => resolve(picture);
+        img.src = "/pictures/pexeso/" + picture + ".jpg";
+        img.onload = async () => {
+          try {
+            await img.decode();      // waiting for decoding :contentReference[oaicite:3]{index=3}
+            resolve(picture);
+          } catch {
+            reject(new Error(`Chyba dekódovania: ${picture}`));
+          }
+        };
+        // img.onload = () => resolve(picture);
         img.onerror = () => reject(new Error(`Chyba načítania: ${picture}`));
       });
     }),

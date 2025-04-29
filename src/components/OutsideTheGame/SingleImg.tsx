@@ -7,6 +7,8 @@ import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
 import { RootState } from "@pexeso/store/store";
 
 import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
+
 import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
 // --- styled-components
@@ -27,10 +29,12 @@ const SingleImgMain = styled.div`
   align-items: center;
 `;
 
-const Img = styled.img`
-  width: 200px;
-  height: 200px;
-`;
+
+const imgStyles = {
+  width: "200px",
+  height: "200px",
+ 
+} as const;
 
 
 const SingleImg = () => {
@@ -68,7 +72,7 @@ const SingleImg = () => {
           </div>
         ) : (
           <>
-            <Img src={`/pictures/pexeso/${imgName}.jpg`} alt="Pexeso img" />
+            <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${imgName}.jpg`}/>
 
             <MyMUIButton sx={pulsatingButtonStyles} to="/about-game/images">
               Späť na stránku obrázkov

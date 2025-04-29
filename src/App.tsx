@@ -44,6 +44,9 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    
+    if (!isLoading ) return;
+
     preloadImages(
       imgNames,
     ) /*---------------------------------------------------------------------------function to preload imgd */
@@ -58,7 +61,7 @@ const App = () => {
         // setLoadingImg(false);        //-----------------------------------------set loading to false
         window.location.reload(); //-----------------------------------------------reload page when imgs weren´t loaded correctly
       });
-  }, [isLoading, imgNames, dispatch]);
+  }, [isLoading, imgNames, dispatch]);//-------------------------------------------if problems -> try only imgNames or nothing
 
   useEffect(() => {
     //-----------------------------------------------------------------------------check end useEffect

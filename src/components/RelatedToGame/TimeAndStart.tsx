@@ -16,7 +16,7 @@ const startButtonStyles = {
   borderRadius: '50%',
   backgroundColor: '#99103a',
   padding: '20px',
-  fontSize: '300%', // alebo môžeš napísať napríklad '3rem' ak chceš byť čitateľnejší
+  fontSize: '300%', 
   float: 'left',
   fontWeight: 'bold',
 
@@ -25,19 +25,6 @@ const startButtonStyles = {
   },
 } as const;
 
-// #start {
-//   color: white;
-//   border-radius: 50%;
-//   background-color: #99103a;
-//   padding: 20px;
-//       font-size: 300%;
-//       float: left;
-//       font-weight: bold;
-
-//   &:hover {
-//     color: #cc0606;
-//   }
-// }
 
 export const TimeAndStart = () => {
   // ---------------------------redux

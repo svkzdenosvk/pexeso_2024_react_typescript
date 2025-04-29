@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
 
-// import { v4 as uuidv4 } from "uuid";
-const uuid = require("uuid");
+// import {Box} from '@mui/material';
+import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
 
 
 // ---------- styled-components
@@ -29,15 +29,14 @@ const ImagesArray = styled.div`
 
 const ImgOne = styled.div``;
 
-const StyledImg = styled.img`
-  &:hover {
-    transition: box-shadow 0.3s ease;
-    -webkit-box-shadow: 0px 0px 28px 19px goldenrod;
-    -moz-box-shadow: 0px 0px 28px 19px goldenrod;
-    box-shadow: 0px 0px 28px 19px goldenrod;
-    cursor: pointer;
-  }
-`;
+const imgStyles = {
+  transition: 'box-shadow 0.3s ease',
+  cursor: 'pointer',
+  '&:hover': {
+    boxShadow: '0px 0px 28px 19px goldenrod',
+  },
+} as const;
+
 
 // ---------- component
 
@@ -52,12 +51,16 @@ const Images = () => {
           <h1>Načítavajú sa obrázky</h1>
         ) : (//--------------------------------------------------------------------------------after loading show images
           imgNames.map((oneImgName) => (
-            <ImgOne key={uuid.v4()}>
+            <ImgOne /*key={uuid.v4()*/ key={oneImgName}>
               <Link to={`/about-game/images/${oneImgName}`}>
-                <StyledImg
-                  src={`/pictures/pexeso/${oneImgName}.jpg`}
-                  alt="Pexeso img"
-                />
+                {/* <Box
+                   component="img"
+                   src={`/pictures/pexeso/${oneImgName}.jpg`}
+                   alt="Pexeso img"
+                   sx={imgStyles}
+                /> */}
+                <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneImgName}.jpg`}/>
+
               </Link>
             </ImgOne>
           ))

@@ -15,6 +15,16 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 
+ import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
+
+
+const imgStyles = {
+  width: "107px",
+  height: "107px",
+  opacity: "0%",
+ 
+} as const;
+
 export const GameDivPictures = () => {
   // ---------------------------redux
 
@@ -82,7 +92,7 @@ export const GameDivPictures = () => {
     );
     let rotateddArr = divImgs.filter((oneDiv) =>
       oneDiv.classNames.includes("rotate-center"),
-    ); /* after match */
+    );/* after match */
 
     if (
       element.classList.contains("mask") &&
@@ -150,11 +160,9 @@ export const GameDivPictures = () => {
               }}
               className={oneDiv.classNames.join(" ")}
             >
-              <img
-                src={"/pictures/pexeso/" + oneDiv.name + ".jpg"}
+             
+              <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneDiv.name}.jpg`}/>
 
-                alt="Smiley face"
-              />
             </div>
           ),
         )

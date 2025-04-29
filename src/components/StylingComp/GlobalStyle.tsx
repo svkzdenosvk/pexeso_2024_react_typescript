@@ -89,13 +89,13 @@ export const GlobalStyle = createGlobalStyle`
         width: 107px;
         height: 107px;
       }
+      //  img {
+      //   width: 107px;
+      //   height: 107px;
+      //   opacity: 0%;
+      // }
 
-      img {
-        width: 107px;
-        height: 107px;
-        opacity: 0%;
-      }
-    }
+     }
   }
 
   .div_center {

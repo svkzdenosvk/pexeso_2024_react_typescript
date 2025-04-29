@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
+
 
 const Wrapper = styled.div`
   padding: 0;
@@ -31,11 +33,11 @@ const PrincipleSection = styled.div`
     max-width: 40%;
   }
 
-  img {
-    width: 200px;
-    height: 130px;
-    margin-right: 2%;
-  }
+  //  img {
+  //    width: 200px;
+  //    height: 130px;
+  //    margin-right: 2%;
+  //  }
 
   @media (max-width: 1339px) {
     justify-content: space-evenly;
@@ -103,6 +105,12 @@ const LevelSection = styled.div`
     }
   }
 `;
+const imgStyles = {
+  width: "200px",
+  height: "130px",
+  marginRight: "2%",
+ 
+} as const;
 
 const Rules = () => {
   return (
@@ -112,7 +120,9 @@ const Rules = () => {
         <h2>Princíp</h2>
         <PrincipleSection>
           <p>Hľadať zhodný pár obrázkov pod obrázkom jokera.</p>
-          <img src="../../pictures/joker.jpg" alt="Pexeso img" />
+
+          <MyMUIImg sx={imgStyles} src="/pictures/joker.jpg"/>
+          {/* <img src="../../pictures/joker.jpg" alt="Pexeso img" /> */}
         </PrincipleSection>
 
         <h2>Nastavenie levelu obtiažnosti</h2>
