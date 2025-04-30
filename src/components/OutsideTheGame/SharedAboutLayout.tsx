@@ -1,6 +1,8 @@
 import React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { sharedNavLinkStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,23 +39,11 @@ const Nav = styled.nav`
   }
 `;
 
-const StyledLink = styled(NavLink)`
-  text-align: center;
-  background-color: #808080;
-  padding: 20px;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-  margin: 10px 0px;
 
-  &:hover {
-    color: goldenrod;
-    background-color: #696969;
-    box-shadow: 0px 4px 8px rgba(255, 165, 0, 0.3);
-  }
-`;
+const navLinkStyles = {
+  margin: '10px 0px;',
+   
+} as const;
 
 const MainContentAbout = styled.div`
   padding: 0;
@@ -84,8 +74,13 @@ const SharedAboutLayout = () => {
     <Wrapper>
       <NavigationAbout>
         <Nav>
-          <StyledLink to="/about-game/rules">Pravidlá</StyledLink>
-          <StyledLink to="/about-game/images">Obrazky</StyledLink>
+          
+          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game/rules">
+            Pravidlá
+          </MyMUIButton>
+          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game/images">
+            Hraj hru
+          </MyMUIButton>
         </Nav>
       </NavigationAbout>
 

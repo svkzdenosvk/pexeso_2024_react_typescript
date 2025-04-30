@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
 
-// import {Box} from '@mui/material';
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
 
 

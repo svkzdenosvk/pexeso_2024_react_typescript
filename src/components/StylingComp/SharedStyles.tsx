@@ -26,4 +26,28 @@ export const pulsatingButtonStyles = {
   },
 };
 
-//game link button (grey)
+//-----------------------------------------------------------------------------------------
+//navLinks
+export const sharedNavLinkStyles = {
+  textAlign: 'center',
+  padding: '20px',
+  color: 'white',
+  backgroundColor: '#808080',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  textDecoration: 'none',
+  outline: 'none',
+  boxShadow: 'none',
+  border: 'none',
+  transition: 'color 0.3s ease, background-color 0.3s ease, transform 0.3s ease',
+
+  '&:hover': {
+    color: 'goldenrod',
+    backgroundColor: '#696969',
+    textDecoration: 'none',
+    outline: 'none',
+    border: 'none',
+    boxShadow: '0px 4px 8px rgba(255, 165, 0, 0.3)',
+  },
+  
+} as const;

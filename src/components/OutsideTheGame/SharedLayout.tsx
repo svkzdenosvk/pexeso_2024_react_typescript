@@ -1,6 +1,9 @@
 import React from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { sharedNavLinkStyles } from "@pexeso/components/StylingComp/SharedStyles";
+
 
 const Wrapper = styled.div`
   padding: 0;
@@ -32,27 +35,17 @@ const Nav = styled.nav`
   }
 `;
 
-const StyledLink = styled(NavLink)`
-  width: 50%;
-  padding: 20px;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+const navLinkStyles = {
+  width: '50%',
+  
+  '@media (max-width: 436px)': {
+    width: '100%',
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+ 
+} as const;
 
-  &:hover {
-    color: goldenrod;
-    background-color: #696969;
-    box-shadow: 0px 4px 8px rgba(255, 165, 0, 0.3);
-  }
-
-  @media (max-width: 436px) {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-  }
-`;
 
 const MainContent = styled.div`
   display: flex;
@@ -71,8 +64,12 @@ const SharedLayout = () => {
     <Wrapper>
       <Navigation>
         <Nav>
-          <StyledLink to="/about-game">O Hre</StyledLink>
-          <StyledLink to="/settings">Hraj hru</StyledLink>
+          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game">
+            O Hre
+          </MyMUIButton>
+          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/settings">
+            Hraj hru
+          </MyMUIButton>
         </Nav>
       </Navigation>
       <MainContent>
