@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-
+import Typography from '@mui/material/Typography';
 
 const Wrapper = styled.div`
   padding: 0;
@@ -115,17 +115,21 @@ const imgStyles = {
 const Rules = () => {
   return (
     <Wrapper>
-      <h1>Pravidlá</h1>
+      <Typography variant="h2" component="h2" > {/*originally h1 */}
+         Pravidlá
+      </Typography>
       <RulesMain>
-        <h2>Princíp</h2>
+        <Typography variant="h4" component="h4" > {/*originally h2 */}
+          Princíp
+        </Typography>
         <PrincipleSection>
-          <p>Hľadať zhodný pár obrázkov pod obrázkom jokera.</p>
+           <p>Hľadať zhodný pár obrázkov pod obrázkom jokera.</p>
 
-          <MyMUIImg sx={imgStyles} src="/pictures/joker.jpg"/>
-          {/* <img src="../../pictures/joker.jpg" alt="Pexeso img" /> */}
+           <MyMUIImg sx={imgStyles} src="/pictures/joker.jpg"/>
         </PrincipleSection>
-
-        <h2>Nastavenie levelu obtiažnosti</h2>
+        <Typography variant="h4" component="h4" > {/*originally h2 */}
+          Nastavenie levelu obtiažnosti
+        </Typography>
         <LevelSection>
           <ul>
             <li>

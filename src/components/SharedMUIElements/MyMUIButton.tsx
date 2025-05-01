@@ -8,7 +8,7 @@ interface MyMUIButtonProps {
   to?: string;
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset'; 
-  sx: SxProps<Theme>;
+  sx?: SxProps<Theme>;
 
 }
 

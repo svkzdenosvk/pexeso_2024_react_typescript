@@ -55,7 +55,7 @@ const MainContentAbout = styled.div`
   width: 70vw;
   font-size: 20px;
 
-  h1 {
+  h2 {
     text-align: center;
     width: 70vw;
 
@@ -79,7 +79,7 @@ const SharedAboutLayout = () => {
             Pravidlá
           </MyMUIButton>
           <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game/images">
-            Hraj hru
+            Obrázky
           </MyMUIButton>
         </Nav>
       </NavigationAbout>

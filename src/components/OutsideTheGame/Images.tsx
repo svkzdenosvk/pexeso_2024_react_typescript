@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
 
+import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-
+import Typography from '@mui/material/Typography';
 
 // ---------- styled-components
 
@@ -28,6 +29,18 @@ const ImagesArray = styled.div`
 
 const ImgOne = styled.div``;
 
+const btnLinkStyles = {
+  backgroundColor: 'white',
+  textDecoration: 'none',
+  outline: 'none',
+  boxShadow: 'none',
+  border: 'none',
+  '&:hover': {
+    boxShadow: 'none',
+
+  },
+} as const;
+
 const imgStyles = {
   transition: 'box-shadow 0.3s ease',
   cursor: 'pointer',
@@ -44,23 +57,26 @@ const Images = () => {
 
   return (
     <Wrapper>
-      <h1>Hracie obrázky</h1>
+      <Typography variant="h2" component="h2" > {/*originally h1 */}
+         Hracie obrázky
+      </Typography>
       <ImagesArray>
         {isLoading || imgNames.length === 0 ? (//----------------------------------------------if loading show H1
-          <h1>Načítavajú sa obrázky</h1>
+          
+          <Typography variant="h2" component="h2" > {/*originally h1 */}
+            Načítavajú sa obrázky
+          </Typography>
         ) : (//--------------------------------------------------------------------------------after loading show images
           imgNames.map((oneImgName) => (
-            <ImgOne /*key={uuid.v4()*/ key={oneImgName}>
-              <Link to={`/about-game/images/${oneImgName}`}>
-                {/* <Box
-                   component="img"
-                   src={`/pictures/pexeso/${oneImgName}.jpg`}
-                   alt="Pexeso img"
-                   sx={imgStyles}
-                /> */}
-                <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneImgName}.jpg`}/>
+            <ImgOne  key={oneImgName}>
+              {/* <Link to={`/about-game/images/${oneImgName}`}> */}
+              <MyMUIButton  to={`/about-game/images/${oneImgName}`} sx={btnLinkStyles}>
 
-              </Link>
+                 <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneImgName}.jpg`}/>
+            
+              </MyMUIButton>  
+
+              {/* </Link> */}
             </ImgOne>
           ))
         )}

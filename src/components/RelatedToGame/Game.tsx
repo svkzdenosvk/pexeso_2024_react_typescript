@@ -20,6 +20,7 @@ import { TimeAndStart } from "./TimeAndStart";
 import { useSelector, useDispatch } from "react-redux";
 
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
+import Typography from '@mui/material/Typography';
 
 const gameLinkButtonStyles = {
   backgroundColor: "grey",
@@ -96,10 +97,14 @@ const Game = () => {
           {linkName}
         </MyMUIButton>
 
-        <h3 style={{ color: colorText }}>
+        {/* <h3 style={{ color: colorText }}>
           {" "}
           Pre začatie hry slačte tlačítko štart{" "}
-        </h3>
+        </h3> */}
+        {/* originally H3*/}
+        <Typography variant="h5" component="h5" sx={{color: colorText}}> 
+           Pre začatie hry slačte tlačítko štart
+        </Typography>
 
         <TimeAndStart />
       </div>
