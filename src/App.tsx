@@ -13,18 +13,37 @@ import SingleImg from "@pexeso/components/OutsideTheGame/SingleImg";
 import ErrorPage from "@pexeso/components/ErrorPage";
 
 import { fetchOnlyImgNames, preloadImages } from "@pexeso/_inc/data";
+import { My_Type_Theme } from "@pexeso/_inc/my_types";
 
 import { RootState } from "@pexeso/store/store";
 
 import { useSelector, useDispatch } from "react-redux";
 import { set_img_names, set_loading } from "@pexeso/store/reducers/gameSlice";
 
+import { ThemeProvider , CssBaseline } from "@mui/material";
+import { defaultTheme } from "@pexeso/components/StylingComp/themes/defaultTheme";
+import { mediumTheme } from "@pexeso/components/StylingComp/themes/mediumTheme";
+import { hardTheme } from "@pexeso/components/StylingComp/themes/hardTheme";
+
 const App = () => {
   //----------------------------redux
 
-  const { imgNames, isLoading, bgColor } = useSelector(
-    (state: RootState) => state.game,
-  ); //---with destructuring
+  const {
+    imgNames,
+    isLoading,
+    // bgColor,
+    theme: localVariableTheme,
+  } = useSelector((state: RootState) => state.game); //---with destructuring
+
+  const importedThemes: Record<My_Type_Theme, typeof defaultTheme> = {
+    defaultTheme,   
+    mediumTheme,
+    hardTheme,
+  };
+  
+
+  const currentTheme =
+    importedThemes[localVariableTheme as My_Type_Theme] ?? defaultTheme;
 
   const dispatch = useDispatch();
   //------------------------------------------------------------------------------------------------------------
@@ -44,15 +63,14 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    
-    if (!isLoading ) return;
+    if (!isLoading) return;
 
     preloadImages(
-      imgNames,
+      imgNames
     ) /*---------------------------------------------------------------------------function to preload imgd */
       .then(() => {
         dispatch(
-          set_loading(),
+          set_loading()
         ); /*----------------------------------------------------------------------set loading to false after imgs were loaded*/
       })
       .catch((err) => {
@@ -61,36 +79,39 @@ const App = () => {
         // setLoadingImg(false);        //-----------------------------------------set loading to false
         window.location.reload(); //-----------------------------------------------reload page when imgs weren´t loaded correctly
       });
-  }, [isLoading, imgNames, dispatch]);//-------------------------------------------if problems -> try only imgNames or nothing
+  }, [isLoading, imgNames, dispatch]); //-------------------------------------------if problems -> try only imgNames or nothing
 
-  useEffect(() => {
+  // useEffect(() => {
     //-----------------------------------------------------------------------------check end useEffect
-    document
-      .getElementsByTagName("BODY")[0]
-      .setAttribute("style", "background-color: " + bgColor);
-  }, [bgColor]);
+  //   document
+  //     .getElementsByTagName("BODY")[0]
+  //     .setAttribute("style", "background-color: " + bgColor);
+  // }, [bgColor]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/game" element={<Game />} />
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline /> 
+      <BrowserRouter>
+        <Routes>
+          <Route path="/game" element={<Game />} />
 
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/settings" element={<GameSettings />} />
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/settings" element={<GameSettings />} />
 
-          <Route path="/about-game" element={<SharedAboutLayout />}>
-            <Route index element={<AboutGame />} />
-            <Route path="/about-game/rules" element={<Rules />} />
+            <Route path="/about-game" element={<SharedAboutLayout />}>
+              <Route index element={<AboutGame />} />
+              <Route path="/about-game/rules" element={<Rules />} />
 
-            <Route path="/about-game/images" element={<Images />} />
-            <Route path="/about-game/images/:name" element={<SingleImg />} />
+              <Route path="/about-game/images" element={<Images />} />
+              <Route path="/about-game/images/:name" element={<SingleImg />} />
+            </Route>
           </Route>
-        </Route>
 
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

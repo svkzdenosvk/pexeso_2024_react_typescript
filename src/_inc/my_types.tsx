@@ -15,7 +15,9 @@ export type My_Type_ImgCount = 5 | 6 | 7 | 8;
 
 export type My_Type_Color_Text = "black" | "white";
 
-export type My_Type_Color_Background = My_Type_Color_Text | "#4d141d";
+// export type My_Type_Color_Background = My_Type_Color_Text | "#4d141d";
+
+export type My_Type_Theme = "defaultTheme" | "mediumTheme" | "hardTheme";
 
 export type My_Type_ClassNames =
   | "mask"
@@ -74,13 +76,14 @@ export type My_Type_Redux_Root_State = {
     isLoading: boolean;
     isRunning: boolean;
     colorText: My_Type_Color_Text;
-    bgColor: My_Type_Color_Background;
+    // bgColor: My_Type_Color_Background;
     linkName: string;
     imgNames: My_Type_Img_Name[];
     isEnd: boolean;
     divImgs: My_Type_DivImg[];
     selectedImgCount: My_Type_ImgCount;
     level: My_Type_Level;
+    theme: My_Type_Theme;
   };
   time: { seconds: number };
 };

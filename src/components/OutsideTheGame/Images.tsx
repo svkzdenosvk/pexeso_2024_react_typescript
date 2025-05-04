@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
@@ -69,14 +69,13 @@ const Images = () => {
         ) : (//--------------------------------------------------------------------------------after loading show images
           imgNames.map((oneImgName) => (
             <ImgOne  key={oneImgName}>
-              {/* <Link to={`/about-game/images/${oneImgName}`}> */}
+             
               <MyMUIButton  to={`/about-game/images/${oneImgName}`} sx={btnLinkStyles}>
 
                  <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneImgName}.jpg`}/>
             
               </MyMUIButton>  
-
-              {/* </Link> */}
+          
             </ImgOne>
           ))
         )}

@@ -15,7 +15,7 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 
- import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
+import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
 
 
 const imgStyles = {
@@ -35,7 +35,7 @@ export const GameDivPictures = () => {
 
   const dispatch = useDispatch();
 
-  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
+  /*-------------------------------------------------------------------------------------------------*/
 
   // ---------------------------
   // ---------------------------ending fn
@@ -124,11 +124,11 @@ export const GameDivPictures = () => {
       }
 
       document.body.style.pointerEvents =
-        "auto"; /*---------------------------give back functionality to pointer*/
+        "auto"; /*---------------------------------------------------------------give back functionality to pointer*/
     }, 200);
 
     if (level === "hard") {
-      //-------------------------------------------------------in the hardest level shuffeling every 400 ms
+      //-------------------------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
         dispatch(hardest_level_shuffle());
       }, 400);
@@ -138,24 +138,24 @@ export const GameDivPictures = () => {
   }, [dispatch, divImgs, checkEnd, level]);
 
   useEffect(() => {
-    //--------------------------------------------------------------check end useEffect
+    //---------------------------------------------------------------------------check end useEffect
     checkEnd();
   }, [checkEnd, isEnd]);
 
   return (
     <div className="row" id="row">
-      {isLoading ? ( //----------------------------------------------------------------if loading is done show
+      {isLoading ? ( //----------------------------------------------------------if loading is done show
         <h1 style={{ color: colorText }}>Načítavajú sa obrázky</h1>
       ) : (
-        //-------------------------------------------------------------------------if not loading (after successful l.) show
+        //-----------------------------------------------------------------------if not loading (after successful l.) show
         divImgs.map(
           (
-            oneDiv: My_Type_DivImg, //-----------------------------------array of img names -> div>img
+            oneDiv: My_Type_DivImg, //-------------------------------------------array of img names -> div>img
           ) => (
             <div
               key={oneDiv.id}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                const currentDiv = e.currentTarget; // -----------------------------this is always <div> with `div_on_click`
+                const currentDiv = e.currentTarget; // --------------------------this is always <div> with `div_on_click`
                 showImg(currentDiv, oneDiv);
               }}
               className={oneDiv.classNames.join(" ")}

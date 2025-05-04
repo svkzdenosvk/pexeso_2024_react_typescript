@@ -9,10 +9,11 @@ interface MyMUIButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset'; 
   sx?: SxProps<Theme>;
+  // onClick?: (event:React.MouseEvent<HTMLAnchorElement>)=>void;
 
 }
 
-export const MyMUIButton = ({ to, children, sx, type = 'button' }: MyMUIButtonProps) => {
+export const MyMUIButton = ({ to, children, sx , type = 'button' }: MyMUIButtonProps) => {
  
 if (to) {
   return (
@@ -21,6 +22,8 @@ if (to) {
       to={to}
       variant="contained"
       sx={sx}
+      // onClick={onClick}
+
     >
       {children}
     </Button>

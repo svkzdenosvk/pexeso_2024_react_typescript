@@ -27,27 +27,28 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-  #timeAndStart {
-    display: flex;
 
-    #seconds {
-      padding: 20px;
-      font-size: 300%;
-      float: left;
-      font-weight: bold;
-    }
-  }
+  // #timeAndStart {
+  //   display: flex;
+
+  //   #seconds {
+  //     padding: 20px;
+  //     font-size: 300%;
+  //     float: left;
+  //     font-weight: bold;
+  //   }
+  // }
 
   .welcome {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // width: 100%;
+    // height: 100%;
+    // margin: 0;
+    // padding: 0;
+    // box-sizing: border-box;
+    // text-align: center;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
 
     h1 {
       font-size: calc(2rem + 5vw);
@@ -144,8 +145,6 @@ export const GlobalStyle = createGlobalStyle`
       margin-bottom: 0px;
     }
 
-    // #levelBtns div {
-    //   margin-top: 2%;
-    // }
+    
   }
 `;

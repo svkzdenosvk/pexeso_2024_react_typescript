@@ -8,7 +8,8 @@ import { RootState } from "@pexeso/store/store";
 
 import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
+import { Typography, Box } from "@mui/material";
 
 import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
@@ -30,6 +31,15 @@ const SingleImgMain = styled.div`
   align-items: center;
 `;
 
+const errorStyles = {
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+  alignItems: 'center',
+ 
+} as const;
 
 const imgStyles = {
   width: "200px",
@@ -61,21 +71,23 @@ const SingleImg = () => {
 
   return (
     <Wrapper>
-      {/* // <h1>{imgNameH1.charAt(0).toUpperCase() + imgNameH1.slice(1)}</h1> */}
       <Typography variant="h3" component="h3" > {/*originally h1 */}
          {imgNameH1.charAt(0).toUpperCase() + imgNameH1.slice(1)}
       </Typography>
       <SingleImgMain>
         {errorImgName ? (//-------------------------------------------------------if name of img not exists in db
-          <div>
-            {/* // <h1>Error, tento obrázok neexistuje</h1> */}
+          // <div> 
+          <Box sx={errorStyles}>
+          
             <Typography variant="h3" component="h3" > {/*originally h1 */}
               Error, tento obrázok neexistuje
             </Typography>
             <MyMUIButton sx={pulsatingButtonStyles} to="/about-game/images">
               Klikni sem a poď na stránku obrázkov
             </MyMUIButton>
-          </div>
+          </Box>
+
+          // </div> 
         ) : (
           <>
             <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${imgName}.jpg`}/>

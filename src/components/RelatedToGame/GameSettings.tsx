@@ -21,7 +21,6 @@ import {
 
 import {
   Box,
-  // Button,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -40,7 +39,7 @@ const alertStyles ={
   borderRadius: '25px',
   padding: '15px 25px',
   fontWeight: "bold",
-  justifyContent: "center", // zarovná text aj ikonu do stredu
+  justifyContent: "center", 
   textAlign: "center",
   '& .MuiAlert-message': {
     width: '100%',
@@ -114,7 +113,7 @@ const GameSettings = () => {
         gap: 2,
       }}
     >
-      <Typography variant="h5" component="h2" gutterBottom>
+      <Typography variant="h5" component="h5" gutterBottom>
         Nastavte parametre hry
       </Typography>
 

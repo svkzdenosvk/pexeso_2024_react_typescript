@@ -20,7 +20,8 @@ import { TimeAndStart } from "./TimeAndStart";
 import { useSelector, useDispatch } from "react-redux";
 
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
-import Typography from '@mui/material/Typography';
+import { Typography, Box } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 
 const gameLinkButtonStyles = {
   backgroundColor: "grey",
@@ -47,15 +48,45 @@ const gameLinkButtonStyles = {
   },
 } as const;
 
+
+const welcomeStyles = {
+  
+    width: '100%',
+    height: '100%',
+    m: 0, // margin: 0
+    p: 0, // padding: 0
+    boxSizing: 'border-box',
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    
+} as const;
+
+
+const columnContentStyles = {
+  
+  maxWidth: '850px',
+  display: 'none',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+  
+} as const;
+
+const colorTextThemeStyles = (theme: Theme) => ({
+  color: theme.palette.text.primary,
+ 
+});
+
 const Game = () => {
   // ---------------------------redux
 
-  const { imgNames, level, selectedImgCount, colorText, linkName } =
+  const { imgNames, level, selectedImgCount,/* colorText,*/ linkName } =
     useSelector((state: RootState) => state.game); //-------------with destructuring
 
   const dispatch = useDispatch();
 
-  /*--------------------------------------------------------------------------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------------------------*/
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,28 +121,28 @@ const Game = () => {
     }
   }, [level, selectedImgCount, navigate, dispatch, imgNames]);
 
+  
+
   return (
     <>
-      <div className="welcome">
-        <MyMUIButton sx={gameLinkButtonStyles} to="/settings">
+      
+      <Box className="welcome" sx={welcomeStyles}>
+        
+        <MyMUIButton sx={gameLinkButtonStyles} to="/settings" >
           {linkName}
         </MyMUIButton>
 
-        {/* <h3 style={{ color: colorText }}>
-          {" "}
-          Pre začatie hry slačte tlačítko štart{" "}
-        </h3> */}
-        {/* originally H3*/}
-        <Typography variant="h5" component="h5" sx={{color: colorText}}> 
+        <Typography variant="h5" component="h5" sx={colorTextThemeStyles} className="colorTextTheme"> {/* originally H3*/}
            Pre začatie hry slačte tlačítko štart
         </Typography>
 
         <TimeAndStart />
-      </div>
 
-      <div className="column_content" id="content">
+      </Box>
+      <Box className="column_content" id="content" sx={columnContentStyles}>
         <GameDivPictures />
-      </div>
+      </Box>
+
     </>
   );
 };

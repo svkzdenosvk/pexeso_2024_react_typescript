@@ -8,6 +8,7 @@ export const pulseShadow = keyframes`
 `;
 
 export const pulsatingButtonStyles = {
+  textAlign: 'center',
   textDecoration: 'none',
   width:'50%',
   border: 'none',
@@ -51,3 +52,32 @@ export const sharedNavLinkStyles = {
   },
   
 } as const;
+
+//--------------------------shared styles in themes
+export const sharedThemeStyles = {
+
+  typography: {
+    h1: {
+      fontFamily: '"Times New Roman", serif',
+      textAlign:'center'as const,
+    },
+    h2: {
+      fontFamily: '"Times New Roman", serif',
+      textAlign:'center'as const,
+    },
+    h3: {
+      fontFamily: '"Times New Roman", serif',
+    },
+    h4: {
+      fontFamily: '"Times New Roman", serif',
+    },
+    h5: {
+      fontFamily: '"Times New Roman", serif',
+      textAlign:'center'as const,
+    },
+    h6: {
+      fontFamily: '"Times New Roman", serif',
+    },
+  },
+  
+};

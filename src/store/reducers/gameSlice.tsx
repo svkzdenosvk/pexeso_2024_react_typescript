@@ -2,10 +2,11 @@ import {
   My_Type_Color_Text,
   My_Type_Img_Name,
   My_Type_Level,
-  My_Type_Color_Background,
+  // My_Type_Color_Background,
   My_Type_DivImg,
   My_Type_ClassNames,
   My_Type_ImgCount,
+  My_Type_Theme,
 } from "@pexeso/_inc/my_types";
 import { _shuffleArray } from "@pexeso/_inc/_inc_functions";
 
@@ -17,8 +18,8 @@ const gameSlice = createSlice({
   name: "game",
   initialState: {
     imgNames: [] as My_Type_Img_Name[],
-    bgColor: "white" as My_Type_Color_Background,
-    colorText: "black" as My_Type_Color_Text,
+    // bgColor: "white" as My_Type_Color_Background,
+     colorText: "black" as My_Type_Color_Text,
     isLoading: true,
     isRunning: false,
     linkName: "Späť na nastavenia hry.",
@@ -26,6 +27,7 @@ const gameSlice = createSlice({
     isEnd: false,
     divImgs: [] as My_Type_DivImg[],
     selectedImgCount: 0 as My_Type_ImgCount,
+    theme: "defaultTheme" as My_Type_Theme,
   },
   reducers: {
     set_start_game: (state) => {
@@ -114,35 +116,35 @@ const gameSlice = createSlice({
     reset_settings: (state) => {
       //-----------------------------------------------------------------------evrytime we return on settings page
       state.level = "" as My_Type_Level;
-      state.bgColor = "white";
       state.selectedImgCount = 0 as My_Type_ImgCount;
       state.isRunning = false;
       state.isEnd = false;
+      state.theme = "defaultTheme";
     },
     settings_and_styling_before_start: (state, action) => {
       //-----------------------------------------------------------------------after set the settings (but before clicking to start button)
 
       const levelChanges: Record<
         My_Type_Level,
-        [My_Type_Color_Text, My_Type_Color_Background]
+        [My_Type_Color_Text, My_Type_Theme]
       > = {
         /*----------------------------------------------------------------------using dynamic object properties*/
-        easy: ["black", "white"],
-        medium: ["white", "#4d141d"],
-        hard: ["white", "black"],
+        easy: ["black", "defaultTheme"],
+        medium: ["white", "mediumTheme"],
+        hard: ["white", "hardTheme"],
       };
 
       //state.isEnd=false;//----------------------------------------------------maybe this could be decommented .. in case of problems in the future
       state.linkName = "Späť na nastavenia hry.";
       state.level = action.payload.level;
-      state.bgColor = levelChanges[
-        action.payload.level as My_Type_Level
-      ][1] as My_Type_Color_Background;
-      state.colorText = levelChanges[
-        action.payload.level as My_Type_Level
-      ][0] as My_Type_Color_Text;
+      // state.colorText = levelChanges[
+      //   action.payload.level as My_Type_Level
+      // ][0] as My_Type_Color_Text;
       state.selectedImgCount = action.payload
         .selectedImgCount as My_Type_ImgCount;
+       state.theme = levelChanges[
+        action.payload.level as My_Type_Level
+      ][1] as My_Type_Theme;
     },
     set_img_names: (state, action) => {
       //------------------------------------------------------------------------after fetching names from db
