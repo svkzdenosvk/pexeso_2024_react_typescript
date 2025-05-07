@@ -37,7 +37,7 @@ const startButtonStyles = {
 export const TimeAndStart = () => {
   // ---------------------------redux
   const seconds = useSelector((state: RootState) => state.time.seconds);
-  const { isRunning, isLoading /*, colorText*/, isEnd } = useSelector(
+  const { isRunning, isLoading , isEnd } = useSelector(
     (state: RootState) => state.game
   ); //-------------with destructuring
   const dispatch = useDispatch();

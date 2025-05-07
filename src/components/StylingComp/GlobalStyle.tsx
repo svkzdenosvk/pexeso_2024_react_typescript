@@ -2,25 +2,25 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-align: center;
-    overflow-x: hidden;
+    // padding: 0;
+    // margin: 0;
+    // box-sizing: border-box;
+    // text-align: center;
+     overflow-x: hidden;
   }
 
   body {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    min-height: 100vh;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    // padding: 0px;
+    // margin: 0px;
+    // box-sizing: border-box;
+    // min-height: 100vh;
+     transition: background-color 1.5s ease, color 0.5s ease;
   }
 
   #result {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    // margin: 0;
+    // padding: 0;
+    // box-sizing: border-box;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -98,9 +98,6 @@ export const GlobalStyle = createGlobalStyle`
       align-items: center;
     }
 
-    // .welcome {
-    //   width: 1650px;
-    // }
   }
 
   @media screen and (max-width: 540px) {

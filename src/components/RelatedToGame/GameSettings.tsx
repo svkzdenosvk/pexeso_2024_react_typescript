@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -30,30 +29,31 @@ import {
   Typography,
 } from "@mui/material";
 
-import { styled } from '@mui/material/styles';
-
-import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
 
-const alertStyles ={
-  borderRadius: '25px',
-  padding: '15px 25px',
-  fontWeight: "bold",
-  justifyContent: "center", 
+const formStyles = {
   textAlign: "center",
-  '& .MuiAlert-message': {
-    width: '100%',
-    textAlign: 'center',
+  mt: 2,
+};
+const fieldsetStyles = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  textAlign: "center",
+};
+
+const alertStyles = {
+  borderRadius: "25px",
+  padding: "15px 25px",
+  fontWeight: "bold",
+  justifyContent: "center",
+  textAlign: "center",
+  "& .MuiAlert-message": {
+    width: "100%",
+    textAlign: "center",
   },
-}
-
-const MyFormControl = styled(FormControl)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  textAlign: 'center',
-}));
-
+};
 const GameSettings = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -101,25 +101,16 @@ const GameSettings = () => {
   };
 
   return (
-    <Box
-      component="form"
-      ref={formRef}
-      onSubmit={handleSubmit}
-      sx={{
-        minWidth: 350,
-        p: 3,
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-      }}
-    >
-      <Typography variant="h5" component="h5" gutterBottom>
+    <Box component="form" ref={formRef} onSubmit={handleSubmit} sx={formStyles}>
+      <Typography variant="h5" component="h5" sx={{ mb: 2 }}>
         Nastavte parametre hry
       </Typography>
 
-      <MyFormControl  /*component="fieldset"*/>
+      <FormControl sx={fieldsetStyles}>
+        {" "}
         <FormLabel component="legend">Vyberte úroveň obtiažnosti:</FormLabel>
-        <RadioGroup row
+        <RadioGroup
+          row
           name="level"
           onChange={(e) => setLevelChosen(e.target.value as My_Type_Level)}
         >
@@ -132,11 +123,13 @@ const GameSettings = () => {
             />
           ))}
         </RadioGroup>
-      </MyFormControl>
+      </FormControl>
 
-      <MyFormControl /*component="fieldset"*/>
+      <FormControl sx={fieldsetStyles}>
+        {" "}
         <FormLabel component="legend">Vyberte počet obrázkov:</FormLabel>
-        <RadioGroup row
+        <RadioGroup
+          row
           name="imageCount"
           onChange={(e) =>
             setImgCountChosen(parseInt(e.target.value) as My_Type_ImgCount)
@@ -151,7 +144,7 @@ const GameSettings = () => {
             />
           ))}
         </RadioGroup>
-      </MyFormControl>
+      </FormControl>
 
       {error && (
         <Alert severity="error" sx={alertStyles}>
@@ -160,9 +153,8 @@ const GameSettings = () => {
       )}
 
       <MyMUIButton sx={pulsatingButtonStyles} type="submit">
-         Hraj
+        Hraj
       </MyMUIButton>
-     
     </Box>
   );
 };
