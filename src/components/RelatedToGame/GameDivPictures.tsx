@@ -16,21 +16,34 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-
+import { Typography, Box } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 
 const imgStyles = {
   width: "107px",
   height: "107px",
   opacity: "0%",
- 
 } as const;
+
+const rowStyles = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  flexWrap: "wrap",
+  flex: "1 1 50%",
+  mt: "1.5%",
+} as const;
+
+const colorTextThemeStyles = (theme: Theme) => ({
+  color: theme.palette.text.primary,
+});
 
 export const GameDivPictures = () => {
   // ---------------------------redux
 
   const seconds = useSelector((state: RootState) => state.time.seconds); //-------------with destructuring
-  const { divImgs, level, isLoading, colorText, isEnd } = useSelector(
-    (state: RootState) => state.game,
+  const { divImgs, level, isLoading, isEnd } = useSelector(
+    (state: RootState) => state.game
   ); //-------------with destructuring
 
   const dispatch = useDispatch();
@@ -51,7 +64,7 @@ export const GameDivPictures = () => {
 
       let endTime =
         _fmtMSS(
-          seconds,
+          seconds
         ); /*----------------------------------------formating time */
 
       //  document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
@@ -60,13 +73,12 @@ export const GameDivPictures = () => {
         ?.setAttribute("style", "justify-content: center;");
       let timeArr =
         endTime.split(
-          ":",
+          ":"
         ); /*---------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
 
       let h1;
       if (!document.querySelector("h1")) {
         h1 = document.createElement("h1");
-        h1.style.color = colorText;
 
         document.getElementsByClassName("welcome")[0].appendChild(h1);
       } else {
@@ -82,24 +94,24 @@ export const GameDivPictures = () => {
           "s";
       }
     } else return;
-  }, [seconds, colorText, isEnd]); //-------------------------------------------adding dependencies
+  }, [seconds, isEnd]); //-------------------------------------------adding dependencies
 
+  // --------fn to show div>img
   function showImg(element: HTMLDivElement, divObject: My_Type_DivImg) {
-    // --------fn to show div>img
-
+    /* after match */
     let selectedArr = divImgs.filter((oneDiv) =>
-      oneDiv.classNames.includes("selected_Div_img"),
+      oneDiv.classNames.includes("selected_Div_img")
     );
     let rotateddArr = divImgs.filter((oneDiv) =>
-      oneDiv.classNames.includes("rotate-center"),
-    );/* after match */
-
+      oneDiv.classNames.includes("rotate-center")
+    );
+    
     if (
+      /*-------------if divImg is not selected + prevent 3 imgs show*/
       element.classList.contains("mask") &&
       (selectedArr.length === 0 || selectedArr.length === 1) &&
       rotateddArr.length === 0
     ) {
-      /*-------------if divImg is not selected + prevent 3 imgs show*/
 
       dispatch(showOne(divObject));
     }
@@ -108,16 +120,15 @@ export const GameDivPictures = () => {
   useEffect(() => {
     setTimeout(function () {
       let selectedArr: My_Type_DivImg[] = divImgs.filter((oneDiv) =>
-        oneDiv.classNames.includes("selected_Div_img"),
+        oneDiv.classNames.includes("selected_Div_img")
       );
 
       if (selectedArr.length === 2) {
+        /* ------------------if match */
         if (selectedArr[0].name === selectedArr[1].name) {
-          /* ------------------if match */
-
           dispatch(match());
         } else {
-          /* -----------------------------------------------------------if unmatch */
+          /* ------------------else if unmatch */
 
           dispatch(un_match(level));
         }
@@ -127,8 +138,8 @@ export const GameDivPictures = () => {
         "auto"; /*---------------------------------------------------------------give back functionality to pointer*/
     }, 200);
 
+    //-------------------------in the hardest level shuffeling every 400 ms
     if (level === "hard") {
-      //-------------------------------------------------------------------------in the hardest level shuffeling every 400 ms
       const intervalShuffleHardest = setInterval(() => {
         dispatch(hardest_level_shuffle());
       }, 400);
@@ -137,22 +148,25 @@ export const GameDivPictures = () => {
     }
   }, [dispatch, divImgs, checkEnd, level]);
 
+  //---------------------------check end useEffect
   useEffect(() => {
-    //---------------------------------------------------------------------------check end useEffect
     checkEnd();
   }, [checkEnd, isEnd]);
 
   return (
-    <div className="row" id="row">
-      {isLoading ? ( //----------------------------------------------------------if loading is done show
-        <h1 style={{ color: colorText }}>Načítavajú sa obrázky</h1>
+    <Box className="row" id="row" sx={rowStyles}>
+      {isLoading ? ( //--------if loading is not done then show
+        <Typography variant="h2" component="h2" sx={colorTextThemeStyles}> {/* originally H1*/}
+          {" "}        
+          Načítavajú sa obrázky
+        </Typography> 
       ) : (
         //-----------------------------------------------------------------------if not loading (after successful l.) show
         divImgs.map(
           (
-            oneDiv: My_Type_DivImg, //-------------------------------------------array of img names -> div>img
+            oneDiv: My_Type_DivImg //-------------------------------------------array of img names -> div>img
           ) => (
-            <div
+            <Box
               key={oneDiv.id}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 const currentDiv = e.currentTarget; // --------------------------this is always <div> with `div_on_click`
@@ -160,13 +174,15 @@ export const GameDivPictures = () => {
               }}
               className={oneDiv.classNames.join(" ")}
             >
+              <MyMUIImg
+                sx={imgStyles}
+                src={`/pictures/pexeso/${oneDiv.name}.jpg`}
+              />
              
-              <MyMUIImg sx={imgStyles} src={`/pictures/pexeso/${oneDiv.name}.jpg`}/>
-
-            </div>
-          ),
+            </Box>
+          )
         )
       )}
-    </div>
+    </Box>
   );
 };

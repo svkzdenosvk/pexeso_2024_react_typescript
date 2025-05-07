@@ -13,10 +13,6 @@ export type My_Type_Img_Name =
 
 export type My_Type_ImgCount = 5 | 6 | 7 | 8;
 
-export type My_Type_Color_Text = "black" | "white";
-
-// export type My_Type_Color_Background = My_Type_Color_Text | "#4d141d";
-
 export type My_Type_Theme = "defaultTheme" | "mediumTheme" | "hardTheme";
 
 export type My_Type_ClassNames =
@@ -75,8 +71,6 @@ export type My_Type_Redux_Root_State = {
   game: {
     isLoading: boolean;
     isRunning: boolean;
-    colorText: My_Type_Color_Text;
-    // bgColor: My_Type_Color_Background;
     linkName: string;
     imgNames: My_Type_Img_Name[];
     isEnd: boolean;

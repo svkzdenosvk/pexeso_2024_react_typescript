@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import Typography from '@mui/material/Typography';
+import { Typography, Box } from "@mui/material";
 
-const Wrapper = styled.div`
-  min-height: 70vh;
-`;
-
+const divStyles = {
+  minHeight: '70vh',
+  
+} as const;
 
 const h1Styles = {
   fontSize: 'calc(2rem + 5vw)',
@@ -15,11 +14,11 @@ const h1Styles = {
 
 const Home = () => {
   return (
-    <Wrapper>
+    <Box sx={divStyles}>
       <Typography variant="h1" component="h1" sx={h1Styles}>
         Pexeso
       </Typography>
-    </Wrapper>
+    </Box>
   );
 };
 

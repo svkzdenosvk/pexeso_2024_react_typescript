@@ -1,93 +1,83 @@
 import React from "react";
-import { Outlet, NavLink } from "react-router-dom";
-import styled from "styled-components";
-import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { Outlet } from "react-router-dom";
+import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { sharedNavLinkStyles } from "@pexeso/components/StylingComp/SharedStyles";
+import { Box } from "@mui/material";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  min-height: 70vh;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
-
-const NavigationAbout = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 30vw;
-  min-height: 70vh;
-
-  @media (max-width: 600px) {
-    width: 100%;
-    min-height: auto;
-  }
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  margin-top: 100px;
-
-  @media (max-width: 600px) {
-    margin-top: 20px;
-    height: auto;
-  }
-`;
-
-
-const navLinkStyles = {
-  margin: '10px 0px;',
-   
+const sharedAboutWrapperStyles = {
+  display: "flex",
+  flexDirection: "row",
+  width: "100%",
+  minHeight: "70vh",
+  "@media (max-width:600px)": {
+    flexDirection: "column",
+  },
 } as const;
 
-const MainContentAbout = styled.div`
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  min-height: 70vh;
-  width: 70vw;
-  font-size: 20px;
+const sharedAboutNavigation = {
+  display: "flex",
+  flexDirection: "column",
+  width: "30vw",
+  minHeight: "70vh",
+  "@media (max-width:600px)": {
+    width: "100%",
+    minHeight: "auto",
+  },
+} as const;
 
-  h2 {
-    text-align: center;
-    width: 70vw;
+const navStyles = {
+  display: "flex",
+  flexDirection: "column",
+  height: "200px",
+  mt: "100px",
+  "@media (max-width:600px)": {
+    mt: "20px",
+    height: "auto",
+  },
+} as const;
 
-    @media (max-width: 600px) {
-      width: 100%;
-    }
-  }
+const navLinkStyles = {
+  margin: "10px 0px;",
+} as const;
 
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
+const mainContentAboutStyles = {
+  p: 0,
+  m: 0,
+  boxSizing: "border-box",
+  display: "flex",
+  flexDirection: "row",
+  minHeight: "70vh",
+  width: "70vw",
+  fontSize: "20px",
+  "@media (max-width:600px)": {
+    width: "100%",
+  },
+} as const;
 
 const SharedAboutLayout = () => {
   return (
-    <Wrapper>
-      <NavigationAbout>
-        <Nav>
-          
-          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game/rules">
+    <Box sx={sharedAboutWrapperStyles}>
+      <Box sx={sharedAboutNavigation}>
+        <Box component="nav" sx={navStyles}>
+          <MyMUIButton
+            sx={[sharedNavLinkStyles, navLinkStyles]}
+            to="/about-game/rules"
+          >
             Pravidlá
           </MyMUIButton>
-          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game/images">
+          <MyMUIButton
+            sx={[sharedNavLinkStyles, navLinkStyles]}
+            to="/about-game/images"
+          >
             Obrázky
           </MyMUIButton>
-        </Nav>
-      </NavigationAbout>
+        </Box>
+      </Box>
 
-      <MainContentAbout>
+      <Box className="mainContentAbout" sx={mainContentAboutStyles}>
         <Outlet />
-      </MainContentAbout>
-    </Wrapper>
+      </Box>
+    </Box>
   );
 };
 

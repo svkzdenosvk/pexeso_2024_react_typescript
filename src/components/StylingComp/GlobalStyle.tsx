@@ -27,55 +27,23 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-
-  // #timeAndStart {
-  //   display: flex;
-
-  //   #seconds {
-  //     padding: 20px;
-  //     font-size: 300%;
-  //     float: left;
-  //     font-weight: bold;
-  //   }
-  // }
-
   .welcome {
-    // width: 100%;
-    // height: 100%;
-    // margin: 0;
-    // padding: 0;
-    // box-sizing: border-box;
-    // text-align: center;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-
+    
     h1 {
       font-size: calc(2rem + 5vw);
       margin-bottom: 70px;
     }
 
     h3 {
-      text-align: center;
+      //  text-align: center;
     }
   }
 
   .column_content {
-    max-width: 850px;
-    display: none;
-    flex-direction: column;
-    justify-content: space-evenly;
-
+    
     .row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      flex-wrap: wrap;
-      flex: 50%;
-      margin-top: 1.5%;
-
+     
       .mask {
-        // background-image: url("../public/pictures/joker.jpg"); 
         background-image: url("/pictures/joker.jpg");
 
         background-position: center;
@@ -90,12 +58,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 107px;
         height: 107px;
       }
-      //  img {
-      //   width: 107px;
-      //   height: 107px;
-      //   opacity: 0%;
-      // }
-
+      
      }
   }
 
@@ -135,9 +98,9 @@ export const GlobalStyle = createGlobalStyle`
       align-items: center;
     }
 
-    .welcome {
-      width: 1650px;
-    }
+    // .welcome {
+    //   width: 1650px;
+    // }
   }
 
   @media screen and (max-width: 540px) {
@@ -147,4 +110,17 @@ export const GlobalStyle = createGlobalStyle`
 
     
   }
+    //---------------------------------------------outside the game
+    .mainContentAbout h2{
+    
+      text-align: center;
+       width: 70vw;
+
+      @media (max-width: 600px) {
+        //  width: 100%;
+         width: 100vw;
+
+      }
+  
+    }
 `;

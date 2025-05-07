@@ -48,41 +48,38 @@ const gameLinkButtonStyles = {
   },
 } as const;
 
-
 const welcomeStyles = {
-  
-    width: '100%',
-    height: '100%',
-    m: 0, // margin: 0
-    p: 0, // padding: 0
-    boxSizing: 'border-box',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    
+  width: "100%",
+  height: "100%",
+  m: 0, // margin: 0
+  p: 0, // padding: 0
+  boxSizing: "border-box",
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  "@media (min-width:1650px)": {
+    width: "1650px",
+  },
 } as const;
 
-
 const columnContentStyles = {
-  
-  maxWidth: '850px',
-  display: 'none',
-  flexDirection: 'column',
-  justifyContent: 'space-evenly',
-  
+  maxWidth: "850px",
+  display: "none",
+  flexDirection: "column",
+  justifyContent: "space-evenly",
 } as const;
 
 const colorTextThemeStyles = (theme: Theme) => ({
   color: theme.palette.text.primary,
- 
 });
 
 const Game = () => {
   // ---------------------------redux
 
-  const { imgNames, level, selectedImgCount,/* colorText,*/ linkName } =
-    useSelector((state: RootState) => state.game); //-------------with destructuring
+  const { imgNames, level, selectedImgCount, linkName } = useSelector(
+    (state: RootState) => state.game
+  ); //-------------with destructuring
 
   const dispatch = useDispatch();
 
@@ -103,13 +100,14 @@ const Game = () => {
       navigate("/settings"); // --------------------------------------------------------redirect if settings are not exist or not valid
       return;
     } else {
+      // --create array of div > imgs
       const createFinalArrayFroGame = async () => {
         try {
           const imgDivs: My_Type_DivImg[] =
             await createDivsArrayFromImgNamesAndCountImg(
               selectedImgCount,
               imgNames
-            ); // --create array of div > imgs
+            );
 
           dispatch(after_settings_selected_img_count(imgDivs));
         } catch (error) {
@@ -121,28 +119,22 @@ const Game = () => {
     }
   }, [level, selectedImgCount, navigate, dispatch, imgNames]);
 
-  
-
   return (
     <>
-      
-      <Box className="welcome" sx={welcomeStyles}>
-        
-        <MyMUIButton sx={gameLinkButtonStyles} to="/settings" >
+      <Box 
+       className="welcome" sx={welcomeStyles}>
+        <MyMUIButton sx={gameLinkButtonStyles} to="/settings">
           {linkName}
         </MyMUIButton>
-
-        <Typography variant="h5" component="h5" sx={colorTextThemeStyles} className="colorTextTheme"> {/* originally H3*/}
-           Pre začatie hry slačte tlačítko štart
-        </Typography>
-
+        <Typography variant="h5" component="h5" sx={colorTextThemeStyles}>
+          {" "}
+          Pre začatie hry slačte tlačítko štart
+        </Typography>{/* originally H3*/}
         <TimeAndStart />
-
       </Box>
-      <Box className="column_content" id="content" sx={columnContentStyles}>
+      <Box  className="column_content" id="content" sx={columnContentStyles}>
         <GameDivPictures />
       </Box>
-
     </>
   );
 };

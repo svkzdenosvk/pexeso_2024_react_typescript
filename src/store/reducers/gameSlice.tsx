@@ -1,8 +1,6 @@
 import {
-  My_Type_Color_Text,
   My_Type_Img_Name,
   My_Type_Level,
-  // My_Type_Color_Background,
   My_Type_DivImg,
   My_Type_ClassNames,
   My_Type_ImgCount,
@@ -18,8 +16,6 @@ const gameSlice = createSlice({
   name: "game",
   initialState: {
     imgNames: [] as My_Type_Img_Name[],
-    // bgColor: "white" as My_Type_Color_Background,
-     colorText: "black" as My_Type_Color_Text,
     isLoading: true,
     isRunning: false,
     linkName: "Späť na nastavenia hry.",
@@ -126,25 +122,22 @@ const gameSlice = createSlice({
 
       const levelChanges: Record<
         My_Type_Level,
-        [My_Type_Color_Text, My_Type_Theme]
+        My_Type_Theme
       > = {
         /*----------------------------------------------------------------------using dynamic object properties*/
-        easy: ["black", "defaultTheme"],
-        medium: ["white", "mediumTheme"],
-        hard: ["white", "hardTheme"],
+        easy:  "defaultTheme",
+        medium: "mediumTheme",
+        hard:  "hardTheme",
       };
 
       //state.isEnd=false;//----------------------------------------------------maybe this could be decommented .. in case of problems in the future
       state.linkName = "Späť na nastavenia hry.";
       state.level = action.payload.level;
-      // state.colorText = levelChanges[
-      //   action.payload.level as My_Type_Level
-      // ][0] as My_Type_Color_Text;
       state.selectedImgCount = action.payload
         .selectedImgCount as My_Type_ImgCount;
        state.theme = levelChanges[
         action.payload.level as My_Type_Level
-      ][1] as My_Type_Theme;
+      ] as My_Type_Theme;
     },
     set_img_names: (state, action) => {
       //------------------------------------------------------------------------after fetching names from db

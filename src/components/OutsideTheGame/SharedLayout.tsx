@@ -1,81 +1,78 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
-import  {MyMUIButton}  from '@pexeso/components/SharedMUIElements/MyMUIButton';
+import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { sharedNavLinkStyles } from "@pexeso/components/StylingComp/SharedStyles";
+import { Box } from "@mui/material";
 
-
-const Wrapper = styled.div`
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Navigation = styled.div`
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  width: 100%;
-  background-color: #808080;
-
-
-  @media (max-width: 436px) {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-`;
-
-const navLinkStyles = {
-  width: '50%',
-  
-  '@media (max-width: 436px)': {
-    width: '100%',
-    textAlign: 'center',
-    alignItems: 'center',
-  },
- 
+const sharedWrapperStyles = {
+  p: 0,
+  m: 0,
+  boxSizing: "border-box",
+  minHeight: "100vh",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
 } as const;
 
+const sharedNavigation = {
+  height: "30vh",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-end",
+} as const;
 
-const MainContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  min-height: 100%;
-  width: 100%;
-  justify-content: center;
+const navStyles = {
+  display: "flex",
+  width: "100%",
+  backgroundColor: "#808080",
+  "@media (max-width:436px)": {
+    flexDirection: "column",
+    textAlign: "center",
+    alignItems: "center",
+  },
+} as const;
 
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
+const navLinkStyles = {
+  width: "50%",
+
+  "@media (max-width: 436px)": {
+    width: "100%",
+    textAlign: "center",
+    alignItems: "center",
+  },
+} as const;
+
+const mainContentStyles = {
+  display: "flex",
+  flexDirection: "row",
+  minHeight: "100%",
+  width: "100%",
+  justifyContent: "center",
+  "@media (max-width:600px)": {
+    flexDirection: "column",
+  },
+} as const;
 
 const SharedLayout = () => {
   return (
-    <Wrapper>
-      <Navigation>
-        <Nav>
-          <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/about-game">
+    <Box sx={sharedWrapperStyles}>
+      <Box sx={sharedNavigation}>
+        <Box sx={navStyles}>
+          <MyMUIButton
+            sx={[sharedNavLinkStyles, navLinkStyles]}
+            to="/about-game"
+          >
             O Hre
           </MyMUIButton>
           <MyMUIButton sx={[sharedNavLinkStyles, navLinkStyles]} to="/settings">
             Hraj hru
           </MyMUIButton>
-        </Nav>
-      </Navigation>
-      <MainContent>
+        </Box>
+      </Box>
+      <Box sx={mainContentStyles}>
         <Outlet />
-      </MainContent>
-    </Wrapper>
+      </Box>
+    </Box>
   );
 };
 

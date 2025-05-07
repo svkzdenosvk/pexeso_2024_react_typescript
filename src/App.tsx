@@ -20,28 +20,30 @@ import { RootState } from "@pexeso/store/store";
 import { useSelector, useDispatch } from "react-redux";
 import { set_img_names, set_loading } from "@pexeso/store/reducers/gameSlice";
 
-import { ThemeProvider , CssBaseline } from "@mui/material";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { GlobalStyle } from '@pexeso/components/StylingComp/GlobalStyle';
+
 import { defaultTheme } from "@pexeso/components/StylingComp/themes/defaultTheme";
 import { mediumTheme } from "@pexeso/components/StylingComp/themes/mediumTheme";
 import { hardTheme } from "@pexeso/components/StylingComp/themes/hardTheme";
 
 const App = () => {
-  //----------------------------redux
+  //------------------------------------redux-----------------------------------------
 
   const {
     imgNames,
     isLoading,
-    // bgColor,
     theme: localVariableTheme,
   } = useSelector((state: RootState) => state.game); //---with destructuring
 
+  //---names of importing hemes
   const importedThemes: Record<My_Type_Theme, typeof defaultTheme> = {
-    defaultTheme,   
+    defaultTheme,
     mediumTheme,
     hardTheme,
   };
-  
 
+  //current theme set from redux (help from chatGPT)
   const currentTheme =
     importedThemes[localVariableTheme as My_Type_Theme] ?? defaultTheme;
 
@@ -81,16 +83,10 @@ const App = () => {
       });
   }, [isLoading, imgNames, dispatch]); //-------------------------------------------if problems -> try only imgNames or nothing
 
-  // useEffect(() => {
-    //-----------------------------------------------------------------------------check end useEffect
-  //   document
-  //     .getElementsByTagName("BODY")[0]
-  //     .setAttribute("style", "background-color: " + bgColor);
-  // }, [bgColor]);
-
   return (
     <ThemeProvider theme={currentTheme}>
-      <CssBaseline /> 
+      <CssBaseline />
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path="/game" element={<Game />} />
