@@ -86,7 +86,24 @@ const pStyles = {
     marginRight: "3%",
   },
 } as const;
+/*------------------------------------------------------------------------------------------------------ */
 
+const levelsSectionData = [
+  {
+    name: "Ľahký",
+    description:
+      "Obrázky sa nemiešajú, ale uhádnuté sa vymažú a zvyšné sa posúvajú k sebe.",
+  },
+  {
+    name: "Stredný",
+    description:
+      "Usporiadanie obrázkov sa mieša po každej neuhádnutej dvojici.",
+  },
+  {
+    name: "Ťažký",
+    description: "Usporiadanie obrázkov sa mieša takmer každú sekundu.",
+  },
+];
 const Rules = () => {
   return (
     <Box sx={rulesContentStyles}>
@@ -114,37 +131,19 @@ const Rules = () => {
           Nastavenie levelu obtiažnosti
         </Typography>
         <Box sx={rulesLevelSectionStyles}>
+          {/* automatization */}
           <List sx={ulListStyles}>
-            <ListItem sx={liListStyles}>
-              <ListItemText
-                primary={
-                  <Typography variant="body1">
-                    <strong>Ľahký</strong> – obrázky sa nemiešajú, ale uhádnuté
-                    sa vymažú a zvyšné sa posúvajú k sebe
-                  </Typography>
-                }
-              />
-            </ListItem>
-            <ListItem sx={liListStyles}>
-              <ListItemText
-                primary={
-                  <Typography variant="body1">
-                    <strong>Stredný</strong> – usporiadanie obrázkov sa mieša po
-                    každej neuhádnutej dvojici
-                  </Typography>
-                }
-              />
-            </ListItem>
-            <ListItem sx={liListStyles}>
-              <ListItemText
-                primary={
-                  <Typography variant="body1">
-                    <strong>Ťažký</strong> – usporiadanie obrázkov sa mieša
-                    takmer každú sekundu
-                  </Typography>
-                }
-              />
-            </ListItem>
+            {levelsSectionData.map((level, index) => (
+              <ListItem key={index} sx={liListStyles}>
+                <ListItemText
+                  primary={
+                    <Typography variant="body1">
+                      <strong>{level.name}</strong> – {level.description}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
           </List>
         </Box>
       </Box>
