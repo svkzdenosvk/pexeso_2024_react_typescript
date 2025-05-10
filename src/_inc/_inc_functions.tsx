@@ -8,7 +8,10 @@ export function _stylingAfterStart() {
   /*-----------------------------f. for style changes after click on "start" button ..inc to TimeAndStart.js*/
   //to hide start button
   document.getElementById("start")?.setAttribute("style", "display: none");
-  document.getElementsByTagName("H5")[0].setAttribute("style", "display: none");//originally H3
+  document
+    .getElementsByTagName("H5")[0]
+    ?.setAttribute("style", "display: none"); //originally H3
+  // document.getElementsByTagName("H5")[0].setAttribute("style", "display: none");//originally H3
 
   //styling all react app id result
   document
@@ -17,8 +20,10 @@ export function _stylingAfterStart() {
 
   // to see images
   document
+    // .getElementsByClassName("column_content")[0]
+
     .getElementsByClassName("column_content")[0]
-    .setAttribute("style", "display: flex");
+    ?.setAttribute("style", "display: flex");
 }
 
 // ---------------------------function for shuffle
@@ -46,7 +51,7 @@ export function _fmtMSS(s: number) {
 export function _myToggle(
   elm: HTMLElement,
   removedClass: string,
-  addedClass: string,
+  addedClass: string
 ) {
   elm.classList.add(addedClass);
   elm.classList.remove(removedClass);
@@ -55,14 +60,14 @@ export function _myToggle(
 //----------------------------function for typescript
 export function my_Type_Guard_function<My_Type extends string>(
   value: string,
-  arr: readonly My_Type[],
+  arr: readonly My_Type[]
 ): value is My_Type {
   return arr.includes(value as My_Type);
 }
 
 export function my_Type_Guard_function_number<My_Type extends number>(
   value: number,
-  arr: readonly My_Type[],
+  arr: readonly My_Type[]
 ): value is My_Type {
   return arr.includes(value as My_Type);
 }

@@ -9,7 +9,6 @@ interface MyMUIButtonProps {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset'; 
   sx?: SxProps<Theme>;
-  // onClick?: (event:React.MouseEvent<HTMLAnchorElement>)=>void;
 
 }
 
@@ -22,8 +21,6 @@ if (to) {
       to={to}
       variant="contained"
       sx={sx}
-      // onClick={onClick}
-
     >
       {children}
     </Button>

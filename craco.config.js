@@ -4,7 +4,14 @@ module.exports = {
   webpack: {
     alias: {
       "@pexeso": path.resolve(__dirname, "src/"),
-      "@assets": path.resolve(__dirname, "public/")
-    }
-  }
+      "@assets": path.resolve(__dirname, "public/"),
+    },
+  },
+  jest: {
+    configure: {
+      moduleNameMapper: {
+        "^@pexeso/(.*)$": "<rootDir>/src/$1",
+      },
+    },
+  },
 };

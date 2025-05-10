@@ -14,7 +14,7 @@ const sharedAboutWrapperStyles = {
   },
 } as const;
 
-const sharedAboutNavigation = {
+const sharedAboutAsideNavigation = {
   display: "flex",
   flexDirection: "column",
   width: "30vw",
@@ -57,7 +57,7 @@ const mainContentAboutStyles = {
 const SharedAboutLayout = () => {
   return (
     <Box sx={sharedAboutWrapperStyles}>
-      <Box sx={sharedAboutNavigation}>
+      <Box sx={sharedAboutAsideNavigation}>
         <Box component="nav" sx={navStyles}>
           <MyMUIButton
             sx={[sharedNavLinkStyles, navLinkStyles]}

@@ -38,7 +38,7 @@ const gameSlice = createSlice({
       state.divImgs = afterUnMatchArr;
     },
     showOne: (state, action) => {
-      //-----------------------------------------show/reveal one picture after click on that
+      //------------------------------------------------------------------------show/reveal one picture after click on that
       state.divImgs.forEach((oneDiv) => {
         if (oneDiv.id === action.payload.id) {
           oneDiv.classNames = [
@@ -56,7 +56,7 @@ const gameSlice = createSlice({
             ...oneDiv,
             classNames: [
               ...oneDiv.classNames.filter(
-                (className) => className !== "selected_Div_img",
+                (className) => className !== "selected_Div_img"
               ),
               "mask", // remove "selected" and add "mask" class
             ],
@@ -80,7 +80,7 @@ const gameSlice = createSlice({
             ...oneDiv,
             classNames: [
               ...oneDiv.classNames.filter(
-                (className) => className !== "selected_Div_img",
+                (className) => className !== "selected_Div_img"
               ),
               "rotate-center",
             ] as My_Type_ClassNames[],
@@ -94,7 +94,7 @@ const gameSlice = createSlice({
     },
     remove_after_match: (state) => {
       let afterAfterMatchArr: My_Type_DivImg[] = state.divImgs.filter(
-        (oneDiv) => !oneDiv.classNames.includes("rotate-center"),
+        (oneDiv) => !oneDiv.classNames.includes("rotate-center")
       );
 
       state.divImgs = afterAfterMatchArr; //-----------------------------------if all pictures removed -> it´s end of the game
@@ -120,14 +120,11 @@ const gameSlice = createSlice({
     settings_and_styling_before_start: (state, action) => {
       //-----------------------------------------------------------------------after set the settings (but before clicking to start button)
 
-      const levelChanges: Record<
-        My_Type_Level,
-        My_Type_Theme
-      > = {
+      const levelChanges: Record<My_Type_Level, My_Type_Theme> = {
         /*----------------------------------------------------------------------using dynamic object properties*/
-        easy:  "defaultTheme",
+        easy: "defaultTheme",
         medium: "mediumTheme",
-        hard:  "hardTheme",
+        hard: "hardTheme",
       };
 
       //state.isEnd=false;//----------------------------------------------------maybe this could be decommented .. in case of problems in the future
@@ -135,7 +132,7 @@ const gameSlice = createSlice({
       state.level = action.payload.level;
       state.selectedImgCount = action.payload
         .selectedImgCount as My_Type_ImgCount;
-       state.theme = levelChanges[
+      state.theme = levelChanges[
         action.payload.level as My_Type_Level
       ] as My_Type_Theme;
     },

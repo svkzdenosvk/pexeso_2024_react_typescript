@@ -105,14 +105,13 @@ export const GameDivPictures = () => {
     let rotateddArr = divImgs.filter((oneDiv) =>
       oneDiv.classNames.includes("rotate-center")
     );
-    
+
     if (
       /*-------------if divImg is not selected + prevent 3 imgs show*/
       element.classList.contains("mask") &&
       (selectedArr.length === 0 || selectedArr.length === 1) &&
       rotateddArr.length === 0
     ) {
-
       dispatch(showOne(divObject));
     }
   }
@@ -124,7 +123,7 @@ export const GameDivPictures = () => {
       );
 
       if (selectedArr.length === 2) {
-        /* ------------------if match */
+        /* --------------------if match */
         if (selectedArr[0].name === selectedArr[1].name) {
           dispatch(match());
         } else {
@@ -156,10 +155,10 @@ export const GameDivPictures = () => {
   return (
     <Box className="row" id="row" sx={rowStyles}>
       {isLoading ? ( //--------if loading is not done then show
-        <Typography variant="h2" component="h2" sx={colorTextThemeStyles}> {/* originally H1*/}
-          {" "}        
-          Načítavajú sa obrázky
-        </Typography> 
+        <Typography variant="h2" component="h2" sx={colorTextThemeStyles}>
+          {" "}
+          {/* originally H1*/} Načítavajú sa obrázky
+        </Typography>
       ) : (
         //-----------------------------------------------------------------------if not loading (after successful l.) show
         divImgs.map(
@@ -178,7 +177,6 @@ export const GameDivPictures = () => {
                 sx={imgStyles}
                 src={`/pictures/pexeso/${oneDiv.name}.jpg`}
               />
-             
             </Box>
           )
         )

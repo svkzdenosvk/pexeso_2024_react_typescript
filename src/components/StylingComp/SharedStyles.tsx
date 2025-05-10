@@ -67,6 +67,7 @@ export const sharedThemeStyles = {
     },
     h3: {
       fontFamily: '"Times New Roman", serif',
+      textAlign:'center'as const,
     },
     h4: {
       fontFamily: '"Times New Roman", serif',

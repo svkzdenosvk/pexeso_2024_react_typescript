@@ -77,7 +77,6 @@ export function preloadImages(imgNamesArr: My_Type_Img_Name[]) {
             reject(new Error(`Chyba dekódovania: ${picture}`));
           }
         };
-        // img.onload = () => resolve(picture);
         img.onerror = () => reject(new Error(`Chyba načítania: ${picture}`));
       });
     }),
