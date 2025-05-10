@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     // margin: 0px;
     // box-sizing: border-box;
     // min-height: 100vh;
-     transition: background-color 1.5s ease, color 0.5s ease;
+     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   #result {
