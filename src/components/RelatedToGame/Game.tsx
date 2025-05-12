@@ -74,10 +74,10 @@ const colorTextThemeStyles = (theme: Theme) => ({
   color: theme.palette.text.primary,
 });
 
-const Game = () => {
+export const Game = () => {
   // ---------------------------redux
 
-  const { imgNames, level, selectedImgCount, linkName } = useSelector(
+ const { imgNames, level, selectedImgCount, linkName } = useSelector(
     (state: RootState) => state.game
   ); //-------------with destructuring
 

@@ -167,6 +167,7 @@ export const GameDivPictures = () => {
           ) => (
             <Box
               key={oneDiv.id}
+              // data-testid="div_on_click" //for unit test purpose
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 const currentDiv = e.currentTarget; // --------------------------this is always <div> with `div_on_click`
                 showImg(currentDiv, oneDiv);
