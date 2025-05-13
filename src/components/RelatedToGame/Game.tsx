@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
+  _myFormatSeconds,
 } from "@pexeso/_inc/_inc_functions";
 
 import { createDivsArrayFromImgNamesAndCountImg } from "@pexeso/_inc/data";
@@ -76,10 +77,10 @@ const colorTextThemeStyles = (theme: Theme) => ({
 
 export const Game = () => {
   // ---------------------------redux
+  const seconds = useSelector((state: RootState) => state.time.seconds);
 
- const { imgNames, level, selectedImgCount, linkName } = useSelector(
-    (state: RootState) => state.game
-  ); //-------------with destructuring
+  const { imgNames, level, selectedImgCount, linkName, isRunning, isEnd } =
+    useSelector((state: RootState) => state.game); //-------------with destructuring
 
   const dispatch = useDispatch();
 
@@ -121,18 +122,25 @@ export const Game = () => {
 
   return (
     <>
-      <Box 
-       className="welcome" sx={welcomeStyles}>
+      <Box className="welcome" sx={welcomeStyles}>
+        
+        {/*H1 is end game button */}
+        {!isRunning && isEnd && (
+          <Typography variant="h1">
+            Gratulácia, vyhrali ste za {_myFormatSeconds(seconds)}
+          </Typography>
+        )}
         <MyMUIButton sx={gameLinkButtonStyles} to="/settings">
           {linkName}
         </MyMUIButton>
         <Typography variant="h5" component="h5" sx={colorTextThemeStyles}>
           {" "}
           Pre začatie hry slačte tlačítko štart
-        </Typography>{/* originally H3*/}
+        </Typography>
+        {/* originally H3*/}
         <TimeAndStart />
       </Box>
-      <Box  className="column_content" id="content" sx={columnContentStyles}>
+      <Box className="column_content" id="content" sx={columnContentStyles}>
         <GameDivPictures />
       </Box>
     </>

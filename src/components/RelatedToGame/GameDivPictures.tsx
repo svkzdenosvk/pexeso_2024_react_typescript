@@ -2,8 +2,6 @@ import React from "react";
 
 import { useEffect, useCallback } from "react";
 
-import { _fmtMSS } from "@pexeso/_inc/_inc_functions";
-
 import { My_Type_DivImg } from "@pexeso/_inc/my_types";
 import { RootState } from "@pexeso/store/store";
 import {
@@ -41,7 +39,7 @@ const colorTextThemeStyles = (theme: Theme) => ({
 export const GameDivPictures = () => {
   // ---------------------------redux
 
-  const seconds = useSelector((state: RootState) => state.time.seconds); //-------------with destructuring
+  // const seconds = useSelector((state: RootState) => state.time.seconds); //-------------with destructuring
   const { divImgs, level, isLoading, isEnd } = useSelector(
     (state: RootState) => state.game
   ); //-------------with destructuring
@@ -62,39 +60,13 @@ export const GameDivPictures = () => {
         .getElementById("seconds")
         ?.setAttribute("style", "display: none;");
 
-      let endTime =
-        _fmtMSS(
-          seconds
-        ); /*----------------------------------------formating time */
-
-      //  document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
+        // document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
       document
         .getElementById("result")
         ?.setAttribute("style", "justify-content: center;");
-      let timeArr =
-        endTime.split(
-          ":"
-        ); /*---------------------------------------split time string (seconds:minutes) to array for separate minutes and second in gratulation text */
-
-      let h1;
-      if (!document.querySelector("h1")) {
-        h1 = document.createElement("h1");
-
-        document.getElementsByClassName("welcome")[0].appendChild(h1);
-      } else {
-        h1 = document.querySelector("h1");
-      }
-
-      if (h1) {
-        h1.innerHTML =
-          "Gratulácia, vyhrali ste za " +
-          (timeArr[0] === "0" ? "" : timeArr[0] + "m") +
-          " " +
-          timeArr[1] +
-          "s";
-      }
+     
     } else return;
-  }, [seconds, isEnd]); //-------------------------------------------adding dependencies
+  }, [isEnd]); //-------------------------------------------adding dependencies
 
   // --------fn to show div>img
   function showImg(element: HTMLDivElement, divObject: My_Type_DivImg) {

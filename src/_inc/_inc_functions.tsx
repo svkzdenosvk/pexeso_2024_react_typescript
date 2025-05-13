@@ -11,7 +11,6 @@ export function _stylingAfterStart() {
   document
     .getElementsByTagName("H5")[0]
     ?.setAttribute("style", "display: none"); //originally H3
-  // document.getElementsByTagName("H5")[0].setAttribute("style", "display: none");//originally H3
 
   //styling all react app id result
   document
@@ -20,8 +19,7 @@ export function _stylingAfterStart() {
 
   // to see images
   document
-    // .getElementsByClassName("column_content")[0]
-
+    
     .getElementsByClassName("column_content")[0]
     ?.setAttribute("style", "display: flex");
 }
@@ -41,10 +39,17 @@ export function _shuffleArray(arrayIn: any[]) {
   return array;
 }
 
-// ---------------------------function for time formating
-export function _fmtMSS(s: number) {
-  return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
-} /*---------------------formate seconds -> time */
+//  /*-------function for time formating from seconds  */
+
+export function _myFormatSeconds(seconds: number): string {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  const minPart = minutes > 0 ? `${minutes}m ` : "";
+  const secPart = `${remainingSeconds}s`;
+
+  return minPart + secPart;
+}
 
 // ---------------------------function for toggle of classes
 
