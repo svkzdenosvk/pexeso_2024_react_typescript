@@ -1,7 +1,8 @@
 import React from "react";
-
 import { useEffect, useCallback } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
+import { Typography, Box } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import { My_Type_DivImg } from "@pexeso/_inc/my_types";
 import { RootState } from "@pexeso/store/store";
 import {
@@ -10,12 +11,9 @@ import {
   un_match,
   hardest_level_shuffle,
 } from "@pexeso/store/reducers/gameSlice";
-
-import { useSelector, useDispatch } from "react-redux";
-
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-import { Typography, Box } from "@mui/material";
-import type { Theme } from "@mui/material/styles";
+
+// ---------- sx styles
 
 const imgStyles = {
   width: "107px",
@@ -36,10 +34,11 @@ const colorTextThemeStyles = (theme: Theme) => ({
   color: theme.palette.text.primary,
 });
 
+// ---------- component
+
 export const GameDivPictures = () => {
   // ---------------------------redux
 
-  // const seconds = useSelector((state: RootState) => state.time.seconds); //-------------with destructuring
   const { divImgs, level, isLoading, isEnd } = useSelector(
     (state: RootState) => state.game
   ); //-------------with destructuring
@@ -56,10 +55,7 @@ export const GameDivPictures = () => {
     /*----------------------------------------check if is end == each picture removed */
 
     if (isEnd) {
-      document
-        .getElementById("seconds")
-        ?.setAttribute("style", "display: none;");
-
+     
         // document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
       document
         .getElementById("result")
@@ -139,7 +135,6 @@ export const GameDivPictures = () => {
           ) => (
             <Box
               key={oneDiv.id}
-              // data-testid="div_on_click" //for unit test purpose
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 const currentDiv = e.currentTarget; // --------------------------this is always <div> with `div_on_click`
                 showImg(currentDiv, oneDiv);

@@ -1,12 +1,11 @@
 import React from "react";
-
 import { useSelector } from "react-redux";
 import { RootState } from "@pexeso/store/store";
-
+import { Typography, Box } from "@mui/material";
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-import { Typography, Box } from "@mui/material";
 
+// ---------- sx styles
 
 const imgContentStyles = {
   display: "flex",

@@ -1,8 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Images from "@pexeso/components/OutsideTheGame/Images";
 import { useSelector } from "react-redux";
+import { render, screen } from "@testing-library/react";
+import Images from "@pexeso/components/OutsideTheGame/Images";
 
 // mocking redux and set own data
 jest.mock("react-redux", () => ({

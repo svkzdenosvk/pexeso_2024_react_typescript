@@ -8,6 +8,8 @@ interface MyMUIImgProps {
   sx: SxProps<Theme>;
 }
 
+//my version of MUI img
+
 export const MyMUIImg = ({ src, sx }: MyMUIImgProps) => {
  
   return (

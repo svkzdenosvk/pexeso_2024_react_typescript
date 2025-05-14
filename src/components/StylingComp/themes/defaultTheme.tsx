@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 import {sharedThemeStyles} from '@pexeso/components/StylingComp/SharedStyles'
 
+//default Theme is also for level easy
 export const defaultTheme = createTheme({
     palette: {
         mode: 'light',

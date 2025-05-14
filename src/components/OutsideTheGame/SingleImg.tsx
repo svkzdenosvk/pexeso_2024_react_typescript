@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
+import { Typography, Box } from "@mui/material";
 import { RootState } from "@pexeso/store/store";
-
+import { my_Type_Guard_function } from "@pexeso/_inc/_inc_functions";
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
-import { Typography, Box } from "@mui/material";
-
 import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
+
+// ---------- sx styles
 
 const singleImgContentStyles = {
   display: "flex",
@@ -40,6 +39,8 @@ const imgStyles = {
   width: "200px",
   height: "200px",
 } as const;
+
+// ---------- component
 
 const SingleImg = () => {
   const { imgNames } = useSelector((state: RootState) => state.game);

@@ -1,6 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { fetchOnlyImgNames, preloadImages } from "@pexeso/_inc/data";
+import { My_Type_Theme } from "@pexeso/_inc/my_types";
+import { RootState } from "@pexeso/store/store";
+import { set_img_names, set_loading } from "@pexeso/store/reducers/gameSlice";
+import { GlobalStyle } from "@pexeso/components/StylingComp/GlobalStyle";
+import { defaultTheme } from "@pexeso/components/StylingComp/themes/defaultTheme";
+import { mediumTheme } from "@pexeso/components/StylingComp/themes/mediumTheme";
+import { hardTheme } from "@pexeso/components/StylingComp/themes/hardTheme";
 import Game from "@pexeso/components/RelatedToGame/Game";
 import SharedLayout from "@pexeso/components/OutsideTheGame/SharedLayout";
 import Home from "@pexeso/components/OutsideTheGame/Home";
@@ -11,21 +21,6 @@ import AboutGame from "@pexeso/components/OutsideTheGame/AboutGame";
 import Images from "@pexeso/components/OutsideTheGame/Images";
 import SingleImg from "@pexeso/components/OutsideTheGame/SingleImg";
 import ErrorPage from "@pexeso/components/ErrorPage";
-
-import { fetchOnlyImgNames, preloadImages } from "@pexeso/_inc/data";
-import { My_Type_Theme } from "@pexeso/_inc/my_types";
-
-import { RootState } from "@pexeso/store/store";
-
-import { useSelector, useDispatch } from "react-redux";
-import { set_img_names, set_loading } from "@pexeso/store/reducers/gameSlice";
-
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import { GlobalStyle } from '@pexeso/components/StylingComp/GlobalStyle';
-
-import { defaultTheme } from "@pexeso/components/StylingComp/themes/defaultTheme";
-import { mediumTheme } from "@pexeso/components/StylingComp/themes/mediumTheme";
-import { hardTheme } from "@pexeso/components/StylingComp/themes/hardTheme";
 
 const App = () => {
   //------------------------------------redux-----------------------------------------

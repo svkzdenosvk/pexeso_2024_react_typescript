@@ -1,6 +1,8 @@
 import React from 'react';
 import { Typography, Box } from "@mui/material";
 
+// ---------- sx styles
+
 const divStyles = {
   minHeight: '70vh',
   
@@ -11,6 +13,8 @@ const h1Styles = {
   fontWeight: 'bold',
   fontFamily: '"Times New Roman", serif', 
 } as const;
+
+// ---------- component
 
 const Home = () => {
   return (

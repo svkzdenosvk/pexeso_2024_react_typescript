@@ -1,6 +1,8 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
 
+// ---------- component
+
 const AboutGame = () => {
   return (
     <Box>

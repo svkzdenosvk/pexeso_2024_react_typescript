@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { configureStore } from "@reduxjs/toolkit";
 import GameSettings from "@pexeso/components/RelatedToGame/GameSettings";
 import gameReducer from "@pexeso/store/reducers/gameSlice";
 import secondsReducer from "@pexeso/store/reducers/secondsSlice";

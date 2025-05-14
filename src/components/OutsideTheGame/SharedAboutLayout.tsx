@@ -1,8 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { sharedNavLinkStyles } from "@pexeso/components/StylingComp/SharedStyles";
-import { Box } from "@mui/material";
+
+// ---------- sx styles
 
 const sharedAboutWrapperStyles = {
   display: "flex",
@@ -53,6 +55,8 @@ const mainContentAboutStyles = {
     width: "100%",
   },
 } as const;
+
+// ---------- component
 
 const SharedAboutLayout = () => {
   return (

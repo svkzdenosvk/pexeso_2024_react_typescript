@@ -2,27 +2,6 @@
 // ---------------------------file with included functions to make cleaner and more readable code
 // ---------------------------
 
-// ---------------------------functions of styles
-
-export function _stylingAfterStart() {
-  /*-----------------------------f. for style changes after click on "start" button ..inc to TimeAndStart.js*/
-  //to hide start button
-  document.getElementById("start")?.setAttribute("style", "display: none");
-  document
-    .getElementsByTagName("H5")[0]
-    ?.setAttribute("style", "display: none"); //originally H3
-
-  //styling all react app id result
-  document
-    .getElementById("result")
-    ?.setAttribute("style", "justify-content: start; flex-direction: column");
-
-  // to see images
-  document
-    
-    .getElementsByClassName("column_content")[0]
-    ?.setAttribute("style", "display: flex");
-}
 
 // ---------------------------function for shuffle
 

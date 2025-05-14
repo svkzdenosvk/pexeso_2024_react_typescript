@@ -1,23 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-import {
-  settings_and_styling_before_start,
-  reset_settings,
-} from "@pexeso/store/reducers/gameSlice";
-import { seconds_reset } from "@pexeso/store/reducers/secondsSlice";
-
-import {
-  My_Type_ImgCount,
-  My_Type_Level,
-  My_Type_Svk_Eng_level,
-} from "@pexeso/_inc/my_types";
-import {
-  my_Type_Guard_function,
-  my_Type_Guard_function_number,
-} from "@pexeso/_inc/_inc_functions";
-
 import {
   Box,
   FormControl,
@@ -28,9 +11,24 @@ import {
   Alert,
   Typography,
 } from "@mui/material";
-
+import {
+  settings_and_styling_before_start,
+  reset_settings,
+} from "@pexeso/store/reducers/gameSlice";
+import { seconds_reset } from "@pexeso/store/reducers/secondsSlice";
+import {
+  My_Type_ImgCount,
+  My_Type_Level,
+  My_Type_Svk_Eng_level,
+} from "@pexeso/_inc/my_types";
+import {
+  my_Type_Guard_function,
+  my_Type_Guard_function_number,
+} from "@pexeso/_inc/_inc_functions";
 import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyles";
+
+// ---------- sx styles
 
 const formStyles = {
   textAlign: "center",
@@ -54,6 +52,9 @@ const alertStyles = {
     textAlign: "center",
   },
 };
+
+// ---------- component
+
 const GameSettings = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

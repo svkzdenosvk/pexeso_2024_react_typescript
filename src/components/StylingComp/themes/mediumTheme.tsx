@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 import {sharedThemeStyles} from '@pexeso/components/StylingComp/SharedStyles'
 
+//medium theme is for level medium
 export const mediumTheme = createTheme({
     palette: {
         mode: 'dark',

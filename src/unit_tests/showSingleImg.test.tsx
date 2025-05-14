@@ -1,9 +1,9 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import * as router from "react-router-dom";
+import { useSelector } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import SingleImg from "@pexeso/components/OutsideTheGame/SingleImg";
-import { MemoryRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
-import * as router from "react-router-dom";
 
 jest.mock("react-redux", () => ({
   useSelector: jest.fn(),

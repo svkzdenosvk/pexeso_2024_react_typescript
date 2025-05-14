@@ -1,6 +1,8 @@
 import React from "react";
-import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
 import { List, ListItem, ListItemText, Typography, Box } from "@mui/material";
+import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
+
+// ---------- sx styles
 
 const rulesContentStyles = {
   p: 0,
@@ -86,7 +88,8 @@ const pStyles = {
     marginRight: "3%",
   },
 } as const;
-/*------------------------------------------------------------------------------------------------------ */
+
+// ---------- data for section - level 
 
 const levelsSectionData = [
   {
@@ -104,6 +107,8 @@ const levelsSectionData = [
     description: "Usporiadanie obrázkov sa mieša takmer každú sekundu.",
   },
 ];
+// ---------- component
+
 const Rules = () => {
   return (
     <Box sx={rulesContentStyles}>

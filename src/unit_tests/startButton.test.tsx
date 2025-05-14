@@ -1,8 +1,7 @@
 import React from "react";
-
- import { render, screen, fireEvent } from "@testing-library/react";
-import { TimeAndStart } from "@pexeso/components/RelatedToGame/TimeAndStart";
 import { Provider } from "react-redux";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { TimeAndStart } from "@pexeso/components/RelatedToGame/TimeAndStart";
 import { store } from "@pexeso/store/store";
 
 test('button with id "start" disappears after click on that', () => {
@@ -12,7 +11,6 @@ test('button with id "start" disappears after click on that', () => {
       <TimeAndStart />
     </Provider>
   );
-
 
   // find button element
   const button = screen.getByRole("button", { name: /start/i });

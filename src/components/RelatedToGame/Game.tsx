@@ -1,28 +1,23 @@
 import React from "react";
-
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Typography, Box } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 import {
   my_Type_Guard_function,
   my_Type_Guard_function_number,
   _myFormatSeconds,
 } from "@pexeso/_inc/_inc_functions";
-
 import { createDivsArrayFromImgNamesAndCountImg } from "@pexeso/_inc/data";
 import { after_settings_selected_img_count } from "@pexeso/store/reducers/gameSlice";
-
-import { My_Type_DivImg } from "@pexeso/_inc/my_types";
-
 import { RootState } from "@pexeso/store/store";
-
+import { My_Type_DivImg } from "@pexeso/_inc/my_types";
+import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
 import { GameDivPictures } from "./GameDivPictures";
 import { TimeAndStart } from "./TimeAndStart";
 
-import { useSelector, useDispatch } from "react-redux";
-
-import { MyMUIButton } from "@pexeso/components/SharedMUIElements/MyMUIButton";
-import { Typography, Box } from "@mui/material";
-import type { Theme } from "@mui/material/styles";
+// ---------- sx styles
 
 const gameLinkButtonStyles = {
   backgroundColor: "grey",
@@ -66,14 +61,11 @@ const welcomeStyles = {
 
 const columnContentStyles = {
   maxWidth: "850px",
-  display: "none",
   flexDirection: "column",
   justifyContent: "space-evenly",
 } as const;
 
-const colorTextThemeStyles = (theme: Theme) => ({
-  color: theme.palette.text.primary,
-});
+// ---------- component
 
 export const Game = () => {
   // ---------------------------redux
@@ -86,6 +78,20 @@ export const Game = () => {
 
   /*---------------------------------------------------------------------------------------------*/
   const navigate = useNavigate();
+  /*-------------------------------------------------------------------------------------------- */
+  //dynamic styles
+  const afterStartStyles = isRunning && !isEnd;
+
+  const dynamicColumnContentStyles = {
+    ...columnContentStyles,
+    display: afterStartStyles ? "flex" : "none",
+  };
+
+  const colorTextThemeStyles = (theme: Theme) => ({
+    color: theme.palette.text.primary,
+    display: (isRunning || isEnd) ? "none" : "block",
+  });
+  /*-------------------------------------------------------------------------------------------- */
 
   useEffect(() => {
     document
@@ -123,9 +129,8 @@ export const Game = () => {
   return (
     <>
       <Box className="welcome" sx={welcomeStyles}>
-        
         {/*H1 is end game button */}
-        {!isRunning && isEnd && (
+        {isEnd && (
           <Typography variant="h1">
             Gratulácia, vyhrali ste za {_myFormatSeconds(seconds)}
           </Typography>
@@ -140,7 +145,11 @@ export const Game = () => {
         {/* originally H3*/}
         <TimeAndStart />
       </Box>
-      <Box className="column_content" id="content" sx={columnContentStyles}>
+      <Box
+        className="column_content"
+        id="content"
+        sx={dynamicColumnContentStyles}
+      >
         <GameDivPictures />
       </Box>
     </>
