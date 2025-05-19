@@ -5,8 +5,8 @@ import { Typography, Box } from "@mui/material";
 
 const AboutGame = () => {
   return (
-    <Box>
-      <Typography variant="h2" component="h2">
+    <Box sx={{  mx: "auto"}}>
+      <Typography variant="h2" component="h2" >
         {" "}
         {/*originally h1 */}O hre pexeso
       </Typography>

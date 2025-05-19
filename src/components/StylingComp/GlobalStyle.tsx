@@ -2,42 +2,23 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html {
-    // padding: 0;
-    // margin: 0;
-    // box-sizing: border-box;
-    // text-align: center;
-     overflow-x: hidden;
+      overflow-x: hidden;
   }
 
   body {
-    // padding: 0px;
-    // margin: 0px;
-    // box-sizing: border-box;
-    // min-height: 100vh;
+  
      transition: background-color 0.5s ease, color 0.5s ease;
   }
 
-  #result {
-    // margin: 0;
-    // padding: 0;
-    // box-sizing: border-box;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  // #result {
+   
+  //   min-height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  // }
 
-  .welcome {
-    
-    h1 {
-      font-size: calc(2rem + 5vw);
-      margin-bottom: 70px;
-    }
-
-    h3 {
-      //  text-align: center;
-    }
-  }
+ 
 
   .column_content {
     
@@ -62,13 +43,13 @@ export const GlobalStyle = createGlobalStyle`
      }
   }
 
-  .div_center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  // .div_center {
+  //   margin: 0;
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  // }
 
   .column_content .row .selected_Div_img {
     pointer-events: none;
@@ -93,31 +74,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   @media screen and (min-width: 1650px) {
-    #result {
-      text-align: center;
-      align-items: center;
-    }
+    // #result {
+    //   text-align: center;
+    //   align-items: center;
+    // }
 
   }
 
-  @media screen and (max-width: 540px) {
-    .welcome h1 {
-      margin-bottom: 0px;
-    }
-
-    
-  }
-    //---------------------------------------------outside the game
-    .mainContentAbout h2{
-    
-      text-align: center;
-       width: 70vw;
-
-      @media (max-width: 600px) {
-        //  width: 100%;
-         width: 100vw;
-
-      }
-  
-    }
+ 
+ 
 `;

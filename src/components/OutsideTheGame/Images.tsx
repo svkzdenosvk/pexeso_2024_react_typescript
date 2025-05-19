@@ -57,7 +57,7 @@ const Images = () => {
       </Typography>
       <Box sx={imgMainContentStyles}>
         {isLoading || imgNames.length === 0 ? ( //----------------------------------------------if loading show H1
-          <Typography variant="h2" component="h2">
+          <Typography variant="h4" component="h4">
             {" "}
             {/*originally h1 */}
             Načítavajú sa obrázky

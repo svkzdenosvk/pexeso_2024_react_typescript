@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, Box } from "@mui/material";
 import type { Theme } from "@mui/material/styles";
@@ -39,30 +39,13 @@ const colorTextThemeStyles = (theme: Theme) => ({
 export const GameDivPictures = () => {
   // ---------------------------redux
 
-  const { divImgs, level, isLoading, isEnd } = useSelector(
+  const { divImgs, level, isLoading } = useSelector(
     (state: RootState) => state.game
   ); //-------------with destructuring
 
   const dispatch = useDispatch();
 
   /*-------------------------------------------------------------------------------------------------*/
-
-  // ---------------------------
-  // ---------------------------ending fn
-  // ---------------------------
-
-  const checkEnd = useCallback(() => {
-    /*----------------------------------------check if is end == each picture removed */
-
-    if (isEnd) {
-     
-        // document.getElementsByTagName("BODY")[0].firstElementChild?.classList.add('div_center');/*start ---animation of gratulation text */
-      document
-        .getElementById("result")
-        ?.setAttribute("style", "justify-content: center;");
-     
-    } else return;
-  }, [isEnd]); //-------------------------------------------adding dependencies
 
   // --------fn to show div>img
   function showImg(element: HTMLDivElement, divObject: My_Type_DivImg) {
@@ -113,13 +96,9 @@ export const GameDivPictures = () => {
 
       return () => clearInterval(intervalShuffleHardest);
     }
-  }, [dispatch, divImgs, checkEnd, level]);
+  }, [dispatch, divImgs, level]);
 
-  //---------------------------check end useEffect
-  useEffect(() => {
-    checkEnd();
-  }, [checkEnd, isEnd]);
-
+ 
   return (
     <Box className="row" id="row" sx={rowStyles}>
       {isLoading ? ( //--------if loading is not done then show

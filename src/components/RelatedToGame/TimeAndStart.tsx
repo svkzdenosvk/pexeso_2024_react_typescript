@@ -7,7 +7,6 @@ import { RootState } from "@pexeso/store/store";
 import { seconds_counter } from "@pexeso/store/reducers/secondsSlice";
 import { set_start_game } from "@pexeso/store/reducers/gameSlice";
 
-
 // ---------- sx styles
 
 const startButtonStyles = {
@@ -36,20 +35,20 @@ export const TimeAndStart = () => {
   //------------------------------------------------------------------------------------------------
   //dynamic styles
 
-  const dynamicstartButtonStyles  ={
+  const dynamicstartButtonStyles = {
     ...startButtonStyles,
     display: isRunning || isEnd ? "none" : "block",
-  }
+  };
 
-    const dynamicSecondsStyles = (theme: Theme) => ({
-      color: theme.palette.text.primary,
-      padding: "20px",
-      fontSize: "300%",
-      float: "left",
-      fontWeight: "bold",
-      display: isEnd ? "none" : "block",
-    });
-  
+  const dynamicSecondsStyles = (theme: Theme) => ({
+    color: theme.palette.text.primary,
+    padding: "20px",
+    fontSize: "300%",
+    float: "left",
+    fontWeight: "bold",
+    display: isEnd ? "none" : "block",
+  });
+
   /*-------------------------------------------------------------------------------------------- */
 
   useEffect(() => {

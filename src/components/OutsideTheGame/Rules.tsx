@@ -5,19 +5,19 @@ import { MyMUIImg } from "@pexeso/components/SharedMUIElements/MyMUIImg";
 // ---------- sx styles
 
 const rulesContentStyles = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
   p: 0,
   m: 0,
   boxSizing: "border-box",
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
   fontSize: "20px",
 } as const;
 
 const rulesMainContentStyles = {
-  width: "100%",
-  display: "flex",
-  flexDirection: "column",
+  // width: "100%",
+  // display: "flex",
+  // flexDirection: "column",
   textAlign: "left",
   padding: "2%",
 } as const;

@@ -49,7 +49,7 @@ const mainContentStyles = {
   flexDirection: "row",
   minHeight: "100%",
   width: "100%",
-  justifyContent: "center",
+    // justifyContent: "center",
   "@media (max-width:600px)": {
     flexDirection: "column",
   },

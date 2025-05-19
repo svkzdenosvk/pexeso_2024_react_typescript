@@ -78,7 +78,7 @@ const SharedAboutLayout = () => {
         </Box>
       </Box>
 
-      <Box className="mainContentAbout" sx={mainContentAboutStyles}>
+      <Box sx={mainContentAboutStyles}>
         <Outlet />
       </Box>
     </Box>

@@ -32,6 +32,7 @@ import { pulsatingButtonStyles } from "@pexeso/components/StylingComp/SharedStyl
 
 const formStyles = {
   textAlign: "center",
+  mx: "auto",
   mt: 2,
 };
 const fieldsetStyles = {
@@ -65,6 +66,7 @@ const GameSettings = () => {
   const [imgCountChosen, setImgCountChosen] = useState(0 as My_Type_ImgCount);
   const [error, setError] = useState("");
 
+  //reset seconds and other settings
   useEffect(() => {
     dispatch(seconds_reset());
     dispatch(reset_settings());

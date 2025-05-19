@@ -1,17 +1,16 @@
-import React from 'react';
+import React from "react";
 import { Typography, Box } from "@mui/material";
 
 // ---------- sx styles
 
 const divStyles = {
-  minHeight: '70vh',
-  
+m: "auto",
+  minHeight: "70vh",
 } as const;
 
 const h1Styles = {
-  fontSize: 'calc(2rem + 5vw)',
-  fontWeight: 'bold',
-  fontFamily: '"Times New Roman", serif', 
+  fontWeight: "bold",
+  fontFamily: '"Times New Roman", serif',
 } as const;
 
 // ---------- component
@@ -27,4 +26,3 @@ const Home = () => {
 };
 
 export default Home;
-

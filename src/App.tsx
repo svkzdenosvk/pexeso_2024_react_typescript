@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { Box } from "@mui/material";
 import { fetchOnlyImgNames, preloadImages } from "@pexeso/_inc/data";
 import { My_Type_Theme } from "@pexeso/_inc/my_types";
 import { RootState } from "@pexeso/store/store";
@@ -29,6 +30,7 @@ const App = () => {
     imgNames,
     isLoading,
     theme: localVariableTheme,
+    isEnd,
   } = useSelector((state: RootState) => state.game); //---with destructuring
 
   //---names of importing hemes
@@ -44,6 +46,16 @@ const App = () => {
 
   const dispatch = useDispatch();
   //------------------------------------------------------------------------------------------------------------
+  //dynamic styles
+
+  const dynamicWrapperStyles = {
+    minHeight: "100vh",
+    width: "100vw",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: isEnd ? "center" : "flex-start",
+  };
 
   useEffect(() => {
     const fetchImgNamesFunc = async () => {
@@ -82,26 +94,31 @@ const App = () => {
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/game" element={<Game />} />
+      <Box sx={dynamicWrapperStyles}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/game" element={<Game />} />
 
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/settings" element={<GameSettings />} />
+            <Route path="/" element={<SharedLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/settings" element={<GameSettings />} />
 
-            <Route path="/about-game" element={<SharedAboutLayout />}>
-              <Route index element={<AboutGame />} />
-              <Route path="/about-game/rules" element={<Rules />} />
+              <Route path="/about-game" element={<SharedAboutLayout />}>
+                <Route index element={<AboutGame />} />
+                <Route path="/about-game/rules" element={<Rules />} />
 
-              <Route path="/about-game/images" element={<Images />} />
-              <Route path="/about-game/images/:name" element={<SingleImg />} />
+                <Route path="/about-game/images" element={<Images />} />
+                <Route
+                  path="/about-game/images/:name"
+                  element={<SingleImg />}
+                />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Box>
     </ThemeProvider>
   );
 };

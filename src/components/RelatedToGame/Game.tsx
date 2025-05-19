@@ -89,15 +89,9 @@ export const Game = () => {
 
   const colorTextThemeStyles = (theme: Theme) => ({
     color: theme.palette.text.primary,
-    display: (isRunning || isEnd) ? "none" : "block",
+    display: isRunning || isEnd ? "none" : "block",
   });
   /*-------------------------------------------------------------------------------------------- */
-
-  useEffect(() => {
-    document
-      .getElementById("result")
-      ?.setAttribute("style", "justify-content: start;"); //temporary solution -> reset just.-cont.:center after endgame
-  }, []);
 
   useEffect(() => {
     if (
@@ -131,7 +125,10 @@ export const Game = () => {
       <Box className="welcome" sx={welcomeStyles}>
         {/*H1 is end game button */}
         {isEnd && (
-          <Typography variant="h1">
+          <Typography
+            variant="h1"
+            sx={{ marginBottom: "70px" }}
+          >
             Gratulácia, vyhrali ste za {_myFormatSeconds(seconds)}
           </Typography>
         )}
